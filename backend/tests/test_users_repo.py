@@ -79,7 +79,7 @@ def test_create_new_user_with_username_error(db_connection):
 When we call create_user without entering an email
 An error message is returned and the user is NOT added to the database
 """
-def test_create_new_user_with_username_error(db_connection):
+def test_create_new_user_with_email_error(db_connection):
     db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     response = repository.create_user(User(6, 'test_user', '', 'TestPassword123!'))
@@ -96,7 +96,7 @@ def test_create_new_user_with_username_error(db_connection):
 When we call create_user without entering a password
 An error message is returned and the user is NOT added to the database
 """
-def test_create_new_user_with_username_error(db_connection):
+def test_create_new_user_with_password_error(db_connection):
     db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     response = repository.create_user(User(6, 'test_user', 'test@email.com', ''))
@@ -133,7 +133,7 @@ def test_update_user_email(db_connection):
 When we call update_user_username() 
 The corresponding user email attribute is updated in the database
 """
-def test_update_user_email(db_connection):
+def test_update_user_username(db_connection):
     db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     repository.update_user_username(4, 'new_username')
