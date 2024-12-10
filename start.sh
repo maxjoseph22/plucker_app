@@ -3,7 +3,7 @@
 # BACKEND: CHECK FOR VENV AND CREATE ONE AND INSTALL LIBRARIES IF NOT FOUND
 
 # Directory containing the virtual environment
-VENV_DIR="./backend/venv"
+VENV_DIR="./backend/bird_venv"
 
 # Check if the directory exists and contains a virtual environment
 if [ -d "$VENV_DIR" ] && [ -f "$VENV_DIR/bin/activate" ]; then
