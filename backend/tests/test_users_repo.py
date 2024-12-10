@@ -7,7 +7,7 @@ We get a list of User objects reflecting the seed data.
 """
 def test_get_all_users(db_connection):
     #seed test database
-    db_connection.seed('db/db/seeds/birdfood_app.sql') 
+    db_connection.seed('db/seeds/birdfood_app.sql') 
     #Instantiate UserRepository object with connection to database   
     repository = UserRepository(db_connection) 
     #call get_all_users() method on repository object     

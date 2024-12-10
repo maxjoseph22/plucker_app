@@ -1,11 +1,10 @@
 -- For testing database:
-DROP TABLE IF EXISTS users;
-DROP SEQUENCE IF EXISTS users_id_seq;
 DROP TABLE IF EXISTS bird_recipes;
 DROP SEQUENCE IF EXISTS bird_recipes_id_seq;
 DROP TABLE IF EXISTS bird_sightings;
 DROP SEQUENCE IF EXISTS bird_sightings_id_seq;
-
+DROP TABLE IF EXISTS users;
+DROP SEQUENCE IF EXISTS users_id_seq;
 
 -- users table
 CREATE SEQUENCE IF NOT EXISTS users_id_seq;
