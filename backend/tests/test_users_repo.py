@@ -1,5 +1,5 @@
 from models.users import User
-from plucker_app.backend.repositories.users_repo import UserRepository
+from repositories.users_repo import UserRepository
 
 """
 When we call get_all_users()
@@ -7,7 +7,7 @@ We get a list of User objects reflecting the seed data.
 """
 def test_get_all_users(db_connection):
     #seed test database
-    db_connection.seed('seeds/birdfood_app.sql') 
+    db_connection.seed('db/db/seeds/birdfood_app.sql') 
     #Instantiate UserRepository object with connection to database   
     repository = UserRepository(db_connection) 
     #call get_all_users() method on repository object     
@@ -25,7 +25,7 @@ When we call get_single_user()
 We get a list of User objects reflecting the seed data.
 """
 def test_get_single_user(db_connection):
-    db_connection.seed('seeds/birdfood_app.sql') 
+    db_connection.seed('db/seeds/birdfood_app.sql') 
     repository = UserRepository(db_connection)   
     result = repository.get_single_user(3)
     assert result == User(1, 'bird_lover', 'birdlover@example.com', 'password123')
@@ -35,7 +35,7 @@ When we call get_single_user(<id>)
 We get a single User object reflecting the seed data.
 """
 def test_get_single_user(db_connection):
-    db_connection.seed('seeds/birdfood_app.sql') 
+    db_connection.seed('db/seeds/birdfood_app.sql') 
     repository = UserRepository(db_connection)   
     result = repository.get_single_user(3)
     assert result == User(1, 'bird_lover', 'birdlover@example.com', 'password123')
@@ -45,7 +45,7 @@ When we call create_user
 A new user is created and stored in the database
 """
 def test_create_new_user(db_connection):
-    db_connection.seed('seeds/birdfood_app.sql')
+    db_connection.seed('db/seeds/birdfood_app.sql')
     repository = UserRepository(db_connection)
     repository.create_user(User(6, 'test_user', 'test_user@gmail.org', 'TestPassword123!'))
     result = repository.get_all_uisers()
@@ -63,7 +63,7 @@ When we call create_user without entering a username
 An error message is returned and the user is NOT added to the database
 """
 def test_create_new_user_with_username_error(db_connection):
-    db_connection.seed('seeds/birdfood_app.sql')    #seed test database
+    db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     response = repository.create_user(User(6, '', 'test_user@gmail.org', 'TestPassword123!'))
     assert response == "Please provide a username"
@@ -80,7 +80,7 @@ When we call create_user without entering an email
 An error message is returned and the user is NOT added to the database
 """
 def test_create_new_user_with_username_error(db_connection):
-    db_connection.seed('seeds/birdfood_app.sql')    #seed test database
+    db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     response = repository.create_user(User(6, 'test_user', '', 'TestPassword123!'))
     assert response == "Please provide an email address"
@@ -97,7 +97,7 @@ When we call create_user without entering a password
 An error message is returned and the user is NOT added to the database
 """
 def test_create_new_user_with_username_error(db_connection):
-    db_connection.seed('seeds/birdfood_app.sql')    #seed test database
+    db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     response = repository.create_user(User(6, 'test_user', 'test@email.com', ''))
     assert response == "Please provide a password"
@@ -114,7 +114,7 @@ When we call update_user_password()
 The corresponding user password attribute is updated in the database
 """
 def test_update_user_password(db_connection):
-    db_connection.seed('seeds/birdfood_app.sql')    #seed test database
+    db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     repository.update_user_password(4, 'NewPassword!')
     assert repository.get_single_user(4) == User(4, 'feather_seeker', 'featherseeker@example.com', 'NewPassword!')
@@ -124,7 +124,7 @@ When we call update_user_email()
 The corresponding user email attribute is updated in the database
 """
 def test_update_user_email(db_connection):
-    db_connection.seed('seeds/birdfood_app.sql')    #seed test database
+    db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     repository.update_user_password(4, 'updated@email.co.uk')
     assert repository.get_single_user(4) == User(4, 'feather_seeker', 'updated@email.co.uk', 'password123')
@@ -134,7 +134,7 @@ When we call update_user_username()
 The corresponding user email attribute is updated in the database
 """
 def test_update_user_email(db_connection):
-    db_connection.seed('seeds/birdfood_app.sql')    #seed test database
+    db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     repository.update_user_username(4, 'new_username')
     assert repository.get_single_user(4) == User(4, 'new_username', 'updated@email.co.uk', 'password123')
@@ -144,7 +144,7 @@ When we call delete_user(<id>)
 The corresponding user is deleted from the database
 """
 def test_delete_user(db_connection):
-    db_connection.seed('seeds/birdfood_app.sql')    #seed test database
+    db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     repository.delete_user(4)
     assert repository.get_all_users() == [
