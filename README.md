@@ -8,4 +8,4 @@ chmod +x start.sh
 ./start.sh
 ```
 
-This makes a venv if there isn't one and install all the backend and frontend dependencies/libraries.
+This makes a venv if there isn't one and install all the backend and frontend dependencies/libraries. Might need to install Node Package Manager if prompted.
