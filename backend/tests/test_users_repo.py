@@ -1,5 +1,5 @@
 from models.users import User
-from repositories.user_repo import UserRepository
+from plucker_app.backend.repositories.users_repo import UserRepository
 
 """
 When we call get_all_users()
