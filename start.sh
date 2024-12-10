@@ -42,8 +42,6 @@ else
     fi
 fi
 
-cd ..
-
 # FRONTEND: CHECK FOR NPM AND DEPENDENCIES
 
 # Check if npm is installed
@@ -73,6 +71,7 @@ fi
 
 # Check for the ./frontend directory
 FRONTEND_DIR="./frontend"
+
 if [ ! -d "$FRONTEND_DIR" ]; then
     echo "Error: $FRONTEND_DIR directory does not exist."
     exit 1
