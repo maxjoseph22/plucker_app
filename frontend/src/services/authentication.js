@@ -2,7 +2,7 @@
 
 const BACKEND_URL = "http://localhost:8000"
 
-export async function signup(email, password, username) {
+export async function SignUp(email, password, username) {
     const payload = {
       email: email,
       password: password,
