@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 // import "./SignupPage.css";
 
-export function SignupPage() {
+export function SignUpPage() {
 //   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
