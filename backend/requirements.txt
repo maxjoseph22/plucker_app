@@ -8,3 +8,4 @@ Flask-Cors==5.0.0
 python-dotenv==1.0.1
 pytest-asyncio==0.24.0
 httpx==0.28.1
+hypercorn==0.17.3
