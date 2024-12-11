@@ -12,25 +12,48 @@ class UserRepository():
             users.append(user)
         return users
 
-#Commended out while updating db connection code
-    # def get_single_user(self, user_id):
-    #     pass
 
-    # def create_user(self, user):
-    #     pass
-
-    # def update_user_password(self, user, password):
-    #     pass
-
-    # def update_user_email(self, user, email):
-    #     pass
-
-    # def update_user_username(self, user, username):
-    #     pass
-
-    # def delete_user(self, user_id):
-    #     pass
+    async def get_single_user(self, id):
+        rows = await self._connection.execute(
+            'SELECT * FROM users WHERE id = $1', [id])
+        row = rows[0]
+        return User(row["id"], row["username"], row["email"], row["password"])
 
 
+    async def create_user(self, user):
+        # This validation might be handles in the schema files later (not sure yet)
+        if not user.username:
+            return 'Please provide a username'
+        if not user.email:
+            return 'Please provide an email address'
+        if not user.password:
+            return 'Please provide a password'
+        await self._connection.execute(
+            'INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',
+            [user.username, user.email, user.password])
+        return None
 
-    
+    async def update_user_password(self, id, password):
+        await self._connection.execute(
+            'UPDATE users SET password = $1 WHERE id = $2', 
+            [password, id])
+        return None
+
+    async def update_user_email(self, id, email):
+        await self._connection.execute(
+            'UPDATE users SET email = $1 WHERE id = $2', 
+            [email, id])
+        return None
+
+    async def update_user_username(self, id, username):
+        await self._connection.execute(
+            'UPDATE users SET username = $1 WHERE id = $2', 
+            [username, id])
+        return None
+
+    async def delete_user(self, id):
+        await self._connection.execute(
+            'DELETE FROM users WHERE id = $1',
+            [id]
+        )
+        return None
