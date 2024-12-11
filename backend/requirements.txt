@@ -1,7 +1,7 @@
 Flask==3.0.2
-# psycopg==3.2.3
+# psycopg==3.2.3 --> removed for asyncpg==0.30.0
 asyncpg==0.30.0
-pytest==8.1.1
+pytest==8.3.4 #updated from 8.1.1 to prevent conflicts with pytest-asyncio==0.24.0
 pytest-playwright==0.4.4
 pytest-xprocess==0.23.0
 Flask-Cors==5.0.0
