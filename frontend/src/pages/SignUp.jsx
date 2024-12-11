@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { SignUp } from "../services/authentication";
+import "react-toastify/dist/ReactToastify.css";
 
 // import "./SignupPage.css";
 
@@ -66,7 +67,7 @@ export function SignUpPage() {
         formData.append("file", file); // Append the profile image if it exists
       }
       try {
-        await signup(formData);
+        await SignUp(formData);
         navigate("/");
       } catch (err) {
         console.error(err);
