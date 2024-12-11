@@ -2,8 +2,6 @@
 import { useState } from "react"
 
 // This is just HTML - there is no functionality to this form
-
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import "./../CSS.css"
 // import { NavBar } from "../../components/NavBar";
