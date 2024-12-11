@@ -44,7 +44,7 @@ class AsyncDatabaseConnection:
     async def execute(self, query, params=[]):
         await self._check_connection()
         try:
-            if "SELECT" in query.upper():
+            if query.strip().upper().startswith("SELECT"):
                 result = await self.connection.fetch(query, *params)
             else:
                 result = await self.connection.execute(query, *params)

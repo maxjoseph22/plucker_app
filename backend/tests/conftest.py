@@ -1,16 +1,18 @@
-import pytest, sys, random, pytest, os
+import pytest, sys, random, pytest_asyncio, os
 from pathlib import Path
 from xprocess import ProcessStarter
-from db.db_connection import DatabaseConnection
+from db.db_connection import AsyncDatabaseConnection
 from app import app
 
 # This is a Pytest fixture.
 # It creates an object that we can use in our tests.
 # We will use it to create a database connection.
-@pytest.fixture
-def db_connection():
-    conn = DatabaseConnection(test_mode=True)
-    conn.connect()
+#It must use async/awit to await to properly set up the database connection
+
+@pytest_asyncio.fixture #changed from @pytest.fixture to return AsyncDatabaseConnection object not coroutine object
+async def db_connection(): 
+    conn = AsyncDatabaseConnection(test_mode=True)
+    await conn.connect()
     return conn
 
 # This fixture starts the test server and makes it available to the tests.
@@ -20,6 +22,7 @@ def test_web_address(xprocess):
     python_executable = sys.executable
     app_file = Path(__file__).resolve().parent.parent / 'app.py'
     port = str(random.randint(4000, 4999))
+
     class Starter(ProcessStarter):
         env = {"PORT": port, "APP_ENV": "test", **os.environ}
         pattern = "Debugger PIN"
