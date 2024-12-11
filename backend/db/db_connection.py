@@ -1,13 +1,12 @@
-import os, psycopg
+# import os, psycopg
+import os, asyncpg
 from flask import g
-from psycopg.rows import dict_row
+# from psycopg.rows import dict_row
 
 # This class helps us interact with the database.
-# It wraps the underlying psycopg library that we are using.
+# It wraps the underlying asyncpg library that we are using.
 
-# If the below seems too complex right now, that's OK.
-# That's why we have provided it!
-class DatabaseConnection:
+class AsyncDatabaseConnection:
     # VVV CHANGE BOTH OF THESE VVV
     DEV_DATABASE_NAME = "birdfood_project"
     TEST_DATABASE_NAME = "birdfood_project_test"
@@ -15,39 +14,52 @@ class DatabaseConnection:
     def __init__(self, test_mode=False):
         self.test_mode = test_mode
 
-    # This method connects to PostgreSQL using the psycopg library. We connect
+    # This method connects to PostgreSQL using the asyncpg library. We connect
     # to localhost and select the database name given in argument.
-    def connect(self):
+    async def connect(self):
         try:
-            self.connection = psycopg.connect(
-                f"postgresql://localhost/{self._database_name()}",
-                row_factory=dict_row)
-        except psycopg.OperationalError:
+            self.connection = await asyncpg.connect(
+                f"postgresql://localhost/{self._database_name()}"
+                )
+        except asyncpg.PostgresError:
             raise Exception(f"Couldn't connect to the database {self._database_name()}! " \
                     f"Did you create it using `createdb {self._database_name()}`?")
 
     # This method seeds the database with the given SQL file.
     # We use it to set up our database ready for our tests or application.
-    def seed(self, sql_filename):
-        self._check_connection()
+    async def seed(self, sql_filename):
+        await self._check_connection()
         if not os.path.exists(sql_filename):
             raise Exception(f"File {sql_filename} does not exist")
-        with self.connection.cursor() as cursor:
-            cursor.execute(open(sql_filename, "r").read())
-            self.connection.commit()
+        with open(sql_filename, "r") as file:
+            sql = file.read()
+        await self.connection.execute(sql)
+        # REMOVED
+        # with self.connection.cursor() as cursor:
+        #     cursor.execute(open(sql_filename, "r").read())
+        #     self.connection.commit()
 
     # This method executes an SQL query on the database.
     # It allows you to set some parameters too. You'll learn about this later.
-    def execute(self, query, params=[]):
-        self._check_connection()
-        with self.connection.cursor() as cursor:
-            cursor.execute(query, params)
-            if cursor.description is not None:
-                result = cursor.fetchall()
+    async def execute(self, query, params=[]):
+        await self._check_connection()
+        try:
+            if "SELECT" in query.upper():
+                result = await self.connection.fetch(query, *params)
             else:
-                result = None
-            self.connection.commit()
+                result = await self.connection.execute(query, *params)
             return result
+        except asyncpg.PostgresError as e:
+            raise Exception(f"Database query failed: {e}")
+        # REMOVED
+        # with self.connection.cursor() as cursor:
+        #     cursor.execute(query, params)
+        #     if cursor.description is not None:
+        #         result = cursor.fetchall()
+        #     else:
+        #         result = None
+        #     self.connection.commit()
+        #     return result
 
     CONNECTION_MESSAGE = '' \
         'DatabaseConnection.exec_params: Cannot run a SQL query as ' \
@@ -56,7 +68,7 @@ class DatabaseConnection:
         'in your app.py file (or in your tests)?'
 
     # This private method checks that we're connected to the database.
-    def _check_connection(self):
+    async def _check_connection(self):
         if self.connection is None:
             raise Exception(self.CONNECTION_MESSAGE)
 
@@ -69,10 +81,10 @@ class DatabaseConnection:
 
 # This function integrates with Flask to create one database connection that
 # Flask request can use. To see how to use it, look at example_routes.py
-def get_flask_database_connection(app):
+async def get_flask_database_connection(app):
     if not hasattr(g, 'flask_database_connection'):
-        g.flask_database_connection = DatabaseConnection(
+        g.flask_database_connection = AsyncDatabaseConnection(
             test_mode=((os.getenv('APP_ENV') == 'test') or (app.config['TESTING'] == True))
         )
-        g.flask_database_connection.connect()
+        await g.flask_database_connection.connect()
     return g.flask_database_connection
