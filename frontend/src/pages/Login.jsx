@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+import { useState } from "react"
+
 // This is just HTML - there is no functionality to this form
 
 import { useState } from "react";
@@ -9,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 export function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     const navigate = useNavigate();
     
     async function handleSubmit(event) {
@@ -31,6 +35,7 @@ export function LoginPage() {
         setPassword(event.target.value);
     }
 
+
     return (
         <>
         {/* <NavBar /> */}
@@ -39,6 +44,7 @@ export function LoginPage() {
             <h2>Login</h2>
             <form className="login-form" action="/login" method="POST" onSubmit={handleSubmit}>
                 <label className="username">Username</label>
+
                 <br></br>
                 <input 
                     type="text" 
@@ -64,7 +70,9 @@ export function LoginPage() {
                     className="submit-button"
                     role="submit-button"
                     id="submit" />
+
             </form>
+            <p>Don't have an account? <a href="/signup">Make one!</a></p>
             <a href="/">Return to homepage</a>
             <br></br>
             <a href="/signup">Sign Up for a new account</a>

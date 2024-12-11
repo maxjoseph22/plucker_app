@@ -1,4 +1,4 @@
-#!/bin/bash
+# !/bin/bash
 
 # BACKEND: CHECK FOR VENV AND CREATE ONE AND INSTALL LIBRARIES IF NOT FOUND
 
@@ -79,6 +79,7 @@ fi
 
 # Navigate to the frontend directory
 cd "$FRONTEND_DIR"
+echo "$FRONTEND_DIR"
 
 # Check for package.json file
 if [ ! -f "package.json" ]; then
@@ -87,7 +88,7 @@ if [ ! -f "package.json" ]; then
 fi
 
 # Install npm dependencies
-echo "Installing dependencies from package.json..."
+echo "Installing dependencies from ./frontend/package.json..."
 npm install
 
 if [ $? -eq 0 ]; then
