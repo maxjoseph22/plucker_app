@@ -12,7 +12,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
-    -- profile_picture VARCHAR(255) DEFAULT '>INSERT PATH HERE<'
+    profile_picture VARCHAR(255) DEFAULT '>INSERT PATH HERE<'
     password VARCHAR(255) NOT NULL
 );
 
@@ -45,11 +45,11 @@ CREATE SEQUENCE IF NOT EXISTS bird_sightings_id_seq;
 
 -- Seed data for users:
 INSERT INTO users (username, email, password) VALUES 
-('bird_lover', 'birdlover@example.com', 'password123'),
-('avian_fanatic', 'avianfanatic@example.com', 'password123'),
-('nature_watch', 'naturewatch@example.com', 'password123'),
-('feather_seeker', 'featherseeker@example.com', 'password123'),
-('wildlife_watcher', 'wildlifewatcher@example.com', 'password123');
+('bird_lover', 'birdlover@example.com', 'password123', "backend/uploads/default_photo.webp"),
+('avian_fanatic', 'avianfanatic@example.com', 'password123', "backend/uploads/default_photo.webp"),
+('nature_watch', 'naturewatch@example.com', 'password123', "backend/uploads/default_photo.webp"),
+('feather_seeker', 'featherseeker@example.com', 'password123', "backend/uploads/default_photo.webp"),
+('wildlife_watcher', 'wildlifewatcher@example.com', 'password123', "backend/uploads/default_photo.webp");
 
 -- Seed data for bird_recipes:
 INSERT INTO bird_recipes (title, ingredients, description, date_created, recipe_rating, cooking_time, user_id) VALUES 
