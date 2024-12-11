@@ -19,11 +19,11 @@ async def test_get_all_users(db_connection):
     #use await as this fucntion is a database query
     result = await repository.get_all_users()
     assert result == [
-        User(1, 'bird_lover', 'birdlover@example.com', 'password123'),
-        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123'),
-        User(3, 'nature_watch', 'naturewatch@example.com', 'password123'),
-        User(4, 'feather_seeker', 'featherseeker@example.com', 'password123'),
-        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123'),
+        User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(4, 'feather_seeker', 'featherseeker@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123', 'uploads/default_photo.webp'),
     ]
 
 """
@@ -35,7 +35,7 @@ async def test_get_single_user(db_connection):
     await db_connection.seed('db/seeds/birdfood_app.sql') 
     repository = UserRepository(db_connection)   
     result = await repository.get_single_user(3)
-    assert result == User(3, 'nature_watch', 'naturewatch@example.com', 'password123')
+    assert result == User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp')
 
 """
 When we call create_user
@@ -45,15 +45,15 @@ A new user is created and stored in the database
 async def test_create_new_user(db_connection):
     await db_connection.seed('db/seeds/birdfood_app.sql')
     repository = UserRepository(db_connection)
-    await repository.create_user(User(6, 'test_user', 'test_user@gmail.org', 'TestPassword123!'))
+    await repository.create_user(User(6, 'test_user', 'test_user@gmail.org', 'TestPassword123!', 'uploads/default_photo.webp'))
     result = await repository.get_all_users()
     assert result == [
-        User(1, 'bird_lover', 'birdlover@example.com', 'password123'),
-        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123'),
-        User(3, 'nature_watch', 'naturewatch@example.com', 'password123'),
-        User(4, 'feather_seeker', 'featherseeker@example.com', 'password123'),
-        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123'),
-        User(6, 'test_user', 'test_user@gmail.org', 'TestPassword123!')
+        User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(4, 'feather_seeker', 'featherseeker@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(6, 'test_user', 'test_user@gmail.org', 'TestPassword123!', 'uploads/default_photo.webp')
     ]
 
 """
@@ -64,14 +64,14 @@ An error message is returned and the user is NOT added to the database
 async def test_create_new_user_with_username_error(db_connection):
     await db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
-    response = await repository.create_user(User(6, '', 'test_user@gmail.org', 'TestPassword123!'))
+    response = await repository.create_user(User(6, '', 'test_user@gmail.org', 'TestPassword123!', 'uploads/default_photo.webp'))
     assert response == "Please provide a username"
     assert await repository.get_all_users() == [
-        User(1, 'bird_lover', 'birdlover@example.com', 'password123'),
-        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123'),
-        User(3, 'nature_watch', 'naturewatch@example.com', 'password123'),
-        User(4, 'feather_seeker', 'featherseeker@example.com', 'password123'),
-        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123'),
+        User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(4, 'feather_seeker', 'featherseeker@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123', 'uploads/default_photo.webp'),
     ]
 
 """
@@ -82,14 +82,14 @@ An error message is returned and the user is NOT added to the database
 async def test_create_new_user_with_email_error(db_connection):
     await db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
-    response = await repository.create_user(User(6, 'test_user', '', 'TestPassword123!'))
+    response = await repository.create_user(User(6, 'test_user', '', 'TestPassword123!', 'uploads/default_photo.webp'))
     assert response == "Please provide an email address"
     assert await repository.get_all_users() == [
-        User(1, 'bird_lover', 'birdlover@example.com', 'password123'),
-        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123'),
-        User(3, 'nature_watch', 'naturewatch@example.com', 'password123'),
-        User(4, 'feather_seeker', 'featherseeker@example.com', 'password123'),
-        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123'),
+        User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(4, 'feather_seeker', 'featherseeker@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123', 'uploads/default_photo.webp'),
     ]
 
 """
@@ -100,14 +100,14 @@ An error message is returned and the user is NOT added to the database
 async def test_create_new_user_with_password_error(db_connection):
     await db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
-    response = await repository.create_user(User(6, 'test_user', 'test@email.com', ''))
+    response = await repository.create_user(User(6, 'test_user', 'test@email.com', '', 'uploads/default_photo.webp'))
     assert response == "Please provide a password"
     assert await repository.get_all_users() == [
-        User(1, 'bird_lover', 'birdlover@example.com', 'password123'),
-        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123'),
-        User(3, 'nature_watch', 'naturewatch@example.com', 'password123'),
-        User(4, 'feather_seeker', 'featherseeker@example.com', 'password123'),
-        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123'),
+        User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(4, 'feather_seeker', 'featherseeker@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123', 'uploads/default_photo.webp'),
     ]
 
 """
@@ -119,7 +119,7 @@ async def test_update_user_password(db_connection):
     await db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     await repository.update_user_password(4, 'NewPassword!')
-    assert await repository.get_single_user(4) == User(4, 'feather_seeker', 'featherseeker@example.com', 'NewPassword!')
+    assert await repository.get_single_user(4) == User(4, 'feather_seeker', 'featherseeker@example.com', 'NewPassword!', 'uploads/default_photo.webp')
 
 """
 When we call update_user_email() 
@@ -130,7 +130,7 @@ async def test_update_user_email(db_connection):
     await db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     await repository.update_user_email(4, 'updated@email.co.uk')
-    assert await repository.get_single_user(4) == User(4, 'feather_seeker', 'updated@email.co.uk', 'password123')
+    assert await repository.get_single_user(4) == User(4, 'feather_seeker', 'updated@email.co.uk', 'password123', 'uploads/default_photo.webp')
 
 """
 When we call update_user_username() 
@@ -141,7 +141,7 @@ async def test_update_user_username(db_connection):
     await db_connection.seed('db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     await repository.update_user_username(4, 'new_username')
-    assert await repository.get_single_user(4) == User(4, 'new_username', 'featherseeker@example.com', 'password123')
+    assert await repository.get_single_user(4) == User(4, 'new_username', 'featherseeker@example.com', 'password123', 'uploads/default_photo.webp')
 
 
 """
@@ -154,8 +154,8 @@ async def test_delete_user(db_connection):
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     await repository.delete_user(4)
     assert await repository.get_all_users() == [
-        User(1, 'bird_lover', 'birdlover@example.com', 'password123'),
-        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123'),
-        User(3, 'nature_watch', 'naturewatch@example.com', 'password123'),
-        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123'),
+        User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp'),
+        User(5, 'wildlife_watcher', 'wildlifewatcher@example.com', 'password123', 'uploads/default_photo.webp'),
     ]

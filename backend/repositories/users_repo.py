@@ -8,7 +8,7 @@ class UserRepository():
         rows = await self._connection.execute('SELECT * FROM users ORDER BY id')
         users = []
         for row in rows:
-            user = User(row["id"], row["username"], row["email"], row["password"])
+            user = User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
             users.append(user)
         return users
 
@@ -17,7 +17,7 @@ class UserRepository():
         rows = await self._connection.execute(
             'SELECT * FROM users WHERE id = $1', [id])
         row = rows[0]
-        return User(row["id"], row["username"], row["email"], row["password"])
+        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
 
 
     async def create_user(self, user):
@@ -29,8 +29,8 @@ class UserRepository():
         if not user.password:
             return 'Please provide a password'
         await self._connection.execute(
-            'INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',
-            [user.username, user.email, user.password])
+            'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3, $4)',
+            [user.username, user.email, user.password, user.profile_picture])
         return None
 
     async def update_user_password(self, id, password):
