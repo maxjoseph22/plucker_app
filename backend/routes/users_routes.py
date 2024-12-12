@@ -4,7 +4,7 @@ from repositories.repo_factory import connect_to_user_repository #import custom 
 #Create a Blueprint for a user-related route
 user_routes = Blueprint('user_routes', __name__)
 
-
+# get all users route
 @user_routes.route('/users', methods=['GET'])
 # define route handler function below route decorator
 async def get_users():
@@ -21,4 +21,21 @@ async def get_users():
         return jsonify({"error": str(e),}), 500
     
 # Add additional routes below
+
+# get user by id
+@user_routes.route('/users/<id>', methods=['GET'])
+async def get_user_by_id(id):
+    try:
+        await connect_to_user_repository()
+        user = await g.user_repository.get_single_user(id)
+        if user:
+            return jsonify(user.to_dict())
+        else:
+            return jsonify({"error": "User not found"}), 404
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e),}), 500
+
+# create user route
+
 
