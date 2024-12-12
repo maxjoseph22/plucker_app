@@ -89,14 +89,16 @@ export function SignUpPage() {
     }
   }
 
-  const date18YearsAgo = new Date();
-  date18YearsAgo.setFullYear(date18YearsAgo.getFullYear() - 18);
+  // DATE STUFF SHOULD WE WANT 18+
 
-  const formattedDate = `${date18YearsAgo.getFullYear()}-${(
-    date18YearsAgo.getMonth() + 1
-  )
-    .toString()
-    .padStart(2, "0")}-${date18YearsAgo.getDate().toString().padStart(2, "0")}`;
+  // const date18YearsAgo = new Date();
+  // date18YearsAgo.setFullYear(date18YearsAgo.getFullYear() - 18);
+
+  // const formattedDate = `${date18YearsAgo.getFullYear()}-${(
+  //   date18YearsAgo.getMonth() + 1
+  // )
+  //   .toString()
+  //   .padStart(2, "0")}-${date18YearsAgo.getDate().toString().padStart(2, "0")}`;
 
   return (
     <div className="wrapper-auth">
