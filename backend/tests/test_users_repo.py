@@ -1,7 +1,7 @@
 import pytest #needs to be imported to allow for @pytest.mark.asyncho decorator
-from models.users import User
-from repositories.users_repo import UserRepository
-from db.db_connection import AsyncDatabaseConnection #imported to allow async db connection 
+from lib.models.users import User
+from lib.repositories.users_repo import UserRepository
+from lib.db.db_connection import AsyncDatabaseConnection #imported to allow async db connection 
 
 """
 When we call get_all_users()

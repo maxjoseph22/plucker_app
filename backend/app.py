@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from flask_cors import CORS
-from routes.users_routes import user_routes #import all user routes 
+from lib.routes.users_routes import user_routes #import all user routes 
 
 # Create a new Flask app
 app = Flask(__name__)

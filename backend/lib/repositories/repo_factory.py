@@ -1,6 +1,6 @@
-from db.db_connection import get_flask_database_connection
+from lib.db.db_connection import get_flask_database_connection
 from flask import current_app, g
-from repositories.users_repo import UserRepository
+from lib.repositories.users_repo import UserRepository
 
 
 async def connect_to_user_repository():

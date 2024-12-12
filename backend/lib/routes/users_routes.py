@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, g
-from repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
+from lib.repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
 
 #Create a Blueprint for a user-related route
 user_routes = Blueprint('user_routes', __name__)
