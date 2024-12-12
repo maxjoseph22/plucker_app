@@ -13,6 +13,7 @@ class AsyncDatabaseConnection:
 
     def __init__(self, test_mode=False):
         self.test_mode = test_mode
+        self.connection = None
 
     # This method connects to PostgreSQL using the asyncpg library. We connect
     # to localhost and select the database name given in argument.
@@ -86,5 +87,10 @@ async def get_flask_database_connection(app):
         g.flask_database_connection = AsyncDatabaseConnection(
             test_mode=((os.getenv('APP_ENV') == 'test') or (app.config['TESTING'] == True))
         )
+        print("get flask database")
+        print(dir(g.flask_database_connection))
         await g.flask_database_connection.connect()
+
+    print(g.flask_database_connection)
     return g.flask_database_connection
+
