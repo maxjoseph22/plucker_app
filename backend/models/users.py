@@ -12,6 +12,7 @@ class User:
             "id": self.id,
             "username": self.username,
             "email": self.email,
+            "profile_picture": self.profile_picture,
             # password not included to avoid exposing the password hash in the response!!
             }
 
