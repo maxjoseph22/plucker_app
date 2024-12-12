@@ -28,9 +28,16 @@ class UserRepository():
             return 'Please provide an email address'
         if not user.password:
             return 'Please provide a password'
-        await self._connection.execute(
-            'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3, $4)',
-            [user.username, user.email, user.password, user.profile_picture])
+        
+        # This ony adds a profile picture url to the database if one is provided (otherwise the database defaults it)
+        if not user.profile_picture:
+            await self._connection.execute(
+                'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3)',
+                [user.username, user.email, user.password])
+        else:
+            await self._connection.execute(
+                'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3, $4)',
+                [user.username, user.email, user.password, user.profile_picture])
         return None
 
     async def update_user_password(self, id, password):
