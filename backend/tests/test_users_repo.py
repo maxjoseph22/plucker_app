@@ -8,7 +8,7 @@ When we call get_all_users()
 We get a list of User objects reflecting the seed data.
 """
 #used to mark the test as an asynchronous function so that it can be properly run and awaited by pytest-asyncio
-@pytest.mark.asyncio 
+@pytest.mark.asyncio
 async def test_get_all_users(db_connection):
     #seed test database
     #use await as this takes time to set up db
