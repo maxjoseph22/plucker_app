@@ -62,13 +62,15 @@ export function SignUpPage() {
       formData.append("email", email);
       formData.append("username", username);
       formData.append("password", password);
+      console.dir("SignUp.jsx (page) line 65 formData --->" + formData)
 
       if (file) {
         formData.append("file", file); // Append the profile image if it exists
       }
       try {
+
         await SignUp(formData);
-        navigate("/");
+        navigate("/login");
       } catch (err) {
         console.error(err);
         const errorMessage = err.message;
@@ -167,9 +169,7 @@ export function SignUpPage() {
           </div>
           <div className="signup-buttons">
 
-            <Link id="login" to="/">
-              Login
-            </Link>
+
             <input
               role="submit-button"
               id="submit"
@@ -178,6 +178,9 @@ export function SignUpPage() {
             />
           </div>
         </form>
+            <Link id="login" to="/">
+              Login
+            </Link>
       </div>
     </div>
   );
