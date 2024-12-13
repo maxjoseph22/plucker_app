@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify, g
+from flask import Blueprint, jsonify, g, request, redirect
+from lib.models.users import User
 from lib.repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
 
 #Create a Blueprint for a user-related route
@@ -13,7 +14,7 @@ async def get_users():
         # connect to global user repository using connect_to_user_repository() function
         await connect_to_user_repository()
         users = await g.user_repository.get_all_users()
-        # trun User objects into JSON
+        # turn User objects into JSON
         return jsonify([user.to_dict() for user in users])
     except Exception as e:
         print(f"Error: {e}")
@@ -27,7 +28,21 @@ async def get_users():
 async def get_user_by_id(id):
     try:
         await connect_to_user_repository()
-        user = await g.user_repository.get_single_user(id)
+        user = await g.user_repository.get_single_user_by_id(id)
+        if user:
+            return jsonify(user.to_dict())
+        else:
+            return jsonify({"error": "User not found"}), 404
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e),}), 500
+
+# get user by username
+@user_routes.route('/users/<username>', methods=['GET'])
+async def get_user_by_username(username):
+    try:
+        await connect_to_user_repository()
+        user = await g.user_repository.get_single_user_by_username(username)
         if user:
             return jsonify(user.to_dict())
         else:
@@ -37,8 +52,40 @@ async def get_user_by_id(id):
         return jsonify({"error": str(e),}), 500
 
 # create user route --> signup
+@user_routes.route('/users/signup', methods=['POST'])
+async def create_user():
+    try:
+        await connect_to_user_repository()
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        profile_picture = request.form['profile_picture']
+        user = User(None, username, email, password, profile_picture)
+        
+        await g.user_repository.create_user(user)
+        # return redirect (f"/login")
+    
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e),}), 500
+    
 
 # login route
+@user_routes.route('/users/login', methods=['POST'])
+async def login_user():
+    await connect_to_user_repository()
+    email = request.form['email']
+    password = request.form['password']
+    user_validated = await g.user_repository.validate_user(email, password)
+    
+    if user_validated == True:
+        session['authenticated'] = True
+        session['username'] = username
+        
+        return jsonify({"success": True, "message": "Login successful"}), 200
+    else:
+        return jsonify({"success": False, "message": "Incorrect username or password"}), 401
+    
 
 # profile route 
 
