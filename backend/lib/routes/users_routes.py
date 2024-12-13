@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, g
+from flask_jwt_extended import (
+    JWTManager, create_access_token, jwt_required, get_jwt_identity
+)
 from lib.repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
-from lib.repositories.users_repo
 
 #Create a Blueprint for a user-related route
 user_routes = Blueprint('user_routes', __name__)
