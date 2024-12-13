@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 // import { UserDetails } from "../components/UserDetails";
 import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
-import { DisplayMyRecipes } from "../components/Recipes";
+import { Recipe } from "../components/Recipe";
 // import { getRecipesForUser } from "../services/recipes";
 
 
@@ -37,7 +37,7 @@ export function MyProfile() {
                 <div className="post-card">
             <PhotoDisplay profile_picture={profile_picture}/>
             <h3>{username}</h3>
-            <DisplayMyRecipes user_id={user_id}/>
+            <Recipe user_id={user_id}/>
             </div>
             <br></br>
             </div>
