@@ -12,7 +12,7 @@ export function Recipe(props) {
             <div key={props.recipe._id}>
 
                 <div className="grid-container-recipe">
-                    {recipe}
+                    {/*recipe-title*/}
                     <h2><Link 
                         className="recipe-title-link" 
                         to={`myrecipes/${props.recipe.title}`}>
