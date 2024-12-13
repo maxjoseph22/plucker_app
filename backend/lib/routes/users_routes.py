@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, g
 from lib.repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
+from lib.repositories.users_repo
 
 #Create a Blueprint for a user-related route
 user_routes = Blueprint('user_routes', __name__)
@@ -39,6 +40,20 @@ async def get_user_by_id(id):
 # create user route --> signup
 
 # login route
+@user_routes.route('/login', methods=['POST'])
+async def login():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+
+    # Validate credentials
+    user = g.user_repository.get_single_user_by_username(username)
+    if user and user['password'] == password:
+        # Generate a JWT token
+        access_token = create_access_token(identity=username)
+        return jsonify(access_token=access_token), 200
+    else:
+        return jsonify({"msg": "Invalid username or password"}), 401
 
 # profile route 
 

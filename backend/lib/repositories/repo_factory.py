@@ -4,7 +4,7 @@ from lib.repositories.users_repo import UserRepository
 
 
 async def connect_to_user_repository():
-        # check for existance of user_repository in flask g (global) 
+        # check for existence of user_repository in flask g (global) 
         if not hasattr(g, "user_repository"):
             # if global user_repository does't exist create a database connection...
             db_connection = await get_flask_database_connection(current_app)
