@@ -17,22 +17,8 @@ else
         exit 1
     fi
 
-    cd ./backend
-
     # Create the virtual environment
-    python3 -m venv bird_venv
-
-    # Enter the virtual environment
-    source bird_venv/bin/activate
-
-    if [ -f "./requirements.txt" ]; then
-        # install dependencies
-        pip install -r "./requirements.txt"
-        echo "Installing dependencies..."
-    else
-        echo "requirements.txt not found. Do you have the latest repo version from Github?"
-        exit 1
-    fi
+    python3 -m venv ./backend/bird_venv
 
     if [ $? -eq 0 ]; then
         echo "Virtual environment successfully created in $VENV_DIR."
@@ -40,6 +26,18 @@ else
         echo "Failed to create virtual environment. Ensure Python 3 and venv are installed."
         exit 1
     fi
+fi
+
+if [ -f "./backend/requirements.txt" ]; then
+    # Enter the virtual environment
+    source ./backend/bird_venv/bin/activate
+    # install dependencies
+    pip install --upgrade pip
+    pip install -r "./backend/requirements.txt"
+    echo "Installing dependencies..."
+else
+    echo "requirements.txt not found. Do you have the latest repo version from Github?"
+    exit 1
 fi
 
 # FRONTEND: CHECK FOR NPM AND DEPENDENCIES
@@ -97,3 +95,5 @@ else
     echo "Failed to install dependencies. Please check your package.json or npm setup."
     exit 1
 fi
+
+source ../backend/bird_venv/bin/activate

@@ -37,7 +37,6 @@ export function LoginPage() {
     return (
         <>
         {/* <NavBar /> */}
-        <body>
         <div className="login-container">
             <h2>Login</h2>
             <form className="login-form" action="/login" method="POST" onSubmit={handleSubmit}>
@@ -75,7 +74,6 @@ export function LoginPage() {
             <br></br>
             <a href="/signup">Sign Up for a new account</a>
         </div>
-        </body>
         </>
     )
 }
