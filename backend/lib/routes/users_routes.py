@@ -53,17 +53,17 @@ async def get_user_by_username(username):
 
 # create user route --> signup
 @user_routes.route('/users/signup', methods=['POST'])
-async def create_user():
+async def create_user(payload):
     try:
         await connect_to_user_repository()
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        profile_picture = request.form['profile_picture']
+        username = payload[0].username
+        email = payload[0].email
+        password = payload[0].password
+        profile_picture = payload[0].profile_picture
         user = User(None, username, email, password, profile_picture)
         
         await g.user_repository.create_user(user)
-        # return redirect (f"/login")
+        return jsonify({"success": True, "message": "Signup successful"}), 200
     
     except Exception as e:
         print(f"Error: {e}")
