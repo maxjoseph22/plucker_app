@@ -1,8 +1,8 @@
 -- For testing database:
-DROP TABLE IF EXISTS bird_recipes;
-DROP SEQUENCE IF EXISTS bird_recipes_id_seq;
 DROP TABLE IF EXISTS bird_sightings;
 DROP SEQUENCE IF EXISTS bird_sightings_id_seq;
+DROP TABLE IF EXISTS bird_recipes;
+DROP SEQUENCE IF EXISTS bird_recipes_id_seq;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS users_id_seq;
 
@@ -23,7 +23,7 @@ CREATE TABLE bird_recipes (
     title VARCHAR(255) NOT NULL,
     ingredients TEXT NOT NULL,
     description TEXT NOT NULL,
-    date_created DATE,
+    date_created VARCHAR(255),
     recipe_rating int,
     cooking_time INT NOT NULL,
     user_id int, 
@@ -38,9 +38,9 @@ CREATE SEQUENCE IF NOT EXISTS bird_sightings_id_seq;
     date_spotted DATE,
     location VARCHAR(255),
     user_id int,
-    bird_sighting_id int,
+    bird_recipe_id int,
     constraint fk_user foreign key(user_id) references users(id) on delete cascade,
-    constraint fk_bird_sighting foreign key(bird_sighting_id) references bird_sightings(id) on delete cascade
+    constraint fk_bird_recipe foreign key(bird_recipe_id) references bird_recipes(id) on delete cascade
 );
 
 -- Seed data for users:

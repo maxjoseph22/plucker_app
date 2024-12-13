@@ -1,7 +1,7 @@
 import pytest, sys, random, pytest_asyncio, os
 from pathlib import Path
 from xprocess import ProcessStarter
-from db.db_connection import AsyncDatabaseConnection
+from lib.db.db_connection import AsyncDatabaseConnection
 from app import app
 
 # This is a Pytest fixture.
