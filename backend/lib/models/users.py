@@ -18,7 +18,7 @@ class User:
 
     # These need to be within the User class - took me agaes to realise it...
     def __repr__(self):
-        return f"User({self.id}, {self.username}, {self.email}, {self.password})"
+        return f"User({self.id}, {self.username}, {self.email}, {self.password}, {self.profile_picture})"
 
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
