@@ -36,6 +36,10 @@ async def get_user_by_id(id):
         print(f"Error: {e}")
         return jsonify({"error": str(e),}), 500
 
-# create user route
+# create user route --> signup
+
+# login route
+
+# profile route 
 
 
