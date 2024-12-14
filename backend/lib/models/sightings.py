@@ -1,5 +1,3 @@
-from datetime import datetime
-
 class Sighting:
     def __init__(self, id, bird_name, date_spotted, location, user_id):
         self.id = id
