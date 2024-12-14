@@ -1,6 +1,10 @@
 import pytest #needs to be imported to allow for @pytest.mark.asyncho decorator
 from lib.models.sightings import Sighting
 from lib.repositories.sightings_repo import SightingRepository
+from unittest.mock import patch
+import datetime
+from freezegun import freeze_time
+
 
 """
 When we call get_all_sightings()
@@ -40,7 +44,7 @@ async def test_get_sighting_by_id_where_none_exist(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
     result = await repository.get_sighting_by_id(5)
-    assert result == "This bird sighting does not exist"
+    assert result is None
 
     # get all sightings by location
 """
@@ -51,9 +55,9 @@ We get a list of Sighting objects from that location.
 async def test_get_sighting_by_location(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
-    result = await repository.get_sightings_by_location("London")
+    result = await repository.get_sightings_by_location("Shoreditch")
     assert len(result) == 1
-    assert result[0].location == "London"
+    assert result[0].location == "Shoreditch"
 
 """
 When we call get_sightings_by_location() but no sighting exists
@@ -63,8 +67,8 @@ We get an error message
 async def test_get_sightings_by_bird_location_where_none_exist(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
-    result = await repository.get_sightings_by_date_spotted("Leeds")
-    assert result == "There have been no bird sightings in Leeds"
+    result = await repository.get_sightings_by_location("Leeds")
+    assert result is None
 
     # get all sightings by date_spotted
 """
@@ -87,7 +91,7 @@ async def test_get_sightings_by_date_spotted_where_none_exist(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
     result = await repository.get_sightings_by_date_spotted('2023-10-02')
-    assert result == "There are no bird sightings for the following date: 2023-10-02"
+    assert result is None
 
 
 
@@ -113,7 +117,7 @@ async def test_get_sightings_by_bird_name_where_none_exist(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
     result = await repository.get_sightings_by_bird_name("Bald Eagle")
-    assert result == "There have been no Bald Eagle sightings"
+    assert result is None
 
 
     # get all sightings by user_id
@@ -125,34 +129,55 @@ We get a list of all Sighting objects by that user.
 async def test_get_sighting_by_user_id(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
+    
     result = await repository.get_sightings_by_user_id(3)
-    assert result == Sighting(3, 'Resplendent Quetzal', '2024-12-01', 'Greenwich', 3)
+    assert len(result) == 2
+
+"""
+When we call get_sighting_by_id() but no sighting exists
+We get an error message
+"""
+@pytest.mark.asyncio
+async def test_get_sighting_by_user_id_where_none_exist(db_connection):
+    await db_connection.seed('lib/db/seeds/birdfood_app.sql')
+    repository = SightingRepository(db_connection)
+    result = await repository.get_sightings_by_user_id(5)
+    assert result is None
 
     # create bird_sighting
 """
 When we call create_bird_sighting
 A new bird_sighting is created and stored in the database
 """
+# This test needs to mock the current date --> using feeze_time
 @pytest.mark.asyncio
+@freeze_time("2024-12-25") #merry christmas
 async def test_create_bird_sighting(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
-    new_sighting = Sighting(None, 'test sighting', '2024-12-14', 'East Dulwich', 1)
+
+    new_sighting = Sighting(None, 'test sighting', None, 'East Dulwich', 1)
     await repository.create_bird_sighting(new_sighting)
+        
     sightings = await repository.get_all_sightings()
+
     assert len(sightings) == 5
     assert sightings[-1].bird_name == 'test sighting'
+    assert sightings[-1].date_spotted == '2024-12-25'
 
     # delete bird sighting
 """
 When we call delete_bird_sightoing(<id>) 
 The corresponding bird_sighting is deleted from the database
 """
+@pytest.mark.asyncio
 async def test_delete_bird_sighting(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
     await repository.delete_bird_sighting(2)
-    remaining_sightings = repository.get_all_sightings()
-    assert len(remaining_sightings) == 3
-    error = repository.get_sighting_by_id(2)
-    assert error == "This bird sighting does not exist"
+    remaining_sightings = await repository.get_all_sightings()
+    assert remaining_sightings == [
+        Sighting(1, 'Flamingo', '2024-12-01', 'Shoreditch', 1),
+        Sighting(3, 'Peregrine Falcon', '2024-12-01', 'Wimbledon', 3),
+        Sighting(4, 'Resplendent Quetzal', '2024-12-01', 'Greenwich', 3)
+    ]
