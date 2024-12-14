@@ -31,6 +31,16 @@ async def test_get_sighting_by_id(db_connection):
     result = await repository.get_sighting_by_id(2)
     assert result == Sighting(2, 'Woodpecker', '2024-12-01', 'Peckham', 2)
 
+"""
+When we call get_sighting_by_id() but no sighting exists
+We get an error message
+"""
+@pytest.mark.asyncio
+async def test_get_sighting_by_id_where_none_exist(db_connection):
+    await db_connection.seed('lib/db/seeds/birdfood_app.sql')
+    repository = SightingRepository(db_connection)
+    result = await repository.get_sighting_by_id(5)
+    assert result == "This bird sighting does not exist"
 
     # get all sightings by location
 """
@@ -111,17 +121,38 @@ async def test_get_sightings_by_bird_name_where_none_exist(db_connection):
 When we call get_sightings_by_user_id()
 We get a list of all Sighting objects by that user.
 """
-
+@pytest.mark.asyncio
+async def test_get_sighting_by_user_id(db_connection):
+    await db_connection.seed('lib/db/seeds/birdfood_app.sql')
+    repository = SightingRepository(db_connection)
+    result = await repository.get_sightings_by_user_id(3)
+    assert result == Sighting(3, 'Resplendent Quetzal', '2024-12-01', 'Greenwich', 3)
 
     # create bird_sighting
 """
 When we call create_bird_sighting
 A new bird_sighting is created and stored in the database
 """
-
+@pytest.mark.asyncio
+async def test_create_bird_sighting(db_connection):
+    await db_connection.seed('lib/db/seeds/birdfood_app.sql')
+    repository = SightingRepository(db_connection)
+    new_sighting = Sighting(None, 'test sighting', '2024-12-14', 'East Dulwich', 1)
+    await repository.create_bird_sighting(new_sighting)
+    sightings = await repository.get_all_sightings()
+    assert len(sightings) == 5
+    assert sightings[-1].bird_name == 'test sighting'
 
     # delete bird sighting
 """
 When we call delete_bird_sightoing(<id>) 
 The corresponding bird_sighting is deleted from the database
 """
+async def test_delete_bird_sighting(db_connection):
+    await db_connection.seed('lib/db/seeds/birdfood_app.sql')
+    repository = SightingRepository(db_connection)
+    await repository.delete_bird_sighting(2)
+    remaining_sightings = repository.get_all_sightings()
+    assert len(remaining_sightings) == 3
+    error = repository.get_sighting_by_id(2)
+    assert error == "This bird sighting does not exist"
