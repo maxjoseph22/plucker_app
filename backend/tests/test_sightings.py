@@ -1,4 +1,3 @@
-from datetime import datetime
 from lib.models.sightings import Sighting
 
 """
@@ -8,7 +7,7 @@ def test_sightings_constructs():
     user = Sighting(1, "eagle", "2024-03-22", "London", 1)
     assert user.id == 1
     assert user.bird_name == "eagle"
-    assert user.date_spotted.isoformat() == "2024-03-22"
+    assert user.date_spotted == "2024-03-22"
     assert user.location == "London"
     assert user.user_id == 1
 

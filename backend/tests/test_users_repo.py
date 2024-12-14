@@ -11,7 +11,6 @@ We get a list of User objects reflecting the seed data.
 async def test_get_all_users(db_connection):
     #seed test database
     #use await as this takes time to set up db
-    print("seeding test database")
     await db_connection.seed('lib/db/seeds/birdfood_app.sql') 
     #Instantiate UserRepository object with connection to database   
     repository = UserRepository(db_connection) 
