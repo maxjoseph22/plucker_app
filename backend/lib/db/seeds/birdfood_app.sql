@@ -1,14 +1,14 @@
 -- For testing database:
-DROP TABLE IF EXISTS bird_sightings;
-DROP SEQUENCE IF EXISTS bird_sightings_id_seq;
-DROP TABLE IF EXISTS bird_recipes;
-DROP SEQUENCE IF EXISTS bird_recipes_id_seq;
-DROP TABLE IF EXISTS users;
-DROP SEQUENCE IF EXISTS users_id_seq;
 DROP TABLE IF EXISTS ingredients;
 DROP SEQUENCE IF EXISTS ingredients_id_seq;
 DROP TABLE IF EXISTS steps;
 DROP SEQUENCE IF EXISTS steps_id_seq;
+DROP TABLE IF EXISTS bird_recipes;
+DROP SEQUENCE IF EXISTS bird_recipes_id_seq;
+DROP TABLE IF EXISTS bird_sightings;
+DROP SEQUENCE IF EXISTS bird_sightings_id_seq;
+DROP TABLE IF EXISTS users;
+DROP SEQUENCE IF EXISTS users_id_seq;
 
 -- users table
 CREATE SEQUENCE IF NOT EXISTS users_id_seq;
@@ -29,7 +29,7 @@ CREATE SEQUENCE IF NOT EXISTS bird_sightings_id_seq;
     date_spotted DATE,
     location VARCHAR(255),
     user_id int,
-    constraint fk_user foreign key(user_id) references users(id) on delete cascade,
+    constraint fk_user foreign key(user_id) references users(id) on delete cascade
 );
 
 -- bird_recipes table
@@ -73,10 +73,10 @@ INSERT INTO users (username, email, password) VALUES
 
 -- Seed data for bird_sightings
 INSERT INTO bird_sightings (bird_name, date_spotted, location, user_id) VALUES 
-('Flamingo', 2024-12-01, 'Shoreditch', 1),
-('Woodpecker', 2024-12-01, 'Peckham', 2),
-('Peregrine Falcon', 2024-12-01, 'Wimbledon', 3),
-('Resplendent Quetzal', 2024-12-01, 'Greenwich', 3);
+('Flamingo', '2024-12-01', 'Shoreditch', 1),
+('Woodpecker', '2024-12-01', 'Peckham', 2),
+('Peregrine Falcon', '2024-12-01', 'Wimbledon', 3),
+('Resplendent Quetzal', '2024-12-01', 'Greenwich', 3);
 
 -- Seed data for bird_recipes:
 INSERT INTO bird_recipes (title, date_created, recipe_rating, cooking_time, bird_sighting_id) VALUES 
@@ -125,7 +125,7 @@ INSERT INTO ingredients (recipe_id, ingredient_name) VALUES
 (3, 'Juice of 1 lime'),
 (3, '1 tablespoon vegetable oil'),
 (3, 'Salt and freshly ground black pepper, to taste'),
-    -- ingredients list 3
+    -- ingredients list 4
 (4, '1 kg (about 2 lbs) resplendent quetzal wings, tips removed and wings separated into drumettes and flats'),
 (4, '1 cup plain flour'),
 (4, '1 cup cornstarch (cornflour)'),
@@ -144,15 +144,15 @@ INSERT INTO ingredients (recipe_id, ingredient_name) VALUES
 INSERT INTO steps (recipe_id, step_order, step_description) VALUES
     -- method 1
 (1, 1, 'Prepare the chicken: Pat chicken breasts dry with a paper towel. Season with salt, pepper, and paprika on both sides.'),
-(1, 2, 'Make the glaze: In a small bowl, whisk together honey, Dijon mustard, balsamic vinegar, garlic, thyme, and rosemary.')
+(1, 2, 'Make the glaze: In a small bowl, whisk together honey, Dijon mustard, balsamic vinegar, garlic, thyme, and rosemary.'),
 (1, 3, 'Cook the chicken: Heat olive oil in a large skillet over medium heat. Add chicken breasts and cook for about 5-6 minutes per side until golden brown and cooked through (internal temperature should reach 165°F/74°C).'),
 (1, 4, 'Glaze the chicken: Reduce heat to low and pour the herb glaze over the chicken. Spoon the glaze over the chicken to coat evenly. Let it simmer for 3-4 minutes until the glaze thickens slightly.'),
 (1, 5, 'Serve: Transfer chicken to a serving plate and drizzle with remaining glaze from the pan. Garnish with optional lemon wedges for a fresh citrus touch.'),
     -- method 2
 (2, 1, 'Preheat the oven to 200°C (400°F).'),
-(2, 3, 'Melt the butter in a large saucepan over medium heat. Add the onion, carrots, and celery; cook until softened, about 5 minutes.'),
-(2, 2, 'Stir in the woodpecker pieces and cook until lightly browned. Sprinkle over the flour and stir well.'),
-(2, 4, 'Stir in the woodpecker pieces and cook until lightly browned. Sprinkle over the flour and stir well.'),
+(2, 2, 'Melt the butter in a large saucepan over medium heat. Add the onion, carrots, and celery; cook until softened, about 5 minutes.'),
+(2, 3, 'Stir in the woodpecker pieces and cook until lightly browned. Sprinkle over the flour and stir well.'),
+(2, 4, 'Pour in the wine (if using) and simmer until mostly reduced. Add the woodpecker stock and thyme, then simmer gently until the mixture thickens and the woodpecker is cooked through, about 10 minutes.'),
 (2, 5, 'Stir in the cream and season with salt and pepper. Transfer the filling to a pie dish.'),
 (2, 6, 'Drape the puff pastry over the dish, pressing the edges to seal. Cut a small steam vent on top. Brush with the beaten egg.'),
 (2, 7, 'Bake until the pastry is golden and crisp, about 35-40 minutes.'),
@@ -164,7 +164,7 @@ INSERT INTO steps (recipe_id, step_order, step_description) VALUES
 (3, 5, 'Let the peregrine falcon rest for a few minutes before serving with rice and peas, plantains, or a fresh salad.'),
     -- method 4
 (4, 1, 'In a large bowl, whisk together the flour, cornstarch, salt, and pepper. Toss the resplendent quetzal wings in this mixture, shaking off any excess.'),
-(4, 2, 'Heat vegetable oil in a deep fryer or large pot to about 175°C (350°F). Fry the wings in batches until lightly golden and just cooked through, about 8-10 minutes. Remove and drain on paper towels.');
+(4, 2, 'Heat vegetable oil in a deep fryer or large pot to about 175°C (350°F). Fry the wings in batches until lightly golden and just cooked through, about 8-10 minutes. Remove and drain on paper towels.'),
 (4, 3, 'Increase the oil temperature to about 190°C (375°F). Fry the wings again in batches until crisp and deeply golden, about 3-4 minutes more per batch. Drain on paper towels.'),
 (4, 4, 'Meanwhile, whisk together all sauce ingredients in a small saucepan over medium heat. Simmer gently until slightly thickened, about 2-3 minutes.'),
 (4, 5, 'Toss the double-fried resplendent quetzal wings in the warm sauce until well coated. Serve immediately, garnished with toasted sesame seeds and spring onions if desired.');
