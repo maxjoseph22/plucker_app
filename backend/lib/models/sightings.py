@@ -4,7 +4,7 @@ class Sighting:
     def __init__(self, id, bird_name, date_spotted, location, user_id):
         self.id = id
         self.bird_name = bird_name
-        self.date_spotted = datetime.strptime(date_spotted, '%Y-%m-%d').date()
+        self.date_spotted = date_spotted
         self.location = location
         self.user_id = user_id
 
