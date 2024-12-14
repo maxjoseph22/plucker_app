@@ -26,7 +26,7 @@ CREATE SEQUENCE IF NOT EXISTS bird_sightings_id_seq;
     id SERIAL PRIMARY KEY,
     bird_name VARCHAR(255) NOT NULL,
     -- image VARCHAR(255) DEFAULT '>INSERT PATH HERE<',
-    date_spotted DATE,
+    date_spotted VARCHAR(10),
     location VARCHAR(255),
     user_id int,
     constraint fk_user foreign key(user_id) references users(id) on delete cascade
