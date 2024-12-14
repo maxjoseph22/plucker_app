@@ -37,8 +37,6 @@ CREATE SEQUENCE IF NOT EXISTS bird_recipes_id_seq;
 CREATE TABLE bird_recipes (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    -- ingredients TEXT NOT NULL, --> abstracted to ingredients table
-    -- description TEXT NOT NULL,  --> abstracted to steps table
     date_created VARCHAR(255),
     recipe_rating int,
     cooking_time INT NOT NULL,
