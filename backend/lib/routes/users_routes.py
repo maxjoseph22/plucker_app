@@ -55,15 +55,15 @@ async def get_user_by_username(username):
 @user_routes.route('/users/signup', methods=['POST'])
 async def create_user():
     try:
-        print(request.form)
+        request_data = request.get_json()
         await connect_to_user_repository()
-        # username = payload.username
-        # email = payload.email
-        # password = payload.password
-        # profile_picture = payload.profile_picture
-        # user = User(None, username, email, password, profile_picture)
+        username = request_data.username
+        email = request_data.email
+        password = request_data.password
+        profile_picture = request_data.profile_picture
+        user = User(None, username, email, password, profile_picture)
         
-        # await g.user_repository.create_user(user)
+        await g.user_repository.create_user(user)
         return jsonify({"success": True, "message": "Signup successful"}), 200
     
     except Exception as e:
