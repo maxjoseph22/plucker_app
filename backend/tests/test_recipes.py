@@ -9,6 +9,19 @@ def test_recipe_constructs():
     assert recipe.date_created == '2024-12-01'
     assert recipe.recipe_rating == 5
     assert recipe.cooking_time == 45
+
+def test_recipe_to_dict():
+    recipe = Recipe(1, 'Blue Jay Roast', '2024-12-01', 5, 45, 1)
+    expected_dict = {
+    "id": 1,
+    "title": 'Blue Jay Roast',
+    "date_created": '2024-12-01',
+    "recipe_rating": 5,
+    "cooking_time": 45,
+    "bird_sighting_id": 1
+}
+    assert recipe.to_dict() == expected_dict
+
 """
 We can format recipes to strings nicely
 """
@@ -25,14 +38,3 @@ def test_recipes_are_equal():
     recipe2 = Recipe(1, 'Blue Jay Roast', '2024-12-01', 5, 45, 1)
     assert recipe1 == recipe2
     
-def test_recipe_to_dict():
-    recipe = Recipe(1, 'Blue Jay Roast', '2024-12-01', 5, 45, 1)
-    expected_dict = {
-    "id": 1,
-    "title": 'Blue Jay Roast',
-    "date_created": '2024-12-01',
-    "recipe_rating": 5,
-    "cooking_time": 45,
-    "bird_sighting_id": 1
-}
-    assert recipe.to_dict() == expected_dict

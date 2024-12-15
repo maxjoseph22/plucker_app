@@ -11,6 +11,17 @@ def test_sightings_constructs():
     assert user.location == "London"
     assert user.user_id == 1
 
+def test_recipe_to_dict():
+    user = Sighting(1, "eagle", "2024-03-22", "London", 1)
+    expected_dict = {
+    "id": 1,
+    "bird_name": 'eagle',
+    "date_spotted": '2024-03-22',
+    "location": 'London',
+    "user_id": 1
+    }
+    assert user.to_dict() == expected_dict
+
 """
 We can format users to strings nicely
 """
