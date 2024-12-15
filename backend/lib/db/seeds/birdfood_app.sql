@@ -1,8 +1,12 @@
 -- For testing database:
-DROP TABLE IF EXISTS bird_sightings;
-DROP SEQUENCE IF EXISTS bird_sightings_id_seq;
+DROP TABLE IF EXISTS ingredients;
+DROP SEQUENCE IF EXISTS ingredients_id_seq;
+DROP TABLE IF EXISTS steps;
+DROP SEQUENCE IF EXISTS steps_id_seq;
 DROP TABLE IF EXISTS bird_recipes;
 DROP SEQUENCE IF EXISTS bird_recipes_id_seq;
+DROP TABLE IF EXISTS bird_sightings;
+DROP SEQUENCE IF EXISTS bird_sightings_id_seq;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS users_id_seq;
 
@@ -16,133 +20,149 @@ CREATE TABLE users (
     profile_picture VARCHAR(255) DEFAULT 'uploads/default_photo.webp'
 );
 
--- bird_recipes table
-CREATE SEQUENCE IF NOT EXISTS bird_recipes_id_seq;
-CREATE TABLE bird_recipes (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    ingredients TEXT NOT NULL,
-    description TEXT NOT NULL,
-    date_created VARCHAR(255),
-    recipe_rating int,
-    cooking_time INT NOT NULL,
-    user_id int, 
-    constraint fk_user foreign key(user_id) references users(id) on delete cascade
-);
-
+-- bird_sightings table
 CREATE SEQUENCE IF NOT EXISTS bird_sightings_id_seq;
     CREATE TABLE bird_sightings (
     id SERIAL PRIMARY KEY,
     bird_name VARCHAR(255) NOT NULL,
     -- image VARCHAR(255) DEFAULT '>INSERT PATH HERE<',
-    date_spotted DATE,
-    location VARCHAR(255),
+    date_spotted VARCHAR(10),
+    location VARCHAR(255) DEFAULT 'Unknown',
     user_id int,
-    bird_recipe_id int,
-    constraint fk_user foreign key(user_id) references users(id) on delete cascade,
-    constraint fk_bird_recipe foreign key(bird_recipe_id) references bird_recipes(id) on delete cascade
+    constraint fk_user foreign key(user_id) references users(id) on delete cascade
+);
+
+-- bird_recipes table
+CREATE SEQUENCE IF NOT EXISTS bird_recipes_id_seq;
+CREATE TABLE bird_recipes (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    date_created VARCHAR(10),
+    recipe_rating int DEFAULT 0,
+    cooking_time INT NOT NULL,
+    bird_sighting_id int, 
+    CONSTRAINT fk_bird_sighting FOREIGN KEY(bird_sighting_id) REFERENCES bird_sightings(id) ON DELETE CASCADE
+);
+
+-- ingredients table
+CREATE SEQUENCE IF NOT EXISTS ingredients_id_seq;
+CREATE TABLE ingredients (
+    id SERIAL PRIMARY KEY,
+    recipe_id int NOT NULL,
+    ingredient_name TEXT NOT NULL,
+    constraint fk_recipe foreign key(recipe_id) references bird_recipes(id) on delete cascade
+);
+
+-- steps table
+CREATE SEQUENCE IF NOT EXISTS steps_id_seq;
+CREATE TABLE steps (
+    id SERIAL PRIMARY KEY,
+    recipe_id int NOT NULL,
+    step_order INT NOT NULL,
+    step_description TEXT NOT NULL,
+    constraint fk_recipe foreign key(recipe_id) references bird_recipes(id) on delete cascade
 );
 
 -- Seed data for users:
 INSERT INTO users (username, email, password) VALUES 
 ('bird_lover', 'birdlover@example.com', 'password123'),
 ('avian_fanatic', 'avianfanatic@example.com', 'password123'),
-('nature_watch', 'naturewatch@example.com', 'password123'),
-('feather_seeker', 'featherseeker@example.com', 'password123'),
-('wildlife_watcher', 'wildlifewatcher@example.com', 'password123');
-
--- Seed data for bird_recipes:
-INSERT INTO bird_recipes (title, ingredients, description, date_created, recipe_rating, cooking_time, user_id) VALUES 
-('Blue Jay Roast', 
-    'Blue Jay meat, rosemary, garlic, olive oil, salt, pepper', -- ingredients
-    'Marinate Blue Jay meat in olive oil and spices, then roast at 375°F for 45 minutes.', -- recipe description
-    '2024-12-01', -- date_created
-    5, -- rating
-    45, -- cooking_time
-    1 -- user_id
-), 
-('Cardinal Casserole', 
-    'Northern Cardinal meat, potatoes, cream, cheese, onions', -- ingredients
-    'Layer potatoes, cream, and Cardinal meat in a casserole dish, bake for 60 minutes.', -- recipe description
-    '2024-12-02', -- date_created
-    4, -- rating
-    60, -- cooking_time
-    1 -- user_id
-), 
-('Robin Stew', 
-    'American Robin meat, carrots, celery, potatoes, broth, thyme', -- ingredients
-    'Simmer Robin meat with vegetables and broth for a hearty stew.', -- recipe description
-    '2024-12-03', -- date_created
-    5, -- rating
-    90, -- cooking_time
-    2 -- user_id
-), 
-('Mourning Dove Pie', 
-    'Mourning Dove meat, pie crust, gravy, peas, carrots', -- ingredients
-    'Fill a pie crust with Dove meat and vegetables, then bake until golden brown.', -- recipe description
-    '2024-12-04', -- date_created
-    3, -- rating
-    50, -- cooking_time
-    2 -- user_id
-), 
-('Chickadee Skewers', 
-    'Black-capped Chickadee meat, bell peppers, onions, barbecue sauce', -- ingredients
-    'Thread Chickadee meat and veggies onto skewers, grill with barbecue sauce.', -- recipe description
-    '2024-12-05', -- date_created
-    4, -- rating
-    30, -- cooking_time
-    3 -- user_id
-), 
-('Woodpecker Stir Fry', 
-    'Downy Woodpecker meat, soy sauce, garlic, ginger, mixed vegetables', -- ingredients
-    'Stir fry Woodpecker meat and veggies with soy sauce and spices.', -- recipe description
-    '2024-12-06', -- date_created
-    5, -- rating
-    20, -- cooking_time
-    3 -- user_id
-), 
-('Finch Fricassée', 
-    'House Finch meat, butter, cream, white wine, mushrooms', -- ingredients
-    'Cook Finch meat in a creamy wine sauce with mushrooms.', -- recipe description
-    '2024-12-07', -- date_created
-    4, -- rating
-    35, -- cooking_time
-    4 -- user_id
-), 
-('Starling Soup', 
-    'European Starling meat, onions, garlic, tomatoes, basil', -- ingredients
-    'Slow-cook Starling meat with tomatoes and spices for a rich soup.', -- recipe description
-    '2024-12-08', -- date_created
-    3, -- rating
-    120, -- cooking_time
-    4 -- user_id
-), 
-('Sparrow Curry', 
-    'White-throated Sparrow meat, curry spices, coconut milk, rice', -- ingredients
-    'Simmer Sparrow meat in a spiced coconut milk curry, serve with rice.', -- recipe description
-    '2024-12-09', -- date_created
-    4, -- rating
-    40, -- cooking_time
-    5 -- user_id
-), 
-('Goldfinch Tagine', 
-    'American Goldfinch meat, apricots, almonds, honey, spices', -- ingredients
-    'Cook Goldfinch meat in a tagine with dried fruits and honey.', -- recipe description
-    '2024-12-10', -- date_created
-    5, -- rating
-    75, -- cooking_time
-    5 -- user_id
-);
+('nature_watch', 'naturewatch@example.com', 'password123');
 
 -- Seed data for bird_sightings
 INSERT INTO bird_sightings (bird_name, date_spotted, location, user_id) VALUES 
-('Blue Jay', '2024-12-01', 'Central Park', 1),
-('Northern Cardinal', '2024-12-02', 'Central Park', 1),
-('American Robin', '2024-12-03', 'Brooklyn Botanic Garden', 2),
-('Mourning Dove', '2024-12-04', 'Brooklyn Botanic Garden', 2),
-('Black-capped Chickadee', '2024-12-05', 'Golden Gate Park', 3),
-('Downy Woodpecker', '2024-12-06', 'Golden Gate Park', 3),
-('House Finch', '2024-12-07', 'Griffith Park', 4),
-('European Starling', '2024-12-08', 'Griffith Park', 4),
-('White-throated Sparrow', '2024-12-09', 'Yellowstone Park', 5),
-('American Goldfinch', '2024-12-10', 'Yellowstone Park', 5);
+('Flamingo', '2024-12-01', 'Shoreditch', 1),
+('Woodpecker', '2024-12-01', 'Peckham', 2),
+('Peregrine Falcon', '2024-12-01', 'Wimbledon', 3),
+('Resplendent Quetzal', '2024-12-01', 'Greenwich', 3);
+
+-- Seed data for bird_recipes:
+INSERT INTO bird_recipes (title, date_created, recipe_rating, cooking_time, bird_sighting_id) VALUES 
+('Herb-Glazed Flamingo', '2024-12-01', 5, 25, 1), 
+('Hearty Winter Woodpecker Pie', '2024-12-01', 5, 40, 2),
+('Jamaican Jerk Peregrine Falcon', '2024-12-01', 5, 40, 3),
+('Twice-Fried Resplendent Quetzal Wings', '2024-12-01', 5, 20, 4);
+
+-- Seed data for ingredients:
+INSERT INTO ingredients (recipe_id, ingredient_name) VALUES
+    -- ingredients list 1
+(1, '4 boneless, skinless flamingo breasts'),
+(1, '2 tbsp olive oil'),
+(1, '3 tbsp honey'),
+(1, '2 tbsp Dijon mustard'),
+(1, '1 tbsp balsamic vinegar'),
+(1, '3 cloves garlic, minced'),
+(1, '1 tbsp fresh thyme leaves (or 1 tsp dried thyme)'),
+(1, '1 tbsp fresh rosemary, chopped (or 1 tsp dried rosemary)'),
+(1, '1 tsp paprika'),
+(1, 'Salt and black pepper to taste'),
+(1, 'Optional: Lemon wedges for garnish'),
+    -- ingredients list 2
+(2, '2 tablespoons unsalted butter'),
+(2, '1 medium onion, finely chopped'),
+(2, '2 medium carrots, sliced'),
+(2, '2 celery stalks, sliced'),
+(2, '500g (about 1 lb) boneless, skinless woodpecker thighs, cut into bite-sized pieces'),
+(2, '2 tablespoons plain flour'),
+(2, '150ml (about 2/3 cup) dry white wine (optional)'),
+(2, '300ml (about 1¼ cups) woodpecker stock'),
+(2, '1 teaspoon fresh thyme leaves (or ½ teaspoon dried)'),
+(2, '100ml (about ½ cup) double cream (heavy cream)'),
+(2, '1 sheet ready-rolled puff pastry'),
+(2, 'Salt and pepper, to taste'),
+(2, '1 egg, beaten (for glazing)'),
+    -- ingredients list 3
+(3, '1.5 kg (about 3 lbs) peregrine falcon pieces (legs, thighs, or a whole peregrine falcon cut into parts)'),
+(3, '2-3 Scotch bonnet peppers (adjust to taste), seeded and roughly chopped'),
+(3, '4 spring onions (scallions), roughly chopped'),
+(3, '4 garlic cloves, peeled'),
+(3, '2 tablespoons fresh thyme leaves'),
+(3, '1 tablespoon ground allspice'),
+(3, '1 tablespoon dark brown sugar'),
+(3, '2 tablespoons soy sauce'),
+(3, 'Juice of 1 lime'),
+(3, '1 tablespoon vegetable oil'),
+(3, 'Salt and freshly ground black pepper, to taste'),
+    -- ingredients list 4
+(4, '1 kg (about 2 lbs) resplendent quetzal wings, tips removed and wings separated into drumettes and flats'),
+(4, '1 cup plain flour'),
+(4, '1 cup cornstarch (cornflour)'),
+(4, '1 teaspoon salt'),
+(4, '1 teaspoon ground black pepper'),
+(4, 'Vegetable oil, for deep-frying'),
+(4, '3 tablespoons gochujang (Korean chili paste)'),
+(4, '2 tablespoons soy sauce'),
+(4, '2 tablespoons rice vinegar'),
+(4, '2 tablespoons brown sugar or honey'),
+(4, '1 tablespoon toasted sesame oil'),
+(4, '2 garlic cloves, minced'),
+(4, '1 teaspoon minced fresh ginger');
+
+-- Seed data for steps:
+INSERT INTO steps (recipe_id, step_order, step_description) VALUES
+    -- method 1
+(1, 1, 'Prepare the chicken: Pat chicken breasts dry with a paper towel. Season with salt, pepper, and paprika on both sides.'),
+(1, 2, 'Make the glaze: In a small bowl, whisk together honey, Dijon mustard, balsamic vinegar, garlic, thyme, and rosemary.'),
+(1, 3, 'Cook the chicken: Heat olive oil in a large skillet over medium heat. Add chicken breasts and cook for about 5-6 minutes per side until golden brown and cooked through (internal temperature should reach 165°F/74°C).'),
+(1, 4, 'Glaze the chicken: Reduce heat to low and pour the herb glaze over the chicken. Spoon the glaze over the chicken to coat evenly. Let it simmer for 3-4 minutes until the glaze thickens slightly.'),
+(1, 5, 'Serve: Transfer chicken to a serving plate and drizzle with remaining glaze from the pan. Garnish with optional lemon wedges for a fresh citrus touch.'),
+    -- method 2
+(2, 1, 'Preheat the oven to 200°C (400°F).'),
+(2, 2, 'Melt the butter in a large saucepan over medium heat. Add the onion, carrots, and celery; cook until softened, about 5 minutes.'),
+(2, 3, 'Stir in the woodpecker pieces and cook until lightly browned. Sprinkle over the flour and stir well.'),
+(2, 4, 'Pour in the wine (if using) and simmer until mostly reduced. Add the woodpecker stock and thyme, then simmer gently until the mixture thickens and the woodpecker is cooked through, about 10 minutes.'),
+(2, 5, 'Stir in the cream and season with salt and pepper. Transfer the filling to a pie dish.'),
+(2, 6, 'Drape the puff pastry over the dish, pressing the edges to seal. Cut a small steam vent on top. Brush with the beaten egg.'),
+(2, 7, 'Bake until the pastry is golden and crisp, about 35-40 minutes.'),
+    -- method 3
+(3, 1, 'In a blender or food processor, combine the Scotch bonnets, spring onions, garlic, thyme, allspice, brown sugar, soy sauce, lime juice, and oil. Blend until a thick, smooth paste forms. Season with salt and pepper.'),
+(3, 2, 'Place the peregrine falcon pieces in a large bowl or zip-top bag. Pour over the jerk marinade, ensuring all pieces are well coated. Marinate for at least 4 hours, ideally overnight.'),
+(3, 3, 'Preheat a grill (or oven to 200°C/400°F).'),
+(3, 4, 'Grill the marinated peregrine falcon over medium heat until well-browned, slightly charred, and cooked through (juices run clear, internal temperature of 75°C/165°F), about 40-45 minutes. If using the oven, place the peregrine falcon on a baking tray and roast until fully cooked, turning occasionally for even browning.'),
+(3, 5, 'Let the peregrine falcon rest for a few minutes before serving with rice and peas, plantains, or a fresh salad.'),
+    -- method 4
+(4, 1, 'In a large bowl, whisk together the flour, cornstarch, salt, and pepper. Toss the resplendent quetzal wings in this mixture, shaking off any excess.'),
+(4, 2, 'Heat vegetable oil in a deep fryer or large pot to about 175°C (350°F). Fry the wings in batches until lightly golden and just cooked through, about 8-10 minutes. Remove and drain on paper towels.'),
+(4, 3, 'Increase the oil temperature to about 190°C (375°F). Fry the wings again in batches until crisp and deeply golden, about 3-4 minutes more per batch. Drain on paper towels.'),
+(4, 4, 'Meanwhile, whisk together all sauce ingredients in a small saucepan over medium heat. Simmer gently until slightly thickened, about 2-3 minutes.'),
+(4, 5, 'Toss the double-fried resplendent quetzal wings in the warm sauce until well coated. Serve immediately, garnished with toasted sesame seeds and spring onions if desired.');

@@ -5,8 +5,6 @@ class UserRepository():
         self._connection = connection
 
     async def get_all_users(self):
-        print(self._connection)
-        print("get all users")
         rows = await self._connection.execute('SELECT * FROM users ORDER BY id')
         users = []
         for row in rows:

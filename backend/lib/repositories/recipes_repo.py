@@ -1,4 +1,5 @@
 from lib.models.recipes import Recipe
+import datetime
 
 class RecipeRepository():
         
@@ -9,7 +10,7 @@ class RecipeRepository():
             rows = await self._connection.execute('SELECT * FROM bird_recipes ORDER BY id')
             recipes = []
             for row in rows:
-                recipe = Recipe(row["id"], row["title"], row["ingredients"], row["description"], row["date_created"], row["recipe_rating"], row["cooking_time"], row["user_id"])
+                recipe = Recipe(row["id"], row["title"], row["date_created"], row["recipe_rating"], row["cooking_time"], row["bird_sighting_id"])
                 recipes.append(recipe)
             return recipes
         
@@ -19,28 +20,27 @@ class RecipeRepository():
             if not rows:
                 return None  # Return None if no recipe is found
             row = rows[0]
-            return Recipe(row["id"], row["title"], row["ingredients"], row["description"], row["date_created"], row["recipe_rating"], row["cooking_time"], row["user_id"])
+            return Recipe(row["id"], row["title"], row["date_created"], row["recipe_rating"], row["cooking_time"], row["bird_sighting_id"])
         
         async def create_recipe(self, recipe):
+            date_spotted = datetime.datetime.now().date().strftime('%Y-%m-%d')
         # This validation might be handles in the schema files later (not sure yet)
             if not recipe.title:
                 return 'Please provide a title'
-            if not recipe.ingredients:
-                return 'Please provide a list of ingredients'
-            if not recipe.description:
-                return 'Please provide a recipe description'
             if not recipe.date_created:
                 return 'Please provide a date created'
-            if not recipe.recipe_rating:
+            if recipe.recipe_rating is None:
                 return 'Please provide a recipe rating'
             if not recipe.cooking_time:
                 return 'Please provide a cooking time'
-            if not recipe.user_id:
-                return 'Please provide a user id'
+            if not recipe.bird_sighting_id:
+                return 'Please provide a bird_sighting id'
             await self._connection.execute(
-                'INSERT INTO bird_recipes (title, ingredients, description, date_created, recipe_rating, cooking_time, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-                [recipe.title, recipe.ingredients, recipe.description, recipe.date_created, recipe.recipe_rating, recipe.cooking_time, recipe.user_id])
-            return None
+                'INSERT INTO bird_recipes (title, date_created, recipe_rating, cooking_time, bird_sighting_id) VALUES ($1, $2, $3, $4, $5)',
+                [recipe.title, date_spotted, recipe.recipe_rating, recipe.cooking_time, recipe.bird_sighting_id])
+            
+            recipe_id = await self._connection.fetchval('SELECT currval(\'bird_recipes_id_seq\')')
+            return recipe_id
         
         async def update_recipe_title(self, id, title):
             await self._connection.execute(
@@ -48,25 +48,7 @@ class RecipeRepository():
                 [title, id])
             return None
         
-        async def update_recipe_ingredients(self, id, ingredients):
-            await self._connection.execute(
-                'UPDATE bird_recipes SET ingredients = $1 WHERE id = $2', 
-                [ingredients, id])
-            return None
-        
-        async def update_recipe_description(self, id, description):
-            await self._connection.execute(
-                'UPDATE bird_recipes SET description = $1 WHERE id = $2', 
-                [description, id])
-            return None
-        
-        async def update_recipe_date_created(self, id, date_created):
-            await self._connection.execute(
-                'UPDATE bird_recipes SET date_created = $1 WHERE id = $2', 
-                [date_created, id])
-            return None
-        
-        async def update_recipe_recipe_rating(self, id, recipe_rating):
+        async def update_recipe_rating(self, id, recipe_rating):
             await self._connection.execute(
                 'UPDATE bird_recipes SET recipe_rating = $1 WHERE id = $2', 
                 [recipe_rating, id])
