@@ -27,7 +27,7 @@ CREATE SEQUENCE IF NOT EXISTS bird_sightings_id_seq;
     bird_name VARCHAR(255) NOT NULL,
     -- image VARCHAR(255) DEFAULT '>INSERT PATH HERE<',
     date_spotted VARCHAR(10),
-    location VARCHAR(255),
+    location VARCHAR(255) DEFAULT 'Unknown',
     user_id int,
     constraint fk_user foreign key(user_id) references users(id) on delete cascade
 );
@@ -38,7 +38,7 @@ CREATE TABLE bird_recipes (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     date_created VARCHAR(10),
-    recipe_rating int,
+    recipe_rating int DEFAULT 0,
     cooking_time INT NOT NULL,
     bird_sighting_id int, 
     CONSTRAINT fk_bird_sighting FOREIGN KEY(bird_sighting_id) REFERENCES bird_sightings(id) ON DELETE CASCADE
