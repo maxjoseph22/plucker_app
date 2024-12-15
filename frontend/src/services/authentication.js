@@ -4,12 +4,12 @@ const BACKEND_URL = "http://localhost:8000"
 
 export async function SignUp(formData) {
     const payload = {
-      email: formData.email,
-      password: formData.password,
-      username: formData.username,
-      profile_picture: formData.profile_picture
+      email: formData.get("email"),
+      password: formData.get("password"),
+      username: formData.get("username"),
+      profile_picture: formData.get("profile_picture")
     };
-    console.dir("authentication.js (services) line 12 payload --->" + payload)
+    console.log("authentication.js (services) line 12 payload --->", payload)
     const requestOptions = {
       method: "POST",
       headers: {
@@ -19,7 +19,7 @@ export async function SignUp(formData) {
     };
   
     let response = await fetch(`${BACKEND_URL}/users/signup`, requestOptions);
-    console.dir("authentication (authentication) line 22 response --->" + response)
+    console.log("authentication (authentication) line 22 response --->", response)
     // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
     if (response.status === 200) {
       return;

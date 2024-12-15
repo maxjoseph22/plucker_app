@@ -53,6 +53,8 @@ export function SignUpPage() {
   async function handleSubmit(event) {
     event.preventDefault();
 
+    console.log("sign up page line 56 email -->", email)
+
     if (
       validatePassword(password) &&
       validateUsername(username) &&
@@ -62,7 +64,7 @@ export function SignUpPage() {
       formData.append("email", email);
       formData.append("username", username);
       formData.append("password", password);
-      console.dir("SignUp.jsx (page) line 65 formData --->" + formData)
+      console.log("SignUp.jsx (page) line 65 formData --->", formData)
 
       if (file) {
         formData.append("file", file); // Append the profile image if it exists
