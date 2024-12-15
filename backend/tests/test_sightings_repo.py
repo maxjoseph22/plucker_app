@@ -1,8 +1,6 @@
 import pytest #needs to be imported to allow for @pytest.mark.asyncho decorator
 from lib.models.sightings import Sighting
 from lib.repositories.sightings_repo import SightingRepository
-from unittest.mock import patch
-import datetime
 from freezegun import freeze_time
 
 

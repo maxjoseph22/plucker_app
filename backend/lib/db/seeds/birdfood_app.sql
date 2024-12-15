@@ -37,7 +37,7 @@ CREATE SEQUENCE IF NOT EXISTS bird_recipes_id_seq;
 CREATE TABLE bird_recipes (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    date_created VARCHAR(255),
+    date_created VARCHAR(10),
     recipe_rating int,
     cooking_time INT NOT NULL,
     bird_sighting_id int, 
