@@ -1,4 +1,3 @@
-from lib.recipe_
 from lib.models.sightings import Sighting
 import datetime
 

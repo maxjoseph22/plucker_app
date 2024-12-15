@@ -15,7 +15,7 @@ class Recipe:
             "date_created": self.date_created,
             "recipe_rating": self.recipe_rating,
             "cooking_time": self.cooking_time,
-            "user_id": self.bird_sighting_id
+            "bird_sighting_id": self.bird_sighting_id
             }
     
     def __repr__(self):
