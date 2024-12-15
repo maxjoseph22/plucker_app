@@ -1,4 +1,5 @@
 from lib.models.recipes import Recipe
+import datetime
 
 class RecipeRepository():
         
@@ -22,6 +23,7 @@ class RecipeRepository():
             return Recipe(row["id"], row["title"], row["date_created"], row["recipe_rating"], row["cooking_time"], row["bird_sighting_id"])
         
         async def create_recipe(self, recipe):
+            date_spotted = datetime.datetime.now().date().strftime('%Y-%m-%d')
         # This validation might be handles in the schema files later (not sure yet)
             if not recipe.title:
                 return 'Please provide a title'
@@ -35,8 +37,10 @@ class RecipeRepository():
                 return 'Please provide a bird_sighting id'
             await self._connection.execute(
                 'INSERT INTO bird_recipes (title, date_created, recipe_rating, cooking_time, bird_sighting_id) VALUES ($1, $2, $3, $4, $5)',
-                [recipe.title, recipe.date_created, recipe.recipe_rating, recipe.cooking_time, recipe.bird_sighting_id])
-            return None
+                [recipe.title, date_spotted, recipe.recipe_rating, recipe.cooking_time, recipe.bird_sighting_id])
+            
+            recipe_id = await self._connection.fetchval('SELECT currval(\'bird_recipes_id_seq\')')
+            return recipe_id
         
         async def update_recipe_title(self, id, title):
             await self._connection.execute(
