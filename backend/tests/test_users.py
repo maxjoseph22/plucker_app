@@ -11,13 +11,22 @@ def test_user_constructs():
     assert user.password == "password123"
     assert user.profile_picture == "test_URL"
 
+def test_recipe_to_dict():
+    user = User(1, "bird_lover", "birdlover@email.com", "password123", "test_URL")
+    expected_dict = {
+    "id": 1,
+    "username": 'bird_lover',
+    "email": 'birdlover@email.com',
+    "profile_picture": 'test_URL'
+    }
+    assert user.to_dict() == expected_dict
+
 """
 We can format users to strings nicely
 """
 def test_user_format_nicely():
     user = User(1, "bird_lover", "birdlover@email.com", "password123", "test_URL")
     assert str(user) == "User(1, bird_lover, birdlover@email.com, password123, test_URL)"
-
 
 """
 We can compare two identical users
