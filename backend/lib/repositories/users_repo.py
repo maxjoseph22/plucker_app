@@ -35,12 +35,12 @@ class UserRepository():
 
     async def create_user(self, user):
         # This validation might be handles in the schema files later (not sure yet)
-        if not user.username:
-            return 'Please provide a username'
-        if not user.email:
-            return 'Please provide an email address'
-        if not user.password:
-            return 'Please provide a password'
+        # if not user.username:
+        #     return 'Please provide a username'
+        # if not user.email:
+        #     return 'Please provide an email address'
+        # if not user.password:
+        #     return 'Please provide a password'
         
         # This ony adds a profile picture url to the database if one is provided (otherwise the database defaults it)
         if not user.profile_picture:

@@ -31,7 +31,7 @@ We get a single User object reflecting the seed data.
 async def test_get_single_user(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql') 
     repository = UserRepository(db_connection)   
-    result = await repository.get_single_user(3)
+    result = await repository.get_single_user_by_id(3)
     assert result == User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp')
 
 """
@@ -108,7 +108,7 @@ async def test_update_user_password(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     await repository.update_user_password(2, 'NewPassword!')
-    assert await repository.get_single_user(2) == User(2, 'avian_fanatic', 'avianfanatic@example.com', 'NewPassword!', 'uploads/default_photo.webp')
+    assert await repository.get_single_user_by_id(2) == User(2, 'avian_fanatic', 'avianfanatic@example.com', 'NewPassword!', 'uploads/default_photo.webp')
 
 """
 When we call update_user_email() 
@@ -119,7 +119,7 @@ async def test_update_user_email(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     await repository.update_user_email(2, 'updated@email.co.uk')
-    assert await repository.get_single_user(2) == User(2, 'avian_fanatic', 'updated@email.co.uk', 'password123', 'uploads/default_photo.webp')
+    assert await repository.get_single_user_by_id(2) == User(2, 'avian_fanatic', 'updated@email.co.uk', 'password123', 'uploads/default_photo.webp')
 
 """
 When we call update_user_username() 
@@ -130,7 +130,7 @@ async def test_update_user_username(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')    #seed test database
     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
     await repository.update_user_username(2, 'new_username')
-    assert await repository.get_single_user(2) == User(2, 'new_username', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp')
+    assert await repository.get_single_user_by_id(2) == User(2, 'new_username', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp')
 
 
 """
