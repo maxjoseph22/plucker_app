@@ -35,11 +35,13 @@ class RecipeRepository():
                 return 'Please provide a cooking time'
             if not recipe.bird_sighting_id:
                 return 'Please provide a bird_sighting id'
-            await self._connection.execute(
-                'INSERT INTO bird_recipes (title, date_created, recipe_rating, cooking_time, bird_sighting_id) VALUES ($1, $2, $3, $4, $5)',
+            recipe_id = await self._connection.execute(
+                '''
+                INSERT INTO bird_recipes (title, date_created, recipe_rating, cooking_time, bird_sighting_id)
+                VALUES ($1, $2, $3, $4, $5)
+                RETURNING id
+                ''',
                 [recipe.title, date_spotted, recipe.recipe_rating, recipe.cooking_time, recipe.bird_sighting_id])
-            
-            recipe_id = await self._connection.fetchval('SELECT currval(\'bird_recipes_id_seq\')')
             return recipe_id
         
         async def update_recipe_title(self, id, title):
