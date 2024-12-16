@@ -23,7 +23,7 @@ class AsyncDatabaseConnection:
             self.connection = await asyncpg.connect(
                 f"postgresql://localhost/{self._database_name()}"
                 )
-            print("Connected to database:", self.connection)
+            print("Connected to database:", self._database_name())
         except asyncpg.PostgresError:
             raise Exception(f"Couldn't connect to the database {self._database_name()}! " \
                     f"Did you create it using `createdb {self._database_name()}`?")
@@ -89,10 +89,10 @@ async def get_flask_database_connection(app):
         g.flask_database_connection = AsyncDatabaseConnection(
             test_mode=((os.getenv('APP_ENV') == 'test') or (app.config['TESTING'] == True))
         )
-        print("get flask database")
-        print(dir(g.flask_database_connection))
+        # print("get flask database")
+        # print(dir(g.flask_database_connection))
         await g.flask_database_connection.connect()
 
-    print(g.flask_database_connection)
+    # print(g.flask_database_connection)
     return g.flask_database_connection
 

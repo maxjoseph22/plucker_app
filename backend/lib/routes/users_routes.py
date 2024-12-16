@@ -109,9 +109,8 @@ async def login_user():
         user_validated = await g.user_repository.validate_user(payload)
         if user_validated == True:
             user = await g.user_repository.get_single_user_by_email(email)
-            
-            JSONuser = user.to_dict()
-            return jsonify({"success": True, "message": "Login successful", "token": JSONuser}), 200
+            print(user)
+            return jsonify({"success": True, "message": "Login successful", "token": user}), 200
         else:
             return jsonify({"success": False, "message": "Incorrect username or password"}), 401
     
