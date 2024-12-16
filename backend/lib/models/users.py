@@ -28,7 +28,3 @@ class User:
                 self.username == other.username and
                 self.email == other.email and
                 self.profile_picture == other.profile_picture)
-      
-#     This needs to be somewhere else. TBC at a later stage...
-#     def verify_password(self, password):
-#         return check_password_hash(self.password, password)

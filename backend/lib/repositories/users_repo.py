@@ -1,4 +1,5 @@
 from lib.models.users import User
+from lib.utils.password_utils import *
 
 class UserRepository():
     def __init__(self, connection): #require database connection when UserRepository object is created
@@ -51,13 +52,11 @@ class UserRepository():
         # if not user.password:
         #     return 'Please provide a password'
         
-        # This ony adds a profile picture url to the database if one is provided (otherwise the database defaults it)
-    async def create_user(self, user):    
-        print("here is the user called by users_repo create function --->", user)
-        # if not user.profile_picture:
+    async def create_user(self, user):
+        hashed_password = hash_password(user.password)
         await self._connection.execute(
             'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3, $4)',
-            [user.username, user.email, user.password, user.profile_picture])
+            [user.username, user.email, hashed_password, user.profile_picture])
         # else:
         #     await self._connection.execute(
         #         'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3, $4)',
@@ -90,7 +89,10 @@ class UserRepository():
         return None
     
     async def validate_user(self, payload):
-        valid_users = await self._connection.execute(
-            'SELECT * FROM users WHERE email = $1 AND password = $2', 
-            [payload["email"], payload["password"]])
-        return len(valid_users) == 1
+        rows = await self._connection.execute(
+            'SELECT * FROM users WHERE email = $1', 
+            [payload["email"]])
+        if len(rows) == 0:
+            return False
+        user = rows[0]
+        return verify_password(user.password, payload["password"])
