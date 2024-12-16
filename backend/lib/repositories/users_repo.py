@@ -95,4 +95,5 @@ class UserRepository():
         if len(rows) == 0:
             return False
         user = rows[0]
-        return verify_password(user.password, payload["password"])
+        stored_hashed_password = user["password"]
+        return verify_password(stored_hashed_password, payload["password"])

@@ -1,8 +1,5 @@
-# import os, psycopg
 import os, asyncpg
 from flask import g
-# from quart import g
-# from psycopg.rows import dict_row
 
 # This class helps us interact with the database.
 # It wraps the underlying asyncpg library that we are using.
@@ -37,10 +34,6 @@ class AsyncDatabaseConnection:
         with open(sql_filename, "r") as file:
             sql = file.read()
         await self.connection.execute(sql)
-        # REMOVED
-        # with self.connection.cursor() as cursor:
-        #     cursor.execute(open(sql_filename, "r").read())
-        #     self.connection.commit()
 
     # This method executes an SQL query on the database.
     # It allows you to set some parameters too. You'll learn about this later.
@@ -54,15 +47,6 @@ class AsyncDatabaseConnection:
             return result
         except asyncpg.PostgresError as e:
             raise Exception(f"Database query failed: {e}")
-        # REMOVED
-        # with self.connection.cursor() as cursor:
-        #     cursor.execute(query, params)
-        #     if cursor.description is not None:
-        #         result = cursor.fetchall()
-        #     else:
-        #         result = None
-        #     self.connection.commit()
-        #     return result
 
     CONNECTION_MESSAGE = '' \
         'DatabaseConnection.exec_params: Cannot run a SQL query as ' \
@@ -89,10 +73,7 @@ async def get_flask_database_connection(app):
         g.flask_database_connection = AsyncDatabaseConnection(
             test_mode=((os.getenv('APP_ENV') == 'test') or (app.config['TESTING'] == True))
         )
-        print("get flask database")
-        print(dir(g.flask_database_connection))
         await g.flask_database_connection.connect()
-
-    print(g.flask_database_connection)
+        
     return g.flask_database_connection
 

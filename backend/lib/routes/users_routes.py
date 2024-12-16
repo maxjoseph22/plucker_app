@@ -61,23 +61,12 @@ async def get_user_by_username(username):
 @user_routes.route('/users/signup', methods=['POST'])
 async def create_user():
     try:
-        print("This is being printed")
         request_data = request.get_json()
-        print("user route line 65 -->", request_data)
-
         await connect_to_user_repository()
         
         username = request_data["username"]
-        # username = request_data.username
         email = request_data["email"]
-        # email = request_data.email
         password = request_data["password"]
-        # password = request_data.password
-        # profile_picture = request_data["profile_picture"]
-
-        # print(username)
-        # print(email)
-        # print(password)
         
         if not username or not email or not password:
             return jsonify({"success": False, "message": "Missing required fields"}), 400
@@ -86,15 +75,13 @@ async def create_user():
         if existing_user:
             return jsonify({"success": False, "message": "Email already registered"}), 409
 
-        hashed_password = generate_password_hash(password)
-        
-        user = User(None, username, email, hashed_password)
+        user = User(None, username, email, password)
         
         await g.user_repository.create_user(user)
         return jsonify({"success": True, "message": "Signup successful"}), 200
     
     except Exception as e:
-        print(f"Error on user_routes.py line 97: {e}")
+        print(f"Error: {e}")
         return jsonify({"gerror": str(e),}), 500
     
 # login route
@@ -108,14 +95,12 @@ async def login_user():
         await connect_to_user_repository()
         user_validated = await g.user_repository.validate_user(payload)
         if user_validated == True:
-                # session['authenticated'] = True
-                # session['username'] = username
             return jsonify({"success": True, "message": "Login successful"}), 200
         else:
             return jsonify({"success": False, "message": "Incorrect username or password"}), 401
     
     except Exception as e:
-        print(f"Error on user_routes.py line 94: {e}")
+        print(f"Error: {e}")
         return jsonify({"error": str(e),}), 500
 
 
