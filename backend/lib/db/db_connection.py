@@ -1,6 +1,7 @@
 # import os, psycopg
 import os, asyncpg
-from flask import g
+# from flask import g
+from quart import g
 # from psycopg.rows import dict_row
 
 # This class helps us interact with the database.
@@ -82,15 +83,15 @@ class AsyncDatabaseConnection:
 
 # This function integrates with Flask to create one database connection that
 # Flask request can use. To see how to use it, look at example_routes.py
-async def get_flask_database_connection(app):
-    if not hasattr(g, 'flask_database_connection'):
-        g.flask_database_connection = AsyncDatabaseConnection(
+async def get_quart_database_connection(app):
+    if not hasattr(g, 'quart_database_connection'):
+        g.quart_database_connection = AsyncDatabaseConnection(
             test_mode=((os.getenv('APP_ENV') == 'test') or (app.config['TESTING'] == True))
         )
-        print("get flask database")
-        print(dir(g.flask_database_connection))
-        await g.flask_database_connection.connect()
+        print("get quart database")
+        print(dir(g.quart_database_connection))
+        await g.quart_database_connection.connect()
 
-    print(g.flask_database_connection)
-    return g.flask_database_connection
+    print(g.quart_database_connection)
+    return g.quart_database_connection
 

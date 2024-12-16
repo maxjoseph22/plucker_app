@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify, g, request, redirect
+# from flask import Blueprint, jsonify, g, request, redirect
+from quart import Blueprint, jsonify, g, request, redirect
 from lib.models.users import User
 from lib.repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
 
@@ -72,20 +73,20 @@ async def create_user():
     
 
 # login route
-@user_routes.route('/users/login', methods=['POST'])
-async def login_user():
-    await connect_to_user_repository()
-    email = request.form['email']
-    password = request.form['password']
-    user_validated = await g.user_repository.validate_user(email, password)
+# @user_routes.route('/users/login', methods=['POST'])
+# async def login_user():
+#     await connect_to_user_repository()
+#     email = request.form['email']
+#     password = request.form['password']
+#     user_validated = await g.user_repository.validate_user(email, password)
     
-    if user_validated == True:
-        session['authenticated'] = True
-        session['username'] = username
+#     if user_validated == True:
+#         session['authenticated'] = True
+#         session['username'] = username
         
-        return jsonify({"success": True, "message": "Login successful"}), 200
-    else:
-        return jsonify({"success": False, "message": "Incorrect username or password"}), 401
+#         return jsonify({"success": True, "message": "Login successful"}), 200
+#     else:
+#         return jsonify({"success": False, "message": "Incorrect username or password"}), 401
     
 
 # profile route 
