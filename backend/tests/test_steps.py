@@ -10,6 +10,16 @@ def test_steps_constructs():
     assert user.step_order == 1
     assert user.step_description == "Peel potatoes"
 
+def test_recipe_to_dict():
+    user = Step(1, 1, 1, 'Peel potatoes')
+    expected_dict = {
+    "id": 1,
+    "recipe_id": 1,
+    "step_order": 1,
+    "step_description": 'Peel potatoes'
+    }
+    assert user.to_dict() == expected_dict
+
 """
 We can format users to strings nicely
 """

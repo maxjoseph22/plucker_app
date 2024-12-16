@@ -1,4 +1,3 @@
-from lib.recipe_
 from lib.models.sightings import Sighting
 import datetime
 
@@ -87,11 +86,13 @@ class SightingRepository():
     async def create_bird_sighting(self, sighting):
         date_spotted = datetime.datetime.now().date().strftime('%Y-%m-%d')
 
-        await self._connection.execute(
-            'INSERT INTO bird_sightings (bird_name, date_spotted, location, user_id) VALUES ($1, $2, $3, $4)',
+        sighting_id = await self._connection.execute(
+            '''
+            INSERT INTO bird_sightings (bird_name, date_spotted, location, user_id)
+            VALUES ($1, $2, $3, $4)
+            RETURNING id
+            ''',
             [sighting.bird_name, date_spotted, sighting.location, sighting.user_id])
-        
-        sighting_id = await self._connection.fetchval('SELECT currval(\'bird_sightings_id_seq\')')
         
         return sighting_id
 
