@@ -8,7 +8,7 @@ def test_user_constructs():
     assert user.id == 1
     assert user.username == "bird_lover"
     assert user.email == "birdlover@email.com"
-    assert user.password == "password123"
+    assert user.verify_password("password123")
     assert user.profile_picture == "test_URL"
 
 def test_recipe_to_dict():
@@ -26,7 +26,7 @@ We can format users to strings nicely
 """
 def test_user_format_nicely():
     user = User(1, "bird_lover", "birdlover@email.com", "password123", "test_URL")
-    assert str(user) == "User(1, bird_lover, birdlover@email.com, password123, test_URL)"
+    assert str(user) == "User(1, bird_lover, birdlover@email.com, test_URL)"
 
 """
 We can compare two identical users
