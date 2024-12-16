@@ -8,7 +8,7 @@ class UserRepository():
         rows = await self._connection.execute('SELECT * FROM users ORDER BY id')
         users = []
         for row in rows:
-            user = User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+            user = User(row["id"], row["username"], row["email"], row["password"])
             users.append(user)
         return users
 
@@ -16,21 +16,30 @@ class UserRepository():
     async def get_single_user_by_id(self, id):
         rows = await self._connection.execute(
             'SELECT * FROM users WHERE id = $1', [id])
-        row = rows[0]
-        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+        if len(rows) == 0:
+            return None
+        else:
+            row = rows[0]
+            return User(row["id"], row["username"], row["email"], row["password"])
 
     async def get_single_user_by_email(self, email):
         rows = await self._connection.execute(
             'SELECT * FROM users WHERE email = $1', [email])
-        row = rows[0]
-        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+        if len(rows) == 0:
+            return None
+        else:
+            row = rows[0]
+            return User(row["id"], row["username"], row["email"], row["password"])
 
 
     async def get_single_user_by_username(self, username):
         rows = await self._connection.execute(
             'SELECT * FROM users WHERE username = $1', [username])
-        row = rows[0]
-        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+        if len(rows) == 0:
+            return None
+        else:
+            row = rows[0]
+            return User(row["id"], row["username"], row["email"], row["password"])
 
 
     # async def create_user(self, user):
@@ -47,8 +56,8 @@ class UserRepository():
         print("here is the user called by users_repo create function --->", user)
         # if not user.profile_picture:
         await self._connection.execute(
-            'INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',
-            [user.username, user.email, user.password])
+            'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3, $4)',
+            [user.username, user.email, user.password, user.profile_picture])
         # else:
         #     await self._connection.execute(
         #         'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3, $4)',
@@ -83,5 +92,5 @@ class UserRepository():
     async def validate_user(self, payload):
         valid_users = await self._connection.execute(
             'SELECT * FROM users WHERE email = $1 AND password = $2', 
-            [payload.email, payload.password])
+            [payload["email"], payload["password"]])
         return len(valid_users) == 1

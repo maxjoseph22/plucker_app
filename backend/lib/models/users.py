@@ -1,12 +1,10 @@
-from werkzeug.security import generate_password_hash, check_password_hash
-
 class User:
-    def __init__(self, id, username, email, password, profile_picture):
+    def __init__(self, id, username, email, password):
         self.id = id
         self.username = username
         self.email = email
-        self.password = generate_password_hash(password)
-        self.profile_picture = profile_picture
+        self.password = password
+        self.profile_picture = 'uploads/default_photo.webp'
 
 
     def to_dict(self):
@@ -30,6 +28,7 @@ class User:
                 self.username == other.username and
                 self.email == other.email and
                 self.profile_picture == other.profile_picture)
-    
-    def verify_password(self, password):
-        return check_password_hash(self.password, password)
+      
+#     This needs to be somewhere else. TBC at a later stage...
+#     def verify_password(self, password):
+#         return check_password_hash(self.password, password)
