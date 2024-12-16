@@ -56,36 +56,43 @@ async def get_user_by_username(username):
 async def create_user():
     try:
         request_data = request.get_json()
+
         await connect_to_user_repository()
-        username = request_data.username
-        email = request_data.email
-        password = request_data.password
-        profile_picture = request_data.profile_picture
-        user = User(None, username, email, password, profile_picture)
-        
+        username = request_data["username"]
+        email = request_data["email"]
+        password = request_data["password"]
+        # profile_picture = request_data["profile_picture"]
+
+        user = User(None, username, email, password) # profile_picture)
+        print("Here is the user: --->", user)
         await g.user_repository.create_user(user)
         return jsonify({"success": True, "message": "Signup successful"}), 200
     
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error on user_routes.py line 75: {e}")
         return jsonify({"error": str(e),}), 500
     
 
 # login route
 @user_routes.route('/users/login', methods=['POST'])
 async def login_user():
-    await connect_to_user_repository()
-    email = request.form['email']
-    password = request.form['password']
-    user_validated = await g.user_repository.validate_user(email, password)
-    
-    if user_validated == True:
-        session['authenticated'] = True
-        session['username'] = username
+    try: 
+        request_data = request.get_json()
+        email = request_data['email']
+        password = request_data['password']
+        await connect_to_user_repository()
+        user_validated = await g.user_repository.validate_user(email, password)
         
-        return jsonify({"success": True, "message": "Login successful"}), 200
-    else:
-        return jsonify({"success": False, "message": "Incorrect username or password"}), 401
+        if user_validated == True:
+                # session['authenticated'] = True
+                # session['username'] = username
+            return jsonify({"success": True, "message": "Login successful"}), 200
+        else:
+            return jsonify({"success": False, "message": "Incorrect username or password"}), 401
+    
+    except Exception as e:
+        print(f"Error on user_routes.py line 94: {e}")
+        return jsonify({"error": str(e),}), 500
     
 
 # profile route 

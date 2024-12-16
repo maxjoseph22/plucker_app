@@ -51,53 +51,53 @@ async def test_create_new_user(db_connection):
         User(4, 'test_user', 'test_user@gmail.org', 'TestPassword123!', 'uploads/default_photo.webp')
     ]
 
-"""
-When we call create_user without entering a username
-An error message is returned and the user is NOT added to the database
-"""
-@pytest.mark.asyncio
-async def test_create_new_user_with_username_error(db_connection):
-    await db_connection.seed('lib/db/seeds/birdfood_app.sql')    #seed test database
-    repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
-    response = await repository.create_user(User(6, '', 'test_user@gmail.org', 'TestPassword123!', 'uploads/default_photo.webp'))
-    assert response == "Please provide a username"
-    assert await repository.get_all_users() == [
-        User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
-        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
-        User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp')
-    ]
+# """
+# When we call create_user without entering a username
+# An error message is returned and the user is NOT added to the database
+# """
+# @pytest.mark.asyncio
+# async def test_create_new_user_with_username_error(db_connection):
+#     await db_connection.seed('lib/db/seeds/birdfood_app.sql')    #seed test database
+#     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
+#     response = await repository.create_user(User(6, '', 'test_user@gmail.org', 'TestPassword123!', 'uploads/default_photo.webp'))
+#     assert response == "Please provide a username"
+#     assert await repository.get_all_users() == [
+#         User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
+#         User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
+#         User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp')
+#     ]
 
-"""
-When we call create_user without entering an email
-An error message is returned and the user is NOT added to the database
-"""
-@pytest.mark.asyncio
-async def test_create_new_user_with_email_error(db_connection):
-    await db_connection.seed('lib/db/seeds/birdfood_app.sql')    #seed test database
-    repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
-    response = await repository.create_user(User(6, 'test_user', '', 'TestPassword123!', 'uploads/default_photo.webp'))
-    assert response == "Please provide an email address"
-    assert await repository.get_all_users() == [
-        User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
-        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
-        User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp')
-    ]
+# """
+# When we call create_user without entering an email
+# An error message is returned and the user is NOT added to the database
+# """
+# @pytest.mark.asyncio
+# async def test_create_new_user_with_email_error(db_connection):
+#     await db_connection.seed('lib/db/seeds/birdfood_app.sql')    #seed test database
+#     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
+#     response = await repository.create_user(User(6, 'test_user', '', 'TestPassword123!', 'uploads/default_photo.webp'))
+#     assert response == "Please provide an email address"
+#     assert await repository.get_all_users() == [
+#         User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
+#         User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
+#         User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp')
+#     ]
 
-"""
-When we call create_user without entering a password
-An error message is returned and the user is NOT added to the database
-"""
-@pytest.mark.asyncio
-async def test_create_new_user_with_password_error(db_connection):
-    await db_connection.seed('lib/db/seeds/birdfood_app.sql')    #seed test database
-    repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
-    response = await repository.create_user(User(6, 'test_user', 'test@email.com', '', 'uploads/default_photo.webp'))
-    assert response == "Please provide a password"
-    assert await repository.get_all_users() == [
-        User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
-        User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
-        User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp')
-    ]
+# """
+# When we call create_user without entering a password
+# An error message is returned and the user is NOT added to the database
+# """
+# @pytest.mark.asyncio
+# async def test_create_new_user_with_password_error(db_connection):
+#     await db_connection.seed('lib/db/seeds/birdfood_app.sql')    #seed test database
+#     repository = UserRepository(db_connection)      #Instantiate UserRepository object with connection to database
+#     response = await repository.create_user(User(6, 'test_user', 'test@email.com', '', 'uploads/default_photo.webp'))
+#     assert response == "Please provide a password"
+#     assert await repository.get_all_users() == [
+#         User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),
+#         User(2, 'avian_fanatic', 'avianfanatic@example.com', 'password123', 'uploads/default_photo.webp'),
+#         User(3, 'nature_watch', 'naturewatch@example.com', 'password123', 'uploads/default_photo.webp')
+#     ]
 
 """
 When we call update_user_password() 

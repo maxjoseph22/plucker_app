@@ -1,11 +1,8 @@
-/* eslint-disable react/no-unescaped-entities */
 import { useState } from "react"
-
-// This is just HTML - there is no functionality to this form
 import { useNavigate } from "react-router-dom";
 // import "./../CSS.css"
 // import { NavBar } from "../../components/NavBar";
-// import { login } from "../../services/authentication";
+import { login } from "../services/authentication";
 
 export function LoginPage() {
     const [email, setEmail] = useState("");
@@ -16,6 +13,7 @@ export function LoginPage() {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
+            console.log("LoginPage line 16 (email, password) --->", email, password)
             const token = await login(email, password);
             localStorage.setItem("token", token);
             navigate("/myProfile");
@@ -44,10 +42,10 @@ export function LoginPage() {
 
                 <br></br>
                 <input 
-                    type="text" 
-                    id="username" 
-                    name="username" 
-                    placeholder="Enter your username"
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="email"
                     value={ email }
                     onChange={handleEmailChange} />
                 <br></br>
@@ -57,7 +55,7 @@ export function LoginPage() {
                     type="text" 
                     id="password" 
                     name="password" 
-                    placeholder="Enter your password"
+                    placeholder="password"
                     value={ password }
                     onChange={handlePasswordChange} />
                 <br></br>
@@ -69,7 +67,6 @@ export function LoginPage() {
                     id="submit" />
 
             </form>
-            <p>Don't have an account? <a href="/signup">Make one!</a></p>
             <a href="/">Return to homepage</a>
             <br></br>
             <a href="/signup">Sign Up for a new account</a>
