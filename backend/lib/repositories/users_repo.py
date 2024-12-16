@@ -86,5 +86,5 @@ class UserRepository():
     async def validate_user(self, payload):
         valid_users = await self._connection.execute(
             'SELECT * FROM users WHERE email = $1 AND password = $2', 
-            [payload.email, payload.password])
+            [payload["email"], payload["password"]])
         return len(valid_users) == 1

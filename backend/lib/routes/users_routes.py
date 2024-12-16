@@ -104,9 +104,9 @@ async def login_user():
         request_data = request.get_json()
         email = request_data['email']
         password = request_data['password']
+        payload = {"email": email, "password": password}
         await connect_to_user_repository()
-        user_validated = await g.user_repository.validate_user(email, password)
-        
+        user_validated = await g.user_repository.validate_user(payload)
         if user_validated == True:
                 # session['authenticated'] = True
                 # session['username'] = username
