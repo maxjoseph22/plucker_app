@@ -16,8 +16,11 @@ class UserRepository():
     async def get_single_user_by_id(self, id):
         rows = await self._connection.execute(
             'SELECT * FROM users WHERE id = $1', [id])
-        row = rows[0]
-        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+        if len(rows) == 0:
+            return None
+        else:
+            row = rows[0]
+            return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
 
     async def get_single_user_by_email(self, email):
         rows = await self._connection.execute(
@@ -32,8 +35,11 @@ class UserRepository():
     async def get_single_user_by_username(self, username):
         rows = await self._connection.execute(
             'SELECT * FROM users WHERE username = $1', [username])
-        row = rows[0]
-        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+        if len(rows) == 0:
+            return None
+        else:
+            row = rows[0]
+            return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
 
 
     # async def create_user(self, user):
