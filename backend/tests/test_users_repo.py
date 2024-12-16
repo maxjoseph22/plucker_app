@@ -42,7 +42,7 @@ A new user is created and stored in the database
 async def test_create_new_user(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = UserRepository(db_connection)
-    await repository.create_user(User(6, 'test_user', 'test_user@gmail.org', 'TestPassword123!', 'uploads/default_photo.webp'))
+    await repository.create_user(User(6, 'test_user', 'test_user@gmail.org', 'TestPassword123!', None))
     result = await repository.get_all_users()
     assert result == [
         User(1, 'bird_lover', 'birdlover@example.com', 'password123', 'uploads/default_photo.webp'),

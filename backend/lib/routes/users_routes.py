@@ -1,5 +1,5 @@
-# from flask import Blueprint, jsonify, g, request, redirect
-from quart import Blueprint, jsonify, g, request, redirect
+from flask import Blueprint, jsonify, g, request, redirect
+# from quart import Blueprint, jsonify, g, request, redirect
 
 from lib.models.users import User
 from flask_jwt_extended import (
@@ -61,19 +61,28 @@ async def get_user_by_username(username):
 @user_routes.route('/users/signup', methods=['POST'])
 async def create_user():
     try:
+        print("This is being printed")
         request_data = request.get_json()
+        print("user route line 65 -->", request_data)
 
         await connect_to_user_repository()
         
         username = request_data["username"]
+        # username = request_data.username
         email = request_data["email"]
+        # email = request_data.email
         password = request_data["password"]
+        # password = request_data.password
         # profile_picture = request_data["profile_picture"]
+
+        # print(username)
+        # print(email)
+        # print(password)
         
         if not username or not email or not password:
             return jsonify({"success": False, "message": "Missing required fields"}), 400
 
-        existing_user = await g.user_repository.find_user_by_email(email)
+        existing_user = await g.user_repository.get_single_user_by_email(email)
         if existing_user:
             return jsonify({"success": False, "message": "Email already registered"}), 409
 
@@ -85,8 +94,8 @@ async def create_user():
         return jsonify({"success": True, "message": "Signup successful"}), 200
     
     except Exception as e:
-        print(f"Error on user_routes.py line 75: {e}")
-        return jsonify({"error": str(e),}), 500
+        print(f"Error on user_routes.py line 97: {e}")
+        return jsonify({"gerror": str(e),}), 500
     
 # login route
 @user_routes.route('/users/login', methods=['POST'])
@@ -108,6 +117,5 @@ async def login_user():
     except Exception as e:
         print(f"Error on user_routes.py line 94: {e}")
         return jsonify({"error": str(e),}), 500
-   
 
 
