@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 // import "./../CSS.css"
 // import { NavBar } from "../../components/NavBar";
 import { login } from "../services/authentication";
+import pluckerIcon from "../assets/icon/plucker.png";
 
 export function LoginPage() {
     const [email, setEmail] = useState("");
@@ -33,8 +34,11 @@ export function LoginPage() {
 
 
     return (
-        <>
+        <div className="home-container">
         {/* <NavBar /> */}
+        <div copy className="name-container">
+            <div className="plucker-logo"><img src={pluckerIcon} alt="Plucker logo" /></div>
+            <h1>Plucker</h1><h2>Where watching birds is cool!</h2></div>
         <div className="login-container">
             <h2>Login</h2>
             <form className="login-form" action="/login" method="POST" onSubmit={handleSubmit}>
@@ -59,18 +63,23 @@ export function LoginPage() {
                     value={ password }
                     onChange={handlePasswordChange} />
                 <br></br>
+                <div className="buttons-container">
                 <input 
                     type="submit" 
                     value="Login"
                     className="submit-button"
                     role="submit-button"
                     id="submit" />
-
+                <br></br>
+                <input 
+                    type="submit" 
+                    value="Signup"
+                    className="submit-button"
+                    role="submit-button"
+                    id="submit" />
+                    </div>
             </form>
-            <a href="/">Return to homepage</a>
-            <br></br>
-            <a href="/signup">Sign Up for a new account</a>
         </div>
-        </>
+        </div>
     )
 }
