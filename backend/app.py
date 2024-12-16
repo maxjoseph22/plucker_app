@@ -5,6 +5,8 @@ from flask_cors import CORS
 from lib.routes.users_routes import user_routes #import all user routes 
 from dotenv import load_dotenv
 import os
+from flask_jwt_extended import (
+    JWTManager, create_access_token, jwt_required, get_jwt_identity)
 
 load_dotenv()
 
@@ -15,6 +17,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # Create a new Flask app
 app = Flask(__name__)
 CORS(app)
+
+# JWT Stuff
+app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
+jwt = JWTManager(app)
 
 # register route blueprints 
 app.register_blueprint(user_routes)
