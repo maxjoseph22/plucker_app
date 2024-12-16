@@ -1,9 +1,12 @@
 # from flask import Blueprint, jsonify, g, request, redirect
 from quart import Blueprint, jsonify, g, request, redirect
+
 from lib.models.users import User
 from flask_jwt_extended import (
     JWTManager, create_access_token, jwt_required, get_jwt_identity)
 from lib.repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
+from werkzeug.security import generate_password_hash
+
 
 #Create a Blueprint for a user-related route
 user_routes = Blueprint('user_routes', __name__)
@@ -64,7 +67,19 @@ async def create_user():
         email = request_data.email
         password = request_data.password
         profile_picture = request_data.profile_picture
-        user = User(None, username, email, password, profile_picture)
+        
+        if not username or not email or not password:
+            return jsonify({"success": False, "message": "Missing required fields"}), 400
+
+        # Verificar si el usuario ya existe (por email)
+        existing_user = await g.user_repository.find_user_by_email(email)
+        if existing_user:
+            return jsonify({"success": False, "message": "Email already registered"}), 409
+
+        # Hashear la contraseña
+        hashed_password = generate_password_hash(password)
+        
+        user = User(None, username, email, hashed_password, profile_picture)
         
         await g.user_repository.create_user(user)
         return jsonify({"success": True, "message": "Signup successful"}), 200
