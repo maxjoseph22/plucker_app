@@ -8,8 +8,11 @@ def test_user_constructs():
     assert user.id == 1
     assert user.username == "bird_lover"
     assert user.email == "birdlover@email.com"
-    assert user.password == "password123"
+    assert user.password != "password123"
+#     assert user.verify_password("password123")
+#     assert user.password == "password123"
     assert user.profile_picture == "uploads/default_photo.webp"
+
 
 def test_recipe_to_dict():
     user = User(1, "bird_lover", "birdlover@email.com", "password123")
