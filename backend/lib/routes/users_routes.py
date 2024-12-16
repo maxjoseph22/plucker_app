@@ -1,7 +1,7 @@
-from flask import Blueprint, jsonify, g
+from flask import Blueprint, jsonify, g, request, redirect
+from lib.models.users import User
 from flask_jwt_extended import (
-    JWTManager, create_access_token, jwt_required, get_jwt_identity
-)
+    JWTManager, create_access_token, jwt_required, get_jwt_identity)
 from lib.repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
 
 #Create a Blueprint for a user-related route
@@ -57,15 +57,16 @@ async def get_user_by_username(username):
 @user_routes.route('/users/signup', methods=['POST'])
 async def create_user():
     try:
+        request_data = request.get_json()
         await connect_to_user_repository()
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        profile_picture = request.form['profile_picture']
+        username = request_data.username
+        email = request_data.email
+        password = request_data.password
+        profile_picture = request_data.profile_picture
         user = User(None, username, email, password, profile_picture)
         
         await g.user_repository.create_user(user)
-        # return redirect (f"/login")
+        return jsonify({"success": True, "message": "Signup successful"}), 200
     
     except Exception as e:
         print(f"Error: {e}")
@@ -73,20 +74,20 @@ async def create_user():
     
 
 # login route
-@user_routes.route('/login', methods=['POST'])
-async def login():
-    data = request.json
-    username = data.get('username')
-    password = data.get('password')
-
-    # Validate credentials
-    user = g.user_repository.get_single_user_by_username(username)
-    if user and user['password'] == password:
-        # Generate a JWT token
-        access_token = create_access_token(identity=username)
-        return jsonify(access_token=access_token), 200
+@user_routes.route('/users/login', methods=['POST'])
+async def login_user():
+    await connect_to_user_repository()
+    email = request.form['email']
+    password = request.form['password']
+    user_validated = await g.user_repository.validate_user(email, password)
+    
+    if user_validated == True:
+        session['authenticated'] = True
+        session['username'] = username
+        
+        return jsonify({"success": True, "message": "Login successful"}), 200
     else:
-        return jsonify({"msg": "Invalid username or password"}), 401
+        return jsonify({"success": False, "message": "Incorrect username or password"}), 401
 
 # profile route 
 
