@@ -2,6 +2,14 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from lib.routes.users_routes import user_routes #import all user routes 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+BACKEND_URL = os.getenv("BACKEND_URL")
+SECRET_KEY = os.getenv("SECRET_KEY")
+
 
 # Create a new Flask app
 app = Flask(__name__)
