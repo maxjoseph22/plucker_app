@@ -5,7 +5,7 @@ export async function SignUp(formData) {
       email: formData.get("email"),
       password: formData.get("password"),
       username: formData.get("username"),
-      profile_picture: formData.get("profile_picture")
+      // profile_picture: formData.get("profile_picture")
     };
     console.log("authentication.js (services) line 12 payload --->", payload)
     const requestOptions = {
@@ -28,11 +28,13 @@ export async function SignUp(formData) {
     }
 }
 
-export async function Login(email, password) {
+export async function login(email, password) {
   const payload = {
     email: email,
     password: password,
   };
+
+  console.log("authentication line 39 (payload) --->", payload)
 
   const requestOptions = {
     method: "POST",
@@ -42,15 +44,16 @@ export async function Login(email, password) {
     body: JSON.stringify(payload),
   };
 
-  const response = await fetch(`${BACKEND_URL}/tokens`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/users/login`, requestOptions);
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
-  if (response.status === 201) {
-    let data = await response.json();
-    return data.token;
+  if (response.status === 200) {
+    // let data = await response.json();
+    // return data.token;
+    
   } else {
     throw new Error(
-      `Received status ${response.status} when logging in. Expected 201`
+      `Received status ${response.status} when logging in. Expected 200`
     );
   }
 }
