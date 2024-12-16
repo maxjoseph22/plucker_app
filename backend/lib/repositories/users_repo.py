@@ -15,9 +15,22 @@ class UserRepository():
         return users
 
 
-    async def get_single_user(self, id):
+    async def get_single_user_by_id(self, id):
         rows = await self._connection.execute(
             'SELECT * FROM users WHERE id = $1', [id])
+        row = rows[0]
+        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+
+    async def get_single_user_by_email(self, email):
+        rows = await self._connection.execute(
+            'SELECT * FROM users WHERE email = $1', [email])
+        row = rows[0]
+        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+
+
+    async def get_single_user_by_username(self, username):
+        rows = await self._connection.execute(
+            'SELECT * FROM users WHERE username = $1', [username])
         row = rows[0]
         return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
 
@@ -66,3 +79,7 @@ class UserRepository():
             [id]
         )
         return None
+    
+    async def validate_user(self, username, password):
+        valid_users = await self._connection.execute('SELECT * FROM users WHERE username = $1 AND user_password = $2', [username, password])
+        return len(valid_users) > 0

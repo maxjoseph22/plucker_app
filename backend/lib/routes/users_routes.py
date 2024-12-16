@@ -16,7 +16,7 @@ async def get_users():
         # connect to global user repository using connect_to_user_repository() function
         await connect_to_user_repository()
         users = await g.user_repository.get_all_users()
-        # trun User objects into JSON
+        # turn User objects into JSON
         return jsonify([user.to_dict() for user in users])
     except Exception as e:
         print(f"Error: {e}")
@@ -30,7 +30,21 @@ async def get_users():
 async def get_user_by_id(id):
     try:
         await connect_to_user_repository()
-        user = await g.user_repository.get_single_user(id)
+        user = await g.user_repository.get_single_user_by_id(id)
+        if user:
+            return jsonify(user.to_dict())
+        else:
+            return jsonify({"error": "User not found"}), 404
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e),}), 500
+
+# get user by username
+@user_routes.route('/users/<username>', methods=['GET'])
+async def get_user_by_username(username):
+    try:
+        await connect_to_user_repository()
+        user = await g.user_repository.get_single_user_by_username(username)
         if user:
             return jsonify(user.to_dict())
         else:
@@ -40,6 +54,23 @@ async def get_user_by_id(id):
         return jsonify({"error": str(e),}), 500
 
 # create user route --> signup
+@user_routes.route('/users/signup', methods=['POST'])
+async def create_user():
+    try:
+        await connect_to_user_repository()
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        profile_picture = request.form['profile_picture']
+        user = User(None, username, email, password, profile_picture)
+        
+        await g.user_repository.create_user(user)
+        # return redirect (f"/login")
+    
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e),}), 500
+    
 
 # login route
 @user_routes.route('/login', methods=['POST'])
