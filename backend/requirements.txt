@@ -11,5 +11,6 @@ pytest-asyncio==0.24.0
 httpx==0.28.1
 hypercorn==0.17.3
 asgiref==3.8.1
+Flask-JWT-Extended==4.7.1
 coverage
 freezegun

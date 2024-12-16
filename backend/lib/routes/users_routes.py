@@ -1,6 +1,8 @@
 # from flask import Blueprint, jsonify, g, request, redirect
 from quart import Blueprint, jsonify, g, request, redirect
 from lib.models.users import User
+from flask_jwt_extended import (
+    JWTManager, create_access_token, jwt_required, get_jwt_identity)
 from lib.repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
 
 #Create a Blueprint for a user-related route
@@ -83,12 +85,9 @@ async def create_user():
 #     if user_validated == True:
 #         session['authenticated'] = True
 #         session['username'] = username
-        
 #         return jsonify({"success": True, "message": "Login successful"}), 200
 #     else:
 #         return jsonify({"success": False, "message": "Incorrect username or password"}), 401
-    
-
 # profile route 
 
 
