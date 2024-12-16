@@ -109,13 +109,12 @@ async def login_user():
         user_validated = await g.user_repository.validate_user(payload)
         if user_validated == True:
             user = await g.user_repository.get_single_user_by_email(email)
-            print(user)
-            return jsonify({"success": True, "message": "Login successful", "token": user}), 200
+            return jsonify({"success": True, "message": "Login successful"}), 200
         else:
             return jsonify({"success": False, "message": "Incorrect username or password"}), 401
     
     except Exception as e:
-        print(f"Error on user_routes.py line 118: {e}")
+        raise Exception(e)
         return jsonify({"error": str(e),}), 500
 
 

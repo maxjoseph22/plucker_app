@@ -1,5 +1,5 @@
 class User:
-    def __init__(self, id, username, email, password): #, profile_picture):
+    def __init__(self, id, username, email, password, profile_picture):
         self.id = id
         self.username = username
         self.email = email
@@ -14,8 +14,6 @@ class User:
             "email": self.email,
             "password": self.password,
             "profile_picture": self.profile_picture
-            # "profile_picture": self.profile_picture,
-            # password not included to avoid exposing the password hash in the response!!
             }
 
     # These need to be within the User class - took me agaes to realise it...
