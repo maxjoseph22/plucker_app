@@ -1,6 +1,12 @@
-from flask import Blueprint, jsonify, g, request, redirect
+# from flask import Blueprint, jsonify, g, request, redirect
+from quart import Blueprint, jsonify, g, request, redirect
+
 from lib.models.users import User
+from flask_jwt_extended import (
+    JWTManager, create_access_token, jwt_required, get_jwt_identity)
 from lib.repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
+from werkzeug.security import generate_password_hash
+
 
 #Create a Blueprint for a user-related route
 user_routes = Blueprint('user_routes', __name__)
@@ -58,13 +64,23 @@ async def create_user():
         request_data = request.get_json()
 
         await connect_to_user_repository()
+        
         username = request_data["username"]
         email = request_data["email"]
         password = request_data["password"]
         # profile_picture = request_data["profile_picture"]
+        
+        if not username or not email or not password:
+            return jsonify({"success": False, "message": "Missing required fields"}), 400
 
-        user = User(None, username, email, password) # profile_picture)
-        print("Here is the user: --->", user)
+        existing_user = await g.user_repository.find_user_by_email(email)
+        if existing_user:
+            return jsonify({"success": False, "message": "Email already registered"}), 409
+
+        hashed_password = generate_password_hash(password)
+        
+        user = User(None, username, email, hashed_password)
+        
         await g.user_repository.create_user(user)
         return jsonify({"success": True, "message": "Signup successful"}), 200
     
@@ -72,7 +88,6 @@ async def create_user():
         print(f"Error on user_routes.py line 75: {e}")
         return jsonify({"error": str(e),}), 500
     
-
 # login route
 @user_routes.route('/users/login', methods=['POST'])
 async def login_user():
@@ -93,8 +108,6 @@ async def login_user():
     except Exception as e:
         print(f"Error on user_routes.py line 94: {e}")
         return jsonify({"error": str(e),}), 500
-    
-
-# profile route 
+   
 
 
