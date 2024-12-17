@@ -69,7 +69,7 @@ class RecipeService:
                 raise Exception("Failed to create bird sighting.")
             
             # 3. selectb random recipe
-            random_recipe = self._select_random_recipe()
+            random_recipe = self.select_random_recipe()
 
             # 4. Populate the template with the given bird name
             recipe_data = self._populate_bird_template(random_recipe, bird_name)

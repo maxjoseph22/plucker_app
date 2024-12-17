@@ -83,7 +83,7 @@ class SightingRepository():
             return sightings if len(sightings) > 1 else sightings[0]
 
     # create bird_sighting
-    async def create_bird_sighting(self, sighting):
+    async def create_bird_sighting(self, user_id, bird_name, location=None):
         date_spotted = datetime.datetime.now().date().strftime('%Y-%m-%d')
 
         sighting_id = await self._connection.execute(
@@ -92,7 +92,7 @@ class SightingRepository():
             VALUES ($1, $2, $3, $4)
             RETURNING id
             ''',
-            [sighting.bird_name, date_spotted, sighting.location, sighting.user_id])
+            [bird_name, date_spotted, location, user_id])
         
         return sighting_id
 
