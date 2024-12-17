@@ -44,14 +44,14 @@ export function LoginPage() {
         <div className="login-container">
             <h2>Login</h2>
             <form className="login-form" action="/login" method="POST" onSubmit={handleSubmit}>
-                <label className="username">Username</label>
+                <label className="email_address">Email address</label>
 
                 <br></br>
                 <input 
                     type="email" 
                     id="email" 
                     name="email" 
-                    placeholder="email"
+                    placeholder="email address"
                     value={ email }
                     onChange={handleEmailChange} />
                 <br></br>
