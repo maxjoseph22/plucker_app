@@ -2,7 +2,7 @@ const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
 
 console.log("<==== services/recipes.js says ====>\nBackend url: ", BACKEND_URL, "FIX THE ENV FILE")
 
-export async function getMyRecipes(token) {
+async function getMyRecipes(token) {
     const requestOptions = {
         method: "GET",
         headers: {
@@ -18,4 +18,4 @@ export async function getMyRecipes(token) {
     return data;
 }
 
-export async function getAllRecipes(token)
+export default getMyRecipes;
