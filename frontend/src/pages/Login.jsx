@@ -17,7 +17,7 @@ export function LoginPage() {
             console.log("LoginPage line 16 (email, password) --->", email, password)
             const token = await login(email, password);
             localStorage.setItem("token", token);
-            navigate("/myProfile");
+            navigate("/myprofile");
         } catch (err) {
             console.error(err);
             navigate("/login");

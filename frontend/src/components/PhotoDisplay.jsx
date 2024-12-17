@@ -6,7 +6,7 @@ export function PhotoDisplay({ profile_picture }) {
         <div>
             <img 
             className="image" 
-            src={`${BACKEND_URL}/${profile_picture}`} 
+            src={`${BACKEND_URL}${profile_picture}`} 
             width="300"></img>
         </div>
     );
