@@ -1,10 +1,11 @@
 class User:
-    def __init__(self, id, username, email, password, profile_picture):
+
+    def __init__(self, id, username, email, password):
         self.id = id
         self.username = username
         self.email = email
         self.password = password
-        self.profile_picture = profile_picture
+        self.profile_picture = 'uploads/default_photo.webp'
 
 
     def to_dict(self):
@@ -12,13 +13,19 @@ class User:
             "id": self.id,
             "username": self.username,
             "email": self.email,
-            "profile_picture": self.profile_picture,
-            # password not included to avoid exposing the password hash in the response!!
+            "profile_picture": self.profile_picture
             }
+        
+    def __str__(self):
+        return f"User({self.id}, {self.username}, {self.email}, {self.profile_picture})"
 
-    # These need to be within the User class - took me agaes to realise it...
     def __repr__(self):
         return f"User({self.id}, {self.username}, {self.email}, {self.password}, {self.profile_picture})"
 
     def __eq__(self, other):
-        return self.__dict__ == other.__dict__
+        if not isinstance(other, User):
+            return False
+        return (self.id == other.id and
+                self.username == other.username and
+                self.email == other.email and
+                self.profile_picture == other.profile_picture)

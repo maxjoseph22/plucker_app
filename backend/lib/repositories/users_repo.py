@@ -1,4 +1,5 @@
 from lib.models.users import User
+from lib.utils.password_utils import *
 
 class UserRepository():
     def __init__(self, connection): #require database connection when UserRepository object is created
@@ -8,7 +9,7 @@ class UserRepository():
         rows = await self._connection.execute('SELECT * FROM users ORDER BY id')
         users = []
         for row in rows:
-            user = User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+            user = User(row["id"], row["username"], row["email"], row["password"])
             users.append(user)
         return users
 
@@ -16,24 +17,33 @@ class UserRepository():
     async def get_single_user_by_id(self, id):
         rows = await self._connection.execute(
             'SELECT * FROM users WHERE id = $1', [id])
-        row = rows[0]
-        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+        if len(rows) == 0:
+            return None
+        else:
+            row = rows[0]
+            return User(row["id"], row["username"], row["email"], row["password"])
 
     async def get_single_user_by_email(self, email):
         rows = await self._connection.execute(
             'SELECT * FROM users WHERE email = $1', [email])
-        row = rows[0]
-        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+        if len(rows) == 0:
+            return None
+        else:
+            row = rows[0]
+            return User(row["id"], row["username"], row["email"], row["password"])
 
 
     async def get_single_user_by_username(self, username):
         rows = await self._connection.execute(
             'SELECT * FROM users WHERE username = $1', [username])
-        row = rows[0]
-        return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
+        if len(rows) == 0:
+            return None
+        else:
+            row = rows[0]
+            return User(row["id"], row["username"], row["email"], row["password"])
 
 
-    async def create_user(self, user):
+    # async def create_user(self, user):
         # This validation might be handles in the schema files later (not sure yet)
         # if not user.username:
         #     return 'Please provide a username'
@@ -42,15 +52,15 @@ class UserRepository():
         # if not user.password:
         #     return 'Please provide a password'
         
-        # This ony adds a profile picture url to the database if one is provided (otherwise the database defaults it)
-        if not user.profile_picture:
-            await self._connection.execute(
-                'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3)',
-                [user.username, user.email, user.password])
-        else:
-            await self._connection.execute(
-                'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3, $4)',
-                [user.username, user.email, user.password, user.profile_picture])
+    async def create_user(self, user):
+        hashed_password = hash_password(user.password)
+        await self._connection.execute(
+            'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3, $4)',
+            [user.username, user.email, hashed_password, user.profile_picture])
+        # else:
+        #     await self._connection.execute(
+        #         'INSERT INTO users (username, email, password, profile_picture) VALUES ($1, $2, $3, $4)',
+        #         [user.username, user.email, user.password, user.profile_picture])
         return None
 
     async def update_user_password(self, id, password):
@@ -78,6 +88,12 @@ class UserRepository():
         )
         return None
     
-    async def validate_user(self, username, password):
-        valid_users = await self._connection.execute('SELECT * FROM users WHERE username = $1 AND user_password = $2', [username, password])
-        return len(valid_users) > 0
+    async def validate_user(self, payload):
+        rows = await self._connection.execute(
+            'SELECT * FROM users WHERE email = $1', 
+            [payload["email"]])
+        if len(rows) == 0:
+            return False
+        user = rows[0]
+        stored_hashed_password = user["password"]
+        return verify_password(stored_hashed_password, payload["password"])

@@ -1,11 +1,15 @@
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
+// FIX .ENV FILE SHENANIGANS
+import {jwtDecode} from 'jwt-decode';
+
+console.log("Backend url: ", BACKEND_URL, "FIX THE ENV FILE")
 
 export async function SignUp(formData) {
     const payload = {
       email: formData.get("email"),
       password: formData.get("password"),
       username: formData.get("username"),
-      profile_picture: formData.get("profile_picture")
+      // profile_picture: formData.get("profile_picture")
     };
     console.log("authentication.js (services) line 12 payload --->", payload)
     const requestOptions = {
@@ -28,7 +32,7 @@ export async function SignUp(formData) {
     }
 }
 
-export async function Login(email, password) {
+export async function login(email, password) {
   const payload = {
     email: email,
     password: password,
@@ -42,15 +46,17 @@ export async function Login(email, password) {
     body: JSON.stringify(payload),
   };
 
-  const response = await fetch(`${BACKEND_URL}/tokens`, requestOptions);
+  const response = await fetch(`${BACKEND_URL}/users/login`, requestOptions);
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
-  if (response.status === 201) {
-    let data = await response.json();
-    return data.token;
+  if (response.status === 200) {
+    let data = await response.json()
+    let encoded_token = data.token
+    let token = jwtDecode(encoded_token)
+    return token;
   } else {
     throw new Error(
-      `Received status ${response.status} when logging in. Expected 201`
+      `Received status ${response.status} when logging in. Expected 200`
     );
   }
 }

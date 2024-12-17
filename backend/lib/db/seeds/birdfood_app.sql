@@ -27,7 +27,7 @@ CREATE SEQUENCE IF NOT EXISTS bird_sightings_id_seq;
     CREATE TABLE bird_sightings (
     id SERIAL PRIMARY KEY,
     bird_name VARCHAR(255) NOT NULL,
-    -- image VARCHAR(255) DEFAULT '>INSERT PATH HERE<',
+    image VARCHAR(255) DEFAULT '>INSERT PATH HERE<',
     date_spotted VARCHAR(10),
     location VARCHAR(255) DEFAULT 'Unknown',
     user_id int,

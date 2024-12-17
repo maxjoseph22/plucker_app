@@ -12,7 +12,7 @@ export function SignUpPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [file, setFile] = useState(null);
+  // const [file, setFile] = useState(null);
 
   const navigate = useNavigate();
 
@@ -66,9 +66,9 @@ export function SignUpPage() {
       formData.append("password", password);
       console.log("SignUp.jsx (page) line 65 formData --->", formData)
 
-      if (file) {
-        formData.append("file", file); // Append the profile image if it exists
-      }
+      // if (file) {
+      //   formData.append("file", file); // Append the profile image if it exists
+      // }
       try {
 
         await SignUp(formData);
@@ -129,7 +129,7 @@ export function SignUpPage() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-
+            <br></br>
             <label id="emailLabel" htmlFor="email">
               Email:
             </label>
@@ -139,7 +139,7 @@ export function SignUpPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-
+            <br></br>
             <label id="passwordLabel" htmlFor="password">
               Password:
             </label>
@@ -149,7 +149,7 @@ export function SignUpPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-
+            <br></br>
             <label id="confirmPasswordLabel" htmlFor="password">
               Confirm Password:
             </label>
@@ -159,15 +159,15 @@ export function SignUpPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-
-            <label id="profileImageLabel" htmlFor="profileImage">
+            {/* <br></br> */}
+            {/* <label id="profileImageLabel" htmlFor="profileImage">
               Profile Image:
             </label>
             <input
               id="profileImage"
               type="file"
               onChange={(e) => setFile(e.target.files[0])}
-            />
+            /> */}
           </div>
           <div className="signup-buttons">
 
