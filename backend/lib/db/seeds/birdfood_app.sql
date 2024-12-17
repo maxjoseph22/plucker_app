@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS bird_sightings CASCADE;
 DROP SEQUENCE IF EXISTS bird_sightings_id_seq CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP SEQUENCE IF EXISTS users_id_seq CASCADE;
+DROP TABLE IF EXISTS ratings CASCADE;
+DROP SEQUENCE IF EXISTS ratings_id_seq CASCADE;
 
 -- users table
 CREATE SEQUENCE IF NOT EXISTS users_id_seq;
@@ -38,7 +40,6 @@ CREATE TABLE bird_recipes (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     date_created VARCHAR(10),
-    recipe_rating int DEFAULT 0,
     cooking_time INT NOT NULL,
     bird_sighting_id int, 
     CONSTRAINT fk_bird_sighting FOREIGN KEY(bird_sighting_id) REFERENCES bird_sightings(id) ON DELETE CASCADE
@@ -63,6 +64,27 @@ CREATE TABLE steps (
     constraint fk_recipe foreign key(recipe_id) references bird_recipes(id) on delete cascade
 );
 
+-- ratings table
+CREATE SEQUENCE IF NOT EXISTS ratings_id_seq;
+CREATE TABLE ratings (
+    id SERIAL PRIMARY KEY,
+    rating_score INT,
+    recipe_id int NOT NULL,
+    constraint fk_recipe foreign key(recipe_id) references bird_recipes(id) on delete cascade
+);
+
+DROP FUNCTION IF EXISTS get_avg_recipe_rating(integer);
+CREATE OR REPLACE FUNCTION get_avg_recipe_rating(bird_recipe_id INT)
+RETURNS NUMERIC AS $$
+BEGIN
+    RETURN (
+        SELECT AVG(rating_score)
+        FROM ratings
+        WHERE recipe_id = bird_recipe_id
+    );
+END;
+$$ LANGUAGE plpgsql;
+
 -- Seed data for users:
 INSERT INTO users (username, email, password) VALUES 
 ('bird_lover', 'birdlover@example.com', 'password123'),
@@ -77,11 +99,11 @@ INSERT INTO bird_sightings (bird_name, date_spotted, location, user_id) VALUES
 ('Resplendent Quetzal', '2024-12-01', 'Greenwich', 3);
 
 -- Seed data for bird_recipes:
-INSERT INTO bird_recipes (title, date_created, recipe_rating, cooking_time, bird_sighting_id) VALUES 
-('Herb-Glazed Flamingo', '2024-12-01', 5, 25, 1), 
-('Hearty Winter Woodpecker Pie', '2024-12-01', 5, 40, 2),
-('Jamaican Jerk Peregrine Falcon', '2024-12-01', 5, 40, 3),
-('Twice-Fried Resplendent Quetzal Wings', '2024-12-01', 5, 20, 4);
+INSERT INTO bird_recipes (title, date_created, cooking_time, bird_sighting_id) VALUES 
+('Herb-Glazed Flamingo', '2024-12-01', 25, 1), 
+('Hearty Winter Woodpecker Pie', '2024-12-01', 40, 2),
+('Jamaican Jerk Peregrine Falcon', '2024-12-01', 40, 3),
+('Twice-Fried Resplendent Quetzal Wings', '2024-12-01', 20, 4);
 
 -- Seed data for ingredients:
 INSERT INTO ingredients (recipe_id, ingredient_name) VALUES
