@@ -10,7 +10,7 @@ from lib.repositories.repo_factory import (
 RecipeServices_routes = Blueprint('RecipeServices_routes', __name__)
 
 #POST a bird sighting (and generate a recipe) route
-@RecipeServices_routes('/bird_sighting', methods=["POST"])
+@RecipeServices_routes.route('/bird_sighting', methods=["POST"])
 async def post_bird_sighting():
     try:
         await connect_to_sightings_repository()
@@ -55,7 +55,7 @@ async def post_bird_sighting():
         return jsonify({"error": str(e)}), 500
     
 #GET a bird recipe according to its sighting_id and send to frontend in json format
-@RecipeServices_routes('/bird_recipe/<int: sighting_id>', methods=["GET"])
+@RecipeServices_routes.route('/bird_recipe/<int:sighting_id>', methods=["GET"])
 async def get_bird_recipe_by_sighting_id(sighting_id):
     try:
         await connect_to_sightings_repository()
