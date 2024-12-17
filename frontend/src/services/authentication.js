@@ -1,6 +1,6 @@
 const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
 // FIX .ENV FILE SHENANIGANS
-import {jwtDecode} from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 console.log("Backend url: ", BACKEND_URL, "FIX THE ENV FILE")
 

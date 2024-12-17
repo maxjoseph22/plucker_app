@@ -3,7 +3,7 @@ import { PhotoDisplay } from "../components/PhotoDisplay";
 import { useState, useEffect } from "react";
 // import { useParams } from "react-router-dom";
 // import { UserDetails } from "../components/UserDetails";
-import { getUserInfo } from "../services/users";
+// import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
 import { DisplayMyRecipes } from "../components/DisplayMyRecipes";
 // import { getRecipesForUser } from "../services/recipes";
@@ -39,24 +39,28 @@ export function MyProfile() {
 
     return (
         <>
-        {/* <NavBar /> */}
         <div className="profile-padding">
-        <div className="grid-container">
-            <div className="grid-item">
-                <div className="post-card">
-            <PhotoDisplay profile_picture={profile_picture}/>
-            <h3>{username}</h3>
-            <DisplayMyRecipes user_id={user_id} />
+            <div className="nav-bar">
+                {/* <NavBar /> */}
             </div>
-            <br></br>
-            </div>
-            <div className="grid-item">
+            <div className="grid-container">
+                <div className="grid-item">
+                    <div className="post-card">
+                        <PhotoDisplay profile_picture={profile_picture}/>
+                        <h3>{username}</h3>
+                    </div>
+                </div>
+                <br></br>
+                <div className="grid-item">
+                    <div>
+                        <h1>Profile Page</h1>
+                        <UploadImage token={token} />
+                    </div>
+                </div>
                 <div>
-                    <h1>Profile Page</h1>
-                    <UploadImage token={token} />
+                <DisplayMyRecipes user_id={user_id} />
                 </div>
             </div>
-        </div>
         </div>
         </>
     );
