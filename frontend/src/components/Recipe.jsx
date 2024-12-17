@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 // import "../pages/CSS.css"
 
-export function Recipe(recipe) {
+function Recipe(recipe) {
     return (
         <div className="recipe-card">
             <div className="grid-container-recipe">
@@ -19,3 +19,5 @@ export function Recipe(recipe) {
         </div>
     );
     }
+
+export default Recipe

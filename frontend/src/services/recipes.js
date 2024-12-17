@@ -1,6 +1,6 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export async function getMyRecipes(token) {
+async function getMyRecipes(token) {
     const requestOptions = {
         method: "GET",
         headers: {
@@ -15,3 +15,5 @@ export async function getMyRecipes(token) {
     const data = await response.json();
     return data;
 }
+
+export default getMyRecipes;
