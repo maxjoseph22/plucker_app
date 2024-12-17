@@ -1,5 +1,7 @@
 const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
 // FIX .ENV FILE SHENANIGANS
+console.log("<==== services/authentication.js says ====>\nBackend url: ", BACKEND_URL, "FIX THE ENV FILE")
+
 import {jwtDecode} from 'jwt-decode';
 
 console.log("Backend url: ", BACKEND_URL, "FIX THE ENV FILE")
@@ -52,8 +54,10 @@ export async function login(email, password) {
   if (response.status === 200) {
     let data = await response.json()
     let encoded_token = data.token
-    let token = jwtDecode(encoded_token)
-    return token;
+    localStorage.setItem("token", encoded_token)
+    let decoded_token = jwtDecode(encoded_token)
+    localStorage.setItem("current_user", decoded_token.sub)
+    return encoded_token;
   } else {
     throw new Error(
       `Received status ${response.status} when logging in. Expected 200`

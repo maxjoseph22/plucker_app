@@ -3,11 +3,13 @@ from lib.models.sightings import Sighting
 from flask_jwt_extended import (JWTManager, create_access_token, jwt_required, get_jwt_identity)
 from lib.repositories.repo_factory import connect_to_sightings_repository
 
+# NO NEED FOR POST ROUTES - CHECK RecipeServices.py LINE 56 "create_recipe_from_bird_name"
+
 #Create a Blueprint for a sighting-related route
-user_routes = Blueprint('sightings_routes', __name__)
+sightings_routes = Blueprint('sightings_routes', __name__)
 
 # Get all sightings
-@user_routes.route('/sightings', methods=['GET'])
+@sightings_routes.route('/sightings', methods=['GET'])
 async def get_sightings():
     try:
         await connect_to_sightings_repository()
@@ -20,7 +22,7 @@ async def get_sightings():
 # Add additional routes below
 
 # get sighting by id
-@user_routes.route('/sighting/<id>', methods=['GET'])
+@sightings_routes.route('/sighting/<id>', methods=['GET'])
 async def get_sighting_by_id(id):
     try:
         await connect_to_sightings_repository()
@@ -34,7 +36,7 @@ async def get_sighting_by_id(id):
         return jsonify({"error": str(e),}), 500
 
 # get all sightings with a single user_id
-@user_routes.route('/sightings/<user_id>', methods=['GET'])
+@sightings_routes.route('/sightings/<user_id>', methods=['GET'])
 async def get_sightings_by_username(user_id):
     try:
         await connect_to_sightings_repository()

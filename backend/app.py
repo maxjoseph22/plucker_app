@@ -3,6 +3,7 @@ from flask import Flask
 # from quart import Quart
 from flask_cors import CORS
 from lib.routes.users_routes import user_routes #import all user routes 
+from lib.routes.bird_sightings_routes import sightings_routes
 from dotenv import load_dotenv
 import os
 from flask_jwt_extended import (
