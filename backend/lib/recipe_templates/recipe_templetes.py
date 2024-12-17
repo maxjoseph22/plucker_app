@@ -3,7 +3,7 @@ HERB_GLAZED_RECIPE = {
     "title": "Herb-Glazed {BIRD}",
     "cooking_time": 25,
     "ingredients": [
-        {"ingredient name": "2 pre-made pie crusts."}
+        {"ingredient name": "2 pre-made pie crusts."},
         {"ingredient_name": "4 boneless, skinless {BIRD} breasts."},
         {"ingredient_name": "1 cup diced carrots."},
         {"ingredient_name": "1 cup frozen peas."},
@@ -17,7 +17,7 @@ HERB_GLAZED_RECIPE = {
         {"ingredient_name": "1 teaspoon salt."},
         {"ingredient_name": "1/2 teaspoon black pepper."},
         {"ingredient_name": "1 large egg(for egg wash)."}
-        ],
+    ],
     "steps": [
         {"step_order": 1, "step_description": "Prepare the {BIRD}: Pat {BIRD} breasts dry with a paper towel. Season with salt, pepper, and paprika on both sides."},
         {"step_order": 2, "step_description": "Make the glaze: In a small bowl, whisk together honey, Dijon mustard, balsamic vinegar, garlic, thyme, and rosemary."},
@@ -111,7 +111,7 @@ PASTA_BAKE_RECIPE = {
     "title": "Creamy {BIRD} and spinach Pasta bake",
     "cooking_time": 35,
     "ingredients": [
-        {"ingredient name": "2 cups penne pasta."}
+        {"ingredient name": "2 cups penne pasta."},
         {"ingredient_name": "1 boneless, skinless {BIRD} breast, diced."},
         {"ingredient_name": "1 cup fresh spinach."},
         {"ingredient_name": "1 cup double cream."},
@@ -142,7 +142,7 @@ JAMAICAN_JERK_RECIPE = {
     "title": "Jamaican Jerk {BIRD}",
     "cooking_time": 40,
     "ingredients": [
-        {"ingredient name": "4 {BIRD} leg quarters(or 8 {BIRD} thighs)."}
+        {"ingredient name": "4 {BIRD} leg quarters(or 8 {BIRD} thighs)."},
         {"ingredient_name": "4 tablespoons Jamaican jerk seasoning."},
         {"ingredient_name": "3 tablespoons olive oil."},
         {"ingredient_name": "2 tablespoons lime juice."},

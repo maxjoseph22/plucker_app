@@ -44,6 +44,7 @@ async def test_create_new_user(db_connection):
     assert len(result) == 4
     assert result[0].username == 'bird_lover'
     assert result[3].username == 'test_user'
+    assert result[3].password != 'TestPassword123!'
 
 # """
 # When we call create_user without entering a username
