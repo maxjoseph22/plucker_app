@@ -148,7 +148,7 @@ JAMAICAN_JERK_RECIPE = {
         {"ingredient_name": "2 tablespoons lime juice."},
         {"ingredient_name": "3 onions, finely chopped."},
         {"ingredient_name": "2 cloves garlic, minced."},
-        {"ingredient_name": "1/4 cup butt."},
+        {"ingredient_name": "1/4 cup butter."},
         {"ingredient_name": "1/4 cup all-purpose flour."},
         {"ingredient_name": "2 cups {BIRD} broth."},
         {"ingredient_name": "1/2 cup heavy cream."},
