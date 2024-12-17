@@ -1,4 +1,7 @@
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
+// FIX .ENV FILE SHENANIGANS
+
+console.log("Backend url: ", BACKEND_URL, "FIX THE ENV FILE")
 
 export async function SignUp(formData) {
     const payload = {
@@ -48,8 +51,8 @@ export async function login(email, password) {
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 200) {
-    // let data = await response.json();
-    // return data.token;
+    let data = await response.json();
+    return data.token;
     
   } else {
     throw new Error(

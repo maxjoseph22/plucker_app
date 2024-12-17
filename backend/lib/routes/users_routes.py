@@ -90,12 +90,23 @@ async def login_user():
         await connect_to_user_repository()
         user_validated = await g.user_repository.validate_user(payload)
         if user_validated == True:
-            return jsonify({"success": True, "message": "Login successful"}), 200
+
+            user = await g.user_repository.get_single_user_by_email(email)
+            # filter relevant data (i.e. NOT PASSWORD)
+            user_dict = {"id": user.id, "username": user.username, "email": user.email, "profile_picture": user.profile_picture}
+            # generate user token
+            token = create_access_token(identity=user_dict)
+            return jsonify({"success": True, "message": "Login successful", "token": token}), 200
+
+
         else:
             return jsonify({"success": False, "message": "Incorrect username or password"}), 401
     
     except Exception as e:
+        raise Exception(e)
+
         print(f"Error: {e}")
+
         return jsonify({"error": str(e),}), 500
 
 
