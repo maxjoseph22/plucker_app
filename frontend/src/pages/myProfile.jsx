@@ -7,15 +7,16 @@ import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
 import { Recipe } from "../components/Recipe";
 // import { getRecipesForUser } from "../services/recipes";
+import { UploadImage } from "../components/UploadBirdImage";
 
 
 export function MyProfile() {
     const [username, setUsername] = useState("");
     const [user_id, setUserId] = useState("");
     const [profile_picture, setProfilePicture] = useState("Test");
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
         getUserInfo(token)
         .then((data) => {
             setUsername(`${data.userData.username}`);
@@ -42,6 +43,10 @@ export function MyProfile() {
             <br></br>
             </div>
             <div className="grid-item">
+                <div>
+                    <h1>Profile Page</h1>
+                    <UploadImage token={token} />
+                </div>
             </div>
         </div>
         </div>
