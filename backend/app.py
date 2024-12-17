@@ -3,6 +3,8 @@ from flask import Flask
 # from quart import Quart
 from flask_cors import CORS
 from lib.routes.users_routes import user_routes #import all user routes 
+from lib.routes.bird_sightings_routes import sightings_routes
+from lib.routes.RecipeServices_routes import RecipeServices_routes #import all RecipeServices routes 
 from dotenv import load_dotenv
 import os
 from flask_jwt_extended import (
@@ -24,6 +26,8 @@ jwt = JWTManager(app)
 
 # register route blueprints 
 app.register_blueprint(user_routes)
+app.register_blueprint(sightings_routes)
+app.register_blueprint(RecipeServices_routes)
 
     #OLD CODE FOR Flask
 if __name__ == '__main__':

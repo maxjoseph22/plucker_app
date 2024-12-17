@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { uploadUserFile } from "../services/users"; 
 
-const UploadImage = ({ token }) => {
+export const UploadImage = ({ token }) => {
   const [file, setFile] = useState(null); 
   const [uploadedImages, setUploadedImages] = useState([]); 
   const [error, setError] = useState(null); 
@@ -93,4 +93,4 @@ const UploadImage = ({ token }) => {
   );
 };
 
-export default UploadImage;
+// export default UploadImage;
