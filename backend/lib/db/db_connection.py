@@ -20,7 +20,7 @@ class AsyncDatabaseConnection:
             self.connection = await asyncpg.connect(
                 f"postgresql://localhost/{self._database_name()}"
                 )
-            print("Connected to database:", self._database_name())
+            print("Made connection to database", self._database_name())
         except asyncpg.PostgresError:
             raise Exception(f"Couldn't connect to the database {self._database_name()}! " \
                     f"Did you create it using `createdb {self._database_name()}`?")

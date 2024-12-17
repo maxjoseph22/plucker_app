@@ -14,10 +14,8 @@ export function LoginPage() {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
-            const token = await login(email, password);
-            console.log("USER LOGIN TOKEN:", "\n", token.sub)
-            const userToken = token.sub
-            localStorage.setItem("token", userToken);
+            // login() sets items in localStorage
+            await login(email, password)
             navigate("/myProfile");
         } catch (err) {
             console.error(err);
@@ -37,7 +35,7 @@ export function LoginPage() {
     return (
         <div className="home-container">
         {/* <NavBar /> */}
-        <div copy className="name-container">
+        <div className="name-container">
             <div className="plucker-logo"><img src={pluckerIcon} alt="Plucker logo" /></div>
             <h1>Plucker</h1><h2>Where watching birds is cool!</h2></div>
         <div className="login-container">
