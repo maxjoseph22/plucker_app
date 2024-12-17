@@ -12,10 +12,10 @@ async def test_get_all_recipes(db_connection):
     result = await repository.get_all_recipes()
     # Define the expected result based on the seed data
     expected_result = [
-        Recipe(1, 'Herb-Glazed Flamingo', '2024-12-01', 5, 25, 1), 
-        Recipe(2, 'Hearty Winter Woodpecker Pie', '2024-12-01', 5, 40, 2),
-        Recipe(3, 'Jamaican Jerk Peregrine Falcon', '2024-12-01', 5, 40, 3),
-        Recipe(4, 'Twice-Fried Resplendent Quetzal Wings', '2024-12-01', 5, 20, 4) 
+        Recipe(1, 'Herb-Glazed Flamingo', '2024-12-01', 25, 1), 
+        Recipe(2, 'Hearty Winter Woodpecker Pie', '2024-12-01', 40, 2),
+        Recipe(3, 'Jamaican Jerk Peregrine Falcon', '2024-12-01', 40, 3),
+        Recipe(4, 'Twice-Fried Resplendent Quetzal Wings', '2024-12-01', 20, 4) 
     ]
     # Assert that the result matches the expected result
     assert result == expected_result
@@ -28,7 +28,7 @@ async def test_get_single_recipe(db_connection):
     repository = RecipeRepository(db_connection)
     result = await repository.get_single_recipe(1)
     # Define the expected result for recipe with ID 1
-    expected_result = Recipe(1, 'Herb-Glazed Flamingo', '2024-12-01', 5, 25, 1)
+    expected_result = Recipe(1, 'Herb-Glazed Flamingo', '2024-12-01', 25, 1)
     # Assert that the result matches the expected result
     assert result == expected_result
 
@@ -41,17 +41,17 @@ async def test_create_new_recipe(db_connection):
     repository = RecipeRepository(db_connection)
     # Create a new recipe
     # Add new recipe to database
-    await repository.create_recipe(Recipe(None, 'Test recipe', '2024-12-01', 0, 25, 4))
+    await repository.create_recipe(Recipe(None, 'Test recipe', '2024-12-01', 25, 4))
     # Retrieve all recipes to check if the new recipe was added
     result = await repository.get_all_recipes()
     # Define the expected result based on the seed data
     assert len(result) == 5
     assert result == [
-        Recipe(1, 'Herb-Glazed Flamingo', '2024-12-01', 5, 25, 1), 
-        Recipe(2, 'Hearty Winter Woodpecker Pie', '2024-12-01', 5, 40, 2),
-        Recipe(3, 'Jamaican Jerk Peregrine Falcon', '2024-12-01', 5, 40, 3),
-        Recipe(4, 'Twice-Fried Resplendent Quetzal Wings', '2024-12-01', 5, 20, 4),
-        Recipe(5, 'Test recipe', '2024-12-01', 0, 25, 4) 
+        Recipe(1, 'Herb-Glazed Flamingo', '2024-12-01', 25, 1), 
+        Recipe(2, 'Hearty Winter Woodpecker Pie', '2024-12-01', 40, 2),
+        Recipe(3, 'Jamaican Jerk Peregrine Falcon', '2024-12-01', 40, 3),
+        Recipe(4, 'Twice-Fried Resplendent Quetzal Wings', '2024-12-01', 20, 4),
+        Recipe(5, 'Test recipe', '2024-12-01', 25, 4) 
     ]
 
 @pytest.mark.asyncio
@@ -66,19 +66,6 @@ async def test_update_recipe_title(db_connection):
     updated_recipe = await repository.get_single_recipe(1)
     # Assert that the title has been updated
     assert updated_recipe.title == 'Blue Jay Supreme'
-
-@pytest.mark.asyncio
-async def test_update_recipe_rating(db_connection):
-    # Seed the database with the provided SQL file
-    await db_connection.seed('lib/db/seeds/birdfood_app.sql')
-    # Instantiate the repository
-    repository = RecipeRepository(db_connection)
-    # Update the rating of the recipe with I 1
-    await repository.update_recipe_rating(1, 4)
-    # Fetch the updated recipe
-    updated_recipe = await repository.get_single_recipe(1)
-    # Assert that the title has been updated
-    assert updated_recipe.recipe_rating == 4
 
 @pytest.mark.asyncio
 async def test_update_recipe_cooking_time(db_connection):

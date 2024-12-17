@@ -1,5 +1,6 @@
 const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
 // FIX .ENV FILE SHENANIGANS
+import {jwtDecode} from 'jwt-decode';
 
 console.log("Backend url: ", BACKEND_URL, "FIX THE ENV FILE")
 
@@ -37,8 +38,6 @@ export async function login(email, password) {
     password: password,
   };
 
-  console.log("authentication line 39 (payload) --->", payload)
-
   const requestOptions = {
     method: "POST",
     headers: {
@@ -51,9 +50,10 @@ export async function login(email, password) {
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 200) {
-    let data = await response.json();
-    return data.token;
-    
+    let data = await response.json()
+    let encoded_token = data.token
+    let token = jwtDecode(encoded_token)
+    return token;
   } else {
     throw new Error(
       `Received status ${response.status} when logging in. Expected 200`

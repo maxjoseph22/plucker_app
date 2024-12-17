@@ -154,8 +154,8 @@ async def test_create_bird_sighting(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
 
-    new_sighting = Sighting(None, 'test sighting', None, 'East Dulwich', 1)
-    await repository.create_bird_sighting(new_sighting)
+    # new_sighting = Sighting(None, 'test sighting', None, 'East Dulwich', 1)
+    await repository.create_bird_sighting(1, 'test sighting', 'East Dulwich')
         
     sightings = await repository.get_all_sightings()
 
