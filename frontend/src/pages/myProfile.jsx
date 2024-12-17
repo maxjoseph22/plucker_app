@@ -5,17 +5,24 @@ import { useState, useEffect } from "react";
 // import { UserDetails } from "../components/UserDetails";
 import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
-import { Recipe } from "../components/Recipe";
+import { DisplayMyRecipes } from "../components/DisplayMyRecipes";
 // import { getRecipesForUser } from "../services/recipes";
+import { useNavigate } from "react-router-dom";
 
 
 export function MyProfile() {
     const [username, setUsername] = useState("");
     const [user_id, setUserId] = useState("");
     const [profile_picture, setProfilePicture] = useState("Test");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem("token");
+        if (!token) {
+            console.error("No token found - myProfile.jsx line 20; redirect to login");
+            navigate("/login");
+            return;
+        }
         getUserInfo(token)
         .then((data) => {
             setUsername(`${data.userData.username}`);
@@ -26,7 +33,7 @@ export function MyProfile() {
             .catch((err) => {
                 console.error(err);
             });
-        }, [username]);
+        }, []);
 
     return (
         <>
@@ -37,7 +44,7 @@ export function MyProfile() {
                 <div className="post-card">
             <PhotoDisplay profile_picture={profile_picture}/>
             <h3>{username}</h3>
-            <Recipe user_id={user_id}/>
+            <DisplayMyRecipes user_id={user_id} />
             </div>
             <br></br>
             </div>

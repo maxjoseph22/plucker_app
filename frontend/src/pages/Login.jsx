@@ -15,6 +15,7 @@ export function LoginPage() {
         event.preventDefault();
         try {
             const token = await login(email, password);
+
             console.log("USER LOGIN TOKEN:", "\n", token.sub)
             const userToken = token.sub
             localStorage.setItem("token", userToken);
