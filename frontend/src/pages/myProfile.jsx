@@ -15,15 +15,21 @@ import { useNavigate } from "react-router-dom";
 
 
 export function MyProfile() {
-    const [username, setUsername] = useState("");
-    const [user_id, setUserId] = useState("");
-    const [profile_picture, setProfilePicture] = useState("Test");
+    // const [username, setUsername] = useState("");
+    // const [user_id, setUserId] = useState("");
+    // const [profile_picture, setProfilePicture] = useState("Test");
     const token = localStorage.getItem("token");
+    const current_user_string = localStorage.getItem("currentUser")
+    const current_user = JSON.parse(current_user_string)
+    // const username = current_user.username
+    // const profile_picture = current_user.username
     const navigate = useNavigate();
+
+    console.log("current user line 26 ---> ", current_user)
 
     useEffect(() => {
         if (!token) {
-            console.error("No token found - myProfile.jsx line 20; redirect to login");
+            console.error("No token found - myProfile.jsx line 30; redirect to login");
             navigate("/login");
             return;
         }
@@ -31,9 +37,9 @@ export function MyProfile() {
 
         // getUserInfo(token)
         // .then((data) => {
-        setUsername(`${token.username}`);
-        setProfilePicture(token.profile_picture);
-        setUserId(token.id)
+        // setUsername(current_user.username);
+        // setProfilePicture(current_user.profile_picture);
+        // setUserId(current_user.id)
             // localStorage.setItem("token", data.token);
             }
 
@@ -47,9 +53,9 @@ export function MyProfile() {
         <div className="grid-container">
             <div className="grid-item">
                 <div className="post-card">
-            <PhotoDisplay profile_picture={profile_picture}/>
-            <h3>{username}</h3>
-            <DisplayMyRecipes user_id={user_id} />
+            <PhotoDisplay profile_picture={current_user.profile_picture}/>
+            <h3>{current_user.username}</h3>
+            <DisplayMyRecipes user_id={current_user.id} />
             </div>
             <br></br>
             </div>
