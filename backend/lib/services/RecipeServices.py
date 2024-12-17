@@ -69,7 +69,7 @@ class RecipeService:
                 raise Exception("Failed to create bird sighting.")
             
             # 3. selectb random recipe
-            random_recipe = self._select_random_recipe()
+            random_recipe = self.select_random_recipe()
 
             # 4. Populate the template with the given bird name
             recipe_data = self._populate_bird_template(random_recipe, bird_name)
@@ -79,9 +79,9 @@ class RecipeService:
                 None, #id
                 recipe_data["title"], #recipe title
                 None, # date_created --> auto set in repo
-                None, # recipe_rating --> Default to 0 in the database
                 recipe_data["cooking_time"], #cooking_time
-                sighting_id # bird_sighting_id
+                sighting_id, # bird_sighting_id
+                None #average rating
             )
             recipe_id = await self.recipes_repo.create_recipe(new_recipe)
             if not recipe_id:
