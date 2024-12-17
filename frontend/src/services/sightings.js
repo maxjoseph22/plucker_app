@@ -33,3 +33,4 @@ export async function getSighting(id) {
     const data = await response.json();
     return data;
 }
+

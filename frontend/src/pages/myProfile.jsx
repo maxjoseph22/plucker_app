@@ -1,6 +1,6 @@
 // import { NavBar } from "../../components/NavBar";
 import { PhotoDisplay } from "../components/PhotoDisplay";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 // import { useParams } from "react-router-dom";
 // import { UserDetails } from "../components/UserDetails";
 // import { getUserInfo } from "../services/users";
@@ -45,48 +45,23 @@ export function MyProfile() {
 
         , [] );
 
-    return (
-        <>
+        return (
+            <>
+              <div className="profile-padding">
+                <h1>Profile Page</h1>
+                <div className="profile-content">
+                  <div className="profile-card">
+                    <PhotoDisplay profile_picture={current_user.profile_picture} />
+                    <h3>{current_user.username}</h3>
+                  </div>
 
-//         <div className="profile-padding">
-//             <div className="nav-bar">
-//                 {/* <NavBar /> */}
 
-        {/* <NavBar /> */}
-        <h1>Profile Page</h1>
-        <div className="profile-padding">
-        <div className="grid-container">
-            <div className="grid-item">
-                <div className="post-card">
-            <PhotoDisplay profile_picture={current_user.profile_picture}/>
-            <h3>{current_user.username}</h3>
-            <DisplayMyRecipes user_id={current_user.id} />
 
-            </div>
-            <div className="grid-container">
-                <div className="grid-item">
-                    <div className="post-card">
-                        <PhotoDisplay profile_picture={profile_picture}/>
-                        <h3>{username}</h3>
-                    </div>
-                </div>
-                <br></br>
-                <div className="grid-item">
-                    <div>
-                        <h1>Profile Page</h1>
-                        <UploadImage token={token} />
-                    </div>
-                </div>
-                <div>
-
-//                 <DisplayMyRecipes user_id={user_id} />
-
-                    
                     <UploadImage token={token} />
-
+                    <DisplayMyRecipes user_id={current_user.id} />
+                  </div>
                 </div>
-            </div>
-        </div>
-        </>
-    );
-}
+
+            </>
+          );
+        }

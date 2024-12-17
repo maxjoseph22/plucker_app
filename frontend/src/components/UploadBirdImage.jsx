@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { uploadUserFile } from "../services/users"; 
+import { uploadBirdSighting } from "../services/recipes"; 
+// const BACKEND_URL = import.meta.env.BACKEND_URL; - hardcoded in and needs looking at
 
 export const UploadImage = ({ token }) => {
   const [file, setFile] = useState(null); 
@@ -7,6 +8,8 @@ export const UploadImage = ({ token }) => {
   const [error, setError] = useState(null); 
   const [birdName, setBirdName] = useState('');
   const [location, setLocation] = useState('');
+  const current_user_string = localStorage.getItem("currentUser")
+  const current_user = JSON.parse(current_user_string)
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]); 
@@ -23,6 +26,7 @@ export const UploadImage = ({ token }) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("user_id", current_user.id)
 
       if (birdName) {
         formData.append("birdName", birdName); // Append bird name if provided
@@ -32,10 +36,10 @@ export const UploadImage = ({ token }) => {
         formData.append("location", location); // Append location if provided
       }
 
-      const result = await uploadUserFile(token, formData);
+      const result = await uploadBirdSighting(token, formData);
       console.log("Upload successful:", result);
 
-      setUploadedImages((prevImages) => [...prevImages, result.fileUrl]);
+      setUploadedImages((prevImages) => [...prevImages, result.image]);
 
       setFile(null);
       setBirdName('');
@@ -83,7 +87,7 @@ export const UploadImage = ({ token }) => {
         {uploadedImages.map((url, index) => (
           <img
             key={index}
-            src={url}
+            src={`http://localhost:8000/bird_uploads/${url}`}
             alt={`Uploaded ${index + 1}`}
             style={{ width: "150px", margin: "10px", borderRadius: "8px" }}
           />

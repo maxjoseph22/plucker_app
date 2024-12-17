@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Recipe from "./Recipe"
-import getMyRecipes from "../services/recipes"
+import { getMyRecipes } from "../services/recipes"
 
 
 export function DisplayMyRecipes({user_id}) {

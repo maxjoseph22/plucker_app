@@ -53,6 +53,14 @@ class AsyncDatabaseConnection:
         'the connection to the database was never opened. Did you ' \
         'make sure to call first the method DatabaseConnection.connect` ' \
         'in your app.py file (or in your tests)?'
+    
+    async def fetch(self, query, params=[]):
+        await self._check_connection()
+        try:
+            result = await self.connection.fetch(query, *params)
+            return result
+        except asyncpg.PostgresError as e:
+            raise Exception(f"Database query (fetch) failed: {e}")
 
     # This private method checks that we're connected to the database.
     async def _check_connection(self):

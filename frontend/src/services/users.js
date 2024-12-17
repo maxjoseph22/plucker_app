@@ -82,23 +82,7 @@ export const getUserByUsername = async (friendUsername, token) => {
   return await response.json();
 }
 
-export async function uploadUserFile(token, formData) {
-  const response = await fetch(`${BACKEND_URL}/users/profile/upload`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    body: formData,
-  });
 
-  if (!response.ok) {
-    throw new Error("Failed to upload the file.");
-  }
-
-  const result = await response.json();
-  console.log("Upload successful:", result);
-  return result;
-}
 
 // Function to handle image recognition using a bird recognition API
 export async function recognizeBirdFile(apiUrl, imageFile) {
