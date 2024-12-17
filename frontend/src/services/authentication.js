@@ -51,8 +51,7 @@ export async function login(email, password) {
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 200) {
-    let endoded_data = await response.json();
-    const data = jwt.decode(data, { complete: true });
+    let data = await response.json();
     return data.token;
     
   } else {
