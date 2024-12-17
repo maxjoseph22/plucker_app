@@ -26,7 +26,6 @@ class UserRepository():
             return None
         else:
             row = rows[0]
-            print(row["profile_picture"])
             return User(row["id"], row["username"], row["email"], row["password"], row["profile_picture"])
 
 
