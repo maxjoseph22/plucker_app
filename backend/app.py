@@ -24,6 +24,7 @@ jwt = JWTManager(app)
 
 # register route blueprints 
 app.register_blueprint(user_routes)
+app.register_blueprint(sightings_routes)
 
     #OLD CODE FOR Flask
 if __name__ == '__main__':
