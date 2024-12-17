@@ -3,7 +3,7 @@ import { PhotoDisplay } from "../components/PhotoDisplay";
 import { useState, useEffect } from "react";
 // import { useParams } from "react-router-dom";
 // import { UserDetails } from "../components/UserDetails";
-import { getUserInfo } from "../services/users";
+// import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
 import { DisplayMyRecipes } from "../components/DisplayMyRecipes";
 // import { getRecipesForUser } from "../services/recipes";
@@ -27,19 +27,22 @@ export function MyProfile() {
             navigate("/login");
             return;
         }
+        
+
         // getUserInfo(token)
         // .then((data) => {
         setUsername(`${token.username}`);
         setProfilePicture(token.profile_picture);
         setUserId(token.id)
             // localStorage.setItem("token", data.token);
-            })
+            }
 
-        , [];
+        , [] );
 
     return (
         <>
         {/* <NavBar /> */}
+        <h1>Profile Page</h1>
         <div className="profile-padding">
         <div className="grid-container">
             <div className="grid-item">
@@ -52,7 +55,7 @@ export function MyProfile() {
             </div>
             <div className="grid-item">
                 <div>
-                    <h1>Profile Page</h1>
+                    
                     <UploadImage token={token} />
                 </div>
             </div>
