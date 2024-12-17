@@ -13,9 +13,10 @@ export function LoginPage() {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
-            console.log("LoginPage line 16 (email, password) --->", email, password)
             const token = await login(email, password);
-            localStorage.setItem("token", token);
+            console.log("USER LOGIN TOKEN:", "\n", token.sub)
+            const userToken = token.sub
+            localStorage.setItem("token", userToken);
             navigate("/myProfile");
         } catch (err) {
             console.error(err);
