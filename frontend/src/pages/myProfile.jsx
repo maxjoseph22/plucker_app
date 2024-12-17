@@ -27,17 +27,15 @@ export function MyProfile() {
             navigate("/login");
             return;
         }
-        getUserInfo(token)
-        .then((data) => {
-            setUsername(`${data.userData.username}`);
-            setProfilePicture(data.userData.profile_picture);
-            setUserId(data.userData._id)
-            localStorage.setItem("token", data.token);
+        // getUserInfo(token)
+        // .then((data) => {
+        setUsername(`${token.username}`);
+        setProfilePicture(token.profile_picture);
+        setUserId(token.id)
+            // localStorage.setItem("token", data.token);
             })
-            .catch((err) => {
-                console.error(err);
-            });
-        }, []);
+
+        , [];
 
     return (
         <>
