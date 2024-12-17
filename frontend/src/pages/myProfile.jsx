@@ -7,17 +7,21 @@ import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
 import { DisplayMyRecipes } from "../components/DisplayMyRecipes";
 // import { getRecipesForUser } from "../services/recipes";
+
+import { UploadImage } from "../components/UploadBirdImage";
+
 import { useNavigate } from "react-router-dom";
+
 
 
 export function MyProfile() {
     const [username, setUsername] = useState("");
     const [user_id, setUserId] = useState("");
     const [profile_picture, setProfilePicture] = useState("Test");
+    const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
         if (!token) {
             console.error("No token found - myProfile.jsx line 20; redirect to login");
             navigate("/login");
@@ -49,6 +53,10 @@ export function MyProfile() {
             <br></br>
             </div>
             <div className="grid-item">
+                <div>
+                    <h1>Profile Page</h1>
+                    <UploadImage token={token} />
+                </div>
             </div>
         </div>
         </div>
