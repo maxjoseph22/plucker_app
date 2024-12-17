@@ -47,6 +47,11 @@ export function MyProfile() {
 
     return (
         <>
+
+//         <div className="profile-padding">
+//             <div className="nav-bar">
+//                 {/* <NavBar /> */}
+
         {/* <NavBar /> */}
         <h1>Profile Page</h1>
         <div className="profile-padding">
@@ -56,16 +61,31 @@ export function MyProfile() {
             <PhotoDisplay profile_picture={current_user.profile_picture}/>
             <h3>{current_user.username}</h3>
             <DisplayMyRecipes user_id={current_user.id} />
+
             </div>
-            <br></br>
-            </div>
-            <div className="grid-item">
+            <div className="grid-container">
+                <div className="grid-item">
+                    <div className="post-card">
+                        <PhotoDisplay profile_picture={profile_picture}/>
+                        <h3>{username}</h3>
+                    </div>
+                </div>
+                <br></br>
+                <div className="grid-item">
+                    <div>
+                        <h1>Profile Page</h1>
+                        <UploadImage token={token} />
+                    </div>
+                </div>
                 <div>
+
+//                 <DisplayMyRecipes user_id={user_id} />
+
                     
                     <UploadImage token={token} />
+
                 </div>
             </div>
-        </div>
         </div>
         </>
     );

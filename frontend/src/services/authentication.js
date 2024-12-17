@@ -1,8 +1,9 @@
 const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
 // FIX .ENV FILE SHENANIGANS
-console.log("<==== services/authentication.js says ====>\nBackend url: ", BACKEND_URL, "FIX THE ENV FILE")
 
-import {jwtDecode} from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
+
+console.log("<==== services/authentication.js says ====>\nBackend url: ", BACKEND_URL, "FIX THE ENV FILE")
 
 export async function SignUp(formData) {
     const payload = {

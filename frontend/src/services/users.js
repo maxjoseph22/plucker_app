@@ -99,3 +99,15 @@ export async function uploadUserFile(token, formData) {
   console.log("Upload successful:", result);
   return result;
 }
+
+// Function to handle image recognition using a bird recognition API
+export async function recognizeBirdFile(apiUrl, imageFile) {
+  const formData = new FormData();
+  formData.append("image", imageFile);
+
+  const response = await fetch(apiUrl, { method: "POST", body: formData });
+
+  if (!response.ok) throw new Error("Bird recognition failed.");
+  
+  return await response.json();
+}
