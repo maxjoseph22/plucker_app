@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 // import { NavBar } from "../../components/NavBar";
 import { login } from "../services/authentication";
 import pluckerIcon from "../assets/icon/plucker.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function LoginPage() {
     const [email, setEmail] = useState("");
@@ -16,10 +18,9 @@ export function LoginPage() {
         try {
             // login() sets items in localStorage
             await login(email, password)
-
-            navigate("/myProfile");
         } catch (err) {
             console.error(err);
+            toast.error("Invalid login: Please check your email and password");
             navigate("/login");
         }
     }
@@ -34,6 +35,8 @@ export function LoginPage() {
 
 
     return (
+        <div className="wrapper-auth">
+            <ToastContainer toastStyle={{ backgroundColor: "#E4E0E1", color: "#493628" }}/>
         <div className="home-container">
         {/* <NavBar /> */}
         <div className="name-container">
@@ -49,7 +52,7 @@ export function LoginPage() {
                     type="email" 
                     id="email" 
                     name="email" 
-                    placeholder="email address"
+                    placeholder="Email address"
                     value={ email }
                     onChange={handleEmailChange} />
                 <br></br>
@@ -59,7 +62,7 @@ export function LoginPage() {
                     type="text" 
                     id="password" 
                     name="password" 
-                    placeholder="password"
+                    placeholder="Password"
                     value={ password }
                     onChange={handlePasswordChange} />
                 <br></br>
@@ -71,14 +74,16 @@ export function LoginPage() {
                     role="submit-button"
                     id="submit" />
                 <br></br>
-                <input 
-                    type="submit" 
-                    value="Signup"
-                    className="submit-button"
-                    role="submit-button"
-                    id="submit" />
-                    </div>
+                <button 
+                    type="button"
+                    className="signup-redirect"
+                    id="signup-button" 
+                    onClick={() => window.location.href = '/signup'}>
+                    Signup
+                </button>
+                </div>
             </form>
+        </div>
         </div>
         </div>
     )
