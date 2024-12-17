@@ -1,9 +1,9 @@
-from lib.recipe_templates.recipe_templetes import HERB_GLAZED_RECIPE
+from lib.recipe_templates.recipe_templetes import *
 from lib.models.ingredients import Ingredient
 from lib.models.steps import Step
 from lib.models.sightings import Sighting
 from lib.models.recipes import Recipe
-import datetime
+import random
 
 class RecipeService:
     def __init__(self, sightings_repo, recipes_repo, ingredients_repo, steps_repo, connection):
@@ -13,8 +13,26 @@ class RecipeService:
         self.steps_repo = steps_repo
         self._connection = connection
 
+    def select_random_recipe():
+        recipe_choices = [
+            HERB_GLAZED_RECIPE,
+            POT_PIE_RECIPE,
+            FRIED_RICE_RECIPE,
+            A_LORANGE_RECIPE,
+            PASTA_BAKE_RECIPE,
+            JAMAICAN_JERK_RECIPE,
+            BUFFALO_WINGS_RECIPE,
+            HOMESTYLE_CURRY_RECIPE,
+            CLASSIC_PARM_RECIPE,
+            PEANUT_LIME_NOODLE_RECIPE,
+            LASAGNE_RECIPE
+        ]
+        selected = random.choice(recipe_choices)
+        return selected 
+
     # heloer function to populate the template with given birdname --> move to utils folder later
     def _populate_bird_template(self, template, bird_name):
+
         populated = {
             "title": template["title"].replace("{BIRD}", bird_name),
             "cooking_time": template["cooking_time"],
@@ -50,10 +68,13 @@ class RecipeService:
             if not sighting_id:
                 raise Exception("Failed to create bird sighting.")
             
-            # 3. Populate the template with the given bird name
-            recipe_data = self._populate_bird_template(HERB_GLAZED_RECIPE, bird_name)
+            # 3. selectb random recipe
+            random_recipe = self._select_random_recipe()
 
-            # 3. Create the recipe in bird_recipes
+            # 4. Populate the template with the given bird name
+            recipe_data = self._populate_bird_template(random_recipe, bird_name)
+
+            # 5. Create the recipe in bird_recipes
             new_recipe = Recipe(
                 None, #id
                 recipe_data["title"], #recipe title
