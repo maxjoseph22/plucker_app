@@ -14,6 +14,9 @@ export function Navbar() {
         <li>
           <a href='/contact'>Contact</a>
         </li>
+        <li>
+          <a href='/logout'>Log out</a>
+        </li>
       </ul>
     </nav>
   );
