@@ -11,7 +11,7 @@ from lib.repositories.repo_factory import (
 RecipeServices_routes = Blueprint('RecipeServices_routes', __name__)
 
 #POST a bird sighting (and generate a recipe) route
-@RecipeServices_routes.route('/', methods=["POST"])
+@RecipeServices_routes.route('/bird_sighting', methods=["POST"])
 async def post_bird_sighting():
     try:
         await connect_to_sightings_repository()

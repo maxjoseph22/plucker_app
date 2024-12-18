@@ -7,9 +7,10 @@ function BirdSighting(birdSighting, username) {
             <div className="grid-container-birdSighting">
                 <h2>
                     <Link 
-                    className="birdSighting-title-link" 
+                    className="birdSighting-title-link"
                     to={`/sightings/${username}/${birdSighting.id}`}>
-                    {birdSighting.bird_name}
+                    {/* {birdSighting.bird_name} */}
+                    PLACEHOLDER TEXT (BIRD NAME)
                     </Link>
                 </h2>
             </div>

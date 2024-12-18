@@ -60,7 +60,9 @@ export function MyProfile() {
                   {/* This needs to be linked up properly */}
         <div className='recipe-card'>
           <h1>Sightings:</h1>
-          <button
+            <DisplayMyBirdSightings user_id={user_id} username={username}/>
+
+          {/* <button
             type='submit'
             className='submit-button'
             role='submit-button'
@@ -91,8 +93,8 @@ export function MyProfile() {
             id='submit'
             onClick={() => goToRecipe()}>
             Sighting 4
-          </button>
-          {/* <Recipe user_id={user_id} /> */}
+          </button> */}
+
         </div>
         <br></br>
       </div>

@@ -46,14 +46,13 @@ export async function getMyBirdSightings(token) {
 
     // Destringify token; Get id from token; Put token id into URL placeholder
     const user_id = jwtDecode(token).sub.id
-    console.log("sightings.js says:", user_id)
 
     const response = await fetch(`${BACKEND_URL}/sightings/${user_id}`, requestOptions);
-
     if (response.status !== 200) {
         throw new Error("Unable to fetch sightings");
     }
     const data = await response.json();
+    console.log("HERE IS THE DATA", data)
     return data;
 }
 
