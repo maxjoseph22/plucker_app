@@ -31,7 +31,7 @@ export function DisplayMyBirdSightings({user_id, username}) {
     return (
         <div className="sightings-list" role="sightings-list">
             {birdSightings.map((birdSighting) => (
-                <BirdSighting birdSighting={birdSighting} key={birdSighting._id} username={username}/>
+                <BirdSighting birdSighting={birdSighting} key={birdSighting.id} username={username}/>
             ))}
         </div>
     );

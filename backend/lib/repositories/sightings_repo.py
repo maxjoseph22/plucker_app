@@ -10,7 +10,7 @@ class SightingRepository():
         rows = await self._connection.execute('SELECT * FROM bird_sightings ORDER BY id')
         sightings = []
         for row in rows:
-            sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["user_id"])
+            sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["image"], row["user_id"])
             sightings.append(sighting)
         return sightings
 
@@ -23,7 +23,7 @@ class SightingRepository():
             return None
         else:
             sighting = sightings[0]
-            return Sighting(sighting["id"], sighting["bird_name"], sighting["date_spotted"], sighting["location"], sighting["user_id"]  )
+            return Sighting(sighting["id"], sighting["bird_name"], sighting["date_spotted"], sighting["location"], row["image"], sighting["user_id"]  )
 
     # get all sightings by location
     async def get_sightings_by_location(self, location):
@@ -35,7 +35,7 @@ class SightingRepository():
             return None
         else: 
             for row in rows:
-                sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["user_id"])
+                sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["image"], row["user_id"])
                 sightings.append(sighting)
             return sightings
             
@@ -49,7 +49,7 @@ class SightingRepository():
             return None
         else:
             for row in rows:
-                sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["user_id"])
+                sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["image"], row["user_id"])
                 sightings.append(sighting)
             return sightings
 
@@ -63,7 +63,7 @@ class SightingRepository():
             return None
         else:
             for row in rows:
-                sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["user_id"])
+                sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["image"], row["user_id"])
                 sightings.append(sighting)
             return sightings
 
@@ -78,7 +78,7 @@ class SightingRepository():
             return None
         else:
             for row in rows:
-                sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["user_id"])
+                sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["image"], row["user_id"])
                 sightings.append(sighting)
             return sightings if len(sightings) > 1 else sightings[0]
 
