@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { uploadBirdSighting } from "../services/recipes"; 
+import { uploadBirdSighting } from "../services/sightings"; 
 // const BACKEND_URL = import.meta.env.BACKEND_URL; - hardcoded in and needs looking at
 import { recognizeBirdFile } from "../services/users";
 

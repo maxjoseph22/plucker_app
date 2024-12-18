@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import BirdSighting from "./BirdSighting"
-import { getMyBirdSightings } from "../services/recipes"
+import { getMyBirdSightings } from "../services/sightings"
 
 
 export function DisplayMyBirdSightings({user_id, username}) {
