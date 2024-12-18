@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { SignUp } from "../services/authentication";
+import pluckerIcon from "../assets/icon/pluckers.png";
 import "react-toastify/dist/ReactToastify.css";
 
-// import "./SignupPage.css";
+import "./SignUp.css";
 
 export function SignUpPage() {
-//   const [name, setName] = useState("");
+  //   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -53,7 +54,7 @@ export function SignUpPage() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    console.log("sign up page line 56 email -->", email)
+    console.log("sign up page line 56 email -->", email);
 
     if (
       validatePassword(password) &&
@@ -64,13 +65,12 @@ export function SignUpPage() {
       formData.append("email", email);
       formData.append("username", username);
       formData.append("password", password);
-      console.log("SignUp.jsx (page) line 65 formData --->", formData)
+      console.log("SignUp.jsx (page) line 65 formData --->", formData);
 
       // if (file) {
       //   formData.append("file", file); // Append the profile image if it exists
       // }
       try {
-
         await SignUp(formData);
         navigate("/login");
       } catch (err) {
@@ -105,57 +105,56 @@ export function SignUpPage() {
   //   .padStart(2, "0")}-${date18YearsAgo.getDate().toString().padStart(2, "0")}`;
 
   return (
-    <div className="wrapper-auth">
+    <div className='wrapper-container'>
       <ToastContainer
         toastStyle={{ backgroundColor: "#E4E0E1", color: "#493628" }}
       />
-
-      <div className="logo-auth">
-        <h1>Birds App</h1>
-        <p>Catch your bird!</p>
+      <div className='name-container'>
+        <div className='plucker-logo'>
+          <img src={pluckerIcon} alt='Plucker logo' />
+        </div>
       </div>
-
-      <div className="box-auth">
+      <div className='signup-container'>
         <h2>Signup</h2>
 
-        <form onSubmit={handleSubmit} className="signup">
-          <div className="signup-form">
-            <label id="usernameLabel" htmlFor="username">
+        <form onSubmit={handleSubmit} className='signup'>
+          <div className='signup-form'>
+            <label id='usernameLabel' htmlFor='username'>
               Username:
             </label>
             <input
-              id="username"
-              type="text"
+              id='username'
+              type='text'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
             <br></br>
-            <label id="emailLabel" htmlFor="email">
+            <label id='emailLabel' htmlFor='email'>
               Email:
             </label>
             <input
-              id="email"
-              type="text"
+              id='email'
+              type='text'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <br></br>
-            <label id="passwordLabel" htmlFor="password">
+            <label id='passwordLabel' htmlFor='password'>
               Password:
             </label>
             <input
-              id="password"
-              type="password"
+              id='password'
+              type='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <br></br>
-            <label id="confirmPasswordLabel" htmlFor="password">
+            <label id='confirmPasswordLabel' htmlFor='password'>
               Confirm Password:
             </label>
             <input
-              id="confirmPassword"
-              type="password"
+              id='confirmPassword'
+              type='password'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -169,20 +168,26 @@ export function SignUpPage() {
               onChange={(e) => setFile(e.target.files[0])}
             /> */}
           </div>
-          <div className="signup-buttons">
-
-
-            <input
-              role="submit-button"
-              id="submit"
-              type="submit"
-              value="Sign Up"
-            />
+          <div className='buttons-container'>
+            <button
+              type='button'
+              className='submit-button'
+              role='submit-button'
+              id='submit'
+              onClick={() => navigate("/myprofile")}>
+              Sign up
+            </button>
+            <br></br>
+            <button
+              type='submit'
+              className='submit-button'
+              role='submit-button'
+              id='submit'
+              onClick={() => navigate("/login")}>
+              Login
+            </button>
           </div>
         </form>
-            <Link id="login" to="/">
-              Login
-            </Link>
       </div>
     </div>
   );
