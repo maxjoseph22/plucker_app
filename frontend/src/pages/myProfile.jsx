@@ -20,14 +20,12 @@ export function MyProfile() {
     const [username, setUsername] = useState("");
     const [user_id, setUserId] = useState("");
     const [profile_picture, setProfilePicture] = useState("");
-    const token = localStorage.getItem("token");
-    const current_user_string = localStorage.getItem("currentUser");
-    const current_user = JSON.parse(current_user_string);
     const navigate = useNavigate();
 
-    console.log("current user line 26 ---> ", current_user);
-
     useEffect(() => {
+      const token = localStorage.getItem("token");
+      const current_user_string = localStorage.getItem("currentUser");
+      const current_user = JSON.parse(current_user_string);
         if (!token) {
             console.error("No token found - myProfile.jsx line 30; redirect to login");
             navigate("/login");
@@ -45,7 +43,7 @@ export function MyProfile() {
         // getUserInfo(token).then((data) => {
         //     localStorage.setItem("token", data.token);
         // });
-    }, [token, navigate, current_user]);
+    }, [username, profile_picture, user_id, navigate]);
 
     return (
     <>
