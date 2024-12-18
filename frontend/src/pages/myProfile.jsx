@@ -1,24 +1,25 @@
 // import { NavBar } from "../../components/NavBar";
 import { PhotoDisplay } from "../components/PhotoDisplay";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 // import { useParams } from "react-router-dom";
 // import { UserDetails } from "../components/UserDetails";
 import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
+
 // import { Recipe } from "../components/Recipe";
+
+import { DisplayMyBirdSightings } from "../components/DisplayMyBirdSightings";
+
 // import { getRecipesForUser } from "../services/recipes";
 import NavBar from "../components/Navbar";
 import pluckerIcon from "../assets/icon/pluckers.png";
 import "./MyProfile.css";
 
 export function MyProfile() {
-  const [username, setUsername] = useState("Jim Jones");
-  // const [user_id, setUserId] = useState("");
-  const [profile_picture, setProfilePicture] = useState("Test");
 
-  const addBird = () => {
-    //add to add bird here functionality here
-    console.log("Bird Added");
+//   const addBird = () => {
+//     //add to add bird here functionality here
+//     console.log("Bird Added");
   };
 
   const goToRecipe = () => {
@@ -26,19 +27,37 @@ export function MyProfile() {
     console.log("Recipe Clicked");
   }
 
-  useEffect(() => {
+
+
+    const [username, setUsername] = useState("");
+    const [user_id, setUserId] = useState("");
+    const [profile_picture, setProfilePicture] = useState("");
     const token = localStorage.getItem("token");
-    getUserInfo(token)
-      .then((data) => {
-        setUsername(`${data.userData.username}`);
-        setProfilePicture(data.userData.profile_picture);
-        // setUserId(data.userData._id);
-        localStorage.setItem("token", data.token);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, [username]);
+    const current_user_string = localStorage.getItem("currentUser");
+    const current_user = JSON.parse(current_user_string);
+    const navigate = useNavigate();
+
+    console.log("current user line 26 ---> ", current_user);
+
+    useEffect(() => {
+        if (!token) {
+            console.error("No token found - myProfile.jsx line 30; redirect to login");
+            navigate("/login");
+            return;
+        }
+
+        // Set user details
+        if (current_user) {
+            setUsername(current_user.username);
+            setProfilePicture(current_user.profile_picture);
+            setUserId(current_user.id);
+        }
+
+        // Example API call - uncomment if you need real user data
+        // getUserInfo(token).then((data) => {
+        //     localStorage.setItem("token", data.token);
+        // });
+    }, [token, navigate, current_user]);
 
   return (
     <>
@@ -58,6 +77,7 @@ export function MyProfile() {
               id='submit'
               onClick={() => addBird()}>
               Add Bird
+          {/* This needs to be linked up properly */}
             </button>
           </div>
         </div>
@@ -103,3 +123,20 @@ export function MyProfile() {
     </>
   );
 }
+//         return (
+//             <>
+//               <div className="profile-padding">
+//                 <h1>Profile Page</h1>
+//                 <div className="profile-content">
+//                   <div className="profile-card">
+//                     <PhotoDisplay profile_picture={current_user.profile_picture} />
+//                     <h3>{current_user.username}</h3>
+//                     <UploadImage token={token} />
+//                     <DisplayMyBirdSightings user_id={current_user.id} username={current_user.username} />
+//                   </div>
+//                 </div>
+          
+//                   </div>
+//             </>
+//           );
+//         }

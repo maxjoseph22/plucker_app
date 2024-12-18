@@ -86,15 +86,16 @@ class SightingRepository():
     async def create_bird_sighting(self, sighting):
         date_spotted = datetime.datetime.now().date().strftime('%Y-%m-%d')
 
-        sighting_id = await self._connection.execute(
+        result = await self._connection.fetch(
             '''
-            INSERT INTO bird_sightings (bird_name, date_spotted, location, user_id)
-            VALUES ($1, $2, $3, $4)
+            INSERT INTO bird_sightings (bird_name, date_spotted, location, image, user_id)
+            VALUES ($1, $2, $3, $4, $5)
             RETURNING id
             ''',
-            [sighting.bird_name, date_spotted, sighting.location, sighting.user_id])
-        
-        return sighting_id
+            [sighting.bird_name, date_spotted, sighting.location, sighting.image, sighting.user_id])
+        id = result[0]['id']
+        print('sightings_repo line 97 - sightings_id', id)
+        return id
 
     # delete bird sighting
     async def delete_bird_sighting(self, id):

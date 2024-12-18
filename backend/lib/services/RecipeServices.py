@@ -13,7 +13,7 @@ class RecipeService:
         self.steps_repo = steps_repo
         self._connection = connection
 
-    def select_random_recipe():
+    def select_random_recipe(self):
         recipe_choices = [
             HERB_GLAZED_RECIPE,
             POT_PIE_RECIPE,
@@ -30,7 +30,7 @@ class RecipeService:
         selected = random.choice(recipe_choices)
         return selected 
 
-    # heloer function to populate the template with given birdname --> move to utils folder later
+    # helper function to populate the template with given birdname --> move to utils folder later
     def _populate_bird_template(self, template, bird_name):
 
         populated = {
@@ -53,7 +53,7 @@ class RecipeService:
 
         return populated
     
-    async def create_recipe_from_bird_name(self, bird_name, user_id, location):
+    async def create_recipe_from_bird_name(self, bird_name, user_id, location, image):
         try:
             # 1. Create a bird sighting
             new_sighting = Sighting(
@@ -61,6 +61,7 @@ class RecipeService:
                 bird_name,
                 None, # date_spotted --> auto set in repo
                 location, # location --> defaults to "Unknown" in database
+                image, 
                 user_id
             )
             # 2. Add sighting to database
@@ -68,7 +69,16 @@ class RecipeService:
             if not sighting_id:
                 raise Exception("Failed to create bird sighting.")
             
-            # 3. selectb random recipe
+
+
+            # BUG in steps 3 or 4 below, which intermittently causes the 'ingredient_name' to fail.
+            # Needs investigating
+            
+            
+            
+            
+            
+            # 3. select random recipe
             random_recipe = self.select_random_recipe()
 
             # 4. Populate the template with the given bird name
@@ -84,6 +94,7 @@ class RecipeService:
                 None #average rating
             )
             recipe_id = await self.recipes_repo.create_recipe(new_recipe)
+            print("this shows the newly created recipe id - line 97", recipe_id)
             if not recipe_id:
                 raise Exception("Failed to create recipe.")
             
