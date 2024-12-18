@@ -3,6 +3,8 @@ const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
 
 import { jwtDecode } from 'jwt-decode';
 
+
+
 console.log("<==== services/authentication.js says ====>\nBackend url: ", BACKEND_URL, "FIX THE ENV FILE")
 
 export async function SignUp(formData) {
@@ -51,13 +53,13 @@ export async function login(email, password) {
 
   // docs: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
   if (response.status === 200) {
-    let data = await response.json()
-    let encodedToken = data.token
-    let decodedToken = jwtDecode(encodedToken)
-    localStorage.setItem("currentUser", JSON.stringify(decodedToken.sub))
-    localStorage.setItem("token", encodedToken)
-    return;
-  } else {
+    let data = await response.json();
+    let encodedToken = data.token;
+    let decodedToken = jwtDecode(encodedToken);
+    localStorage.setItem("currentUser", JSON.stringify(decodedToken.sub));
+    localStorage.setItem("token", encodedToken);
+    return;}
+  else {
     throw new Error(
       `Received status ${response.status} when logging in. Expected 200`
     );

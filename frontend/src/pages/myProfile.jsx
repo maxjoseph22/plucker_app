@@ -45,6 +45,7 @@ export function MyProfile() {
 
         , [] );
 
+
         return (
             <>
               <div className="profile-padding">
@@ -53,12 +54,12 @@ export function MyProfile() {
                   <div className="profile-card">
                     <PhotoDisplay profile_picture={current_user.profile_picture} />
                     <h3>{current_user.username}</h3>
-                  </div>
                     <UploadImage token={token} />
                     <DisplayMyBirdSightings user_id={current_user.id} username={current_user.username} />
                   </div>
                 </div>
-
+          
+                  </div>
             </>
           );
         }
