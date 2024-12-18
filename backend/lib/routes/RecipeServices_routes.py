@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, g, request, send_from_directory
 from lib.services.RecipeServices import RecipeService
 import os
+import random
 from lib.repositories.repo_factory import (
     connect_to_sightings_repository,
     connect_to_recipes_repository,
@@ -89,8 +90,10 @@ async def get_bird_recipe_by_sighting_id(sighting_id):
 
         if not recipe:
             return jsonify({"error": "Recipe not found"}), 404
+        
+        selected_recipe = random.choice(recipe)
 
-        return jsonify({"recipe": recipe}), 200
+        return jsonify({"recipe": selected_recipe}), 200
 
     except Exception as e:
             return jsonify({"error": str(e)}), 500

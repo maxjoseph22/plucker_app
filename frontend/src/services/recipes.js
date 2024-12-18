@@ -43,3 +43,18 @@ export async function uploadBirdSighting(token, formData) {
     console.log("Upload successful:", result);
     return result;
   }
+
+    // Fetch the recipe from the backend
+    export const fetchRecipe = async () => {
+      try {
+        const response = await fetch(`${BACKEND_URL}/recipe_templetes`); 
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json(); 
+        return data; // Return parsed data
+      } catch (error) {
+        console.error("Error fetching recipe:", error); // Log errors
+        throw error; // Re-throw error for handling in the component
+      }
+    };
