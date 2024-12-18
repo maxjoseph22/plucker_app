@@ -170,19 +170,18 @@ export function SignUpPage() {
           </div>
           <div className='buttons-container'>
             <button
-              type='button'
+              type='submit'
               className='submit-button'
               role='submit-button'
-              id='submit'
-              onClick={() => navigate("/myprofile")}>
+              id='submit'>
               Sign up
             </button>
             <br></br>
             <button
-              type='submit'
+              type='button'
               className='submit-button'
               role='submit-button'
-              id='submit'
+              id='loginroute'
               onClick={() => navigate("/login")}>
               Login
             </button>

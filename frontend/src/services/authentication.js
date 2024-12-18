@@ -11,7 +11,6 @@ export async function SignUp(formData) {
       email: formData.get("email"),
       password: formData.get("password"),
       username: formData.get("username"),
-      // profile_picture: formData.get("profile_picture")
     };
     console.log("authentication.js (services) line 12 payload --->", payload)
     const requestOptions = {
