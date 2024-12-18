@@ -3,7 +3,6 @@ export const VALID_BIRDS = [
     "eagle", "hawk", "owl", "hummingbird", "woodpecker", 
     "seagull", "pigeon", "crow", "raven", "finch",
     "dove", "starling", "bluebird", "cardinal", "goldfinch",
-    // You can continue adding more birds here
     "pelican", "flamingo", "penguin", "albatross", "osprey",
     "turkey vulture", "great blue heron", "bald eagle", 
     "red-tailed hawk", "barn owl", 
