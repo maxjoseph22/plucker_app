@@ -1,11 +1,11 @@
 // import { NavBar } from "../../components/NavBar";
 import { PhotoDisplay } from "../components/PhotoDisplay";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 // import { useParams } from "react-router-dom";
 // import { UserDetails } from "../components/UserDetails";
 // import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
-import { DisplayMyRecipes } from "../components/DisplayMyRecipes";
+import { DisplayMyBirdSightings } from "../components/DisplayMyBirdSightings";
 // import { getRecipesForUser } from "../services/recipes";
 
 import { UploadImage } from "../components/UploadBirdImage";
@@ -45,7 +45,8 @@ export function MyProfile() {
 
         , [] );
 
-    return (
+
+        return (
             <>
               <div className="profile-padding">
                 <h1>Profile Page</h1>
@@ -53,16 +54,12 @@ export function MyProfile() {
                   <div className="profile-card">
                     <PhotoDisplay profile_picture={current_user.profile_picture} />
                     <h3>{current_user.username}</h3>
-                    <DisplayMyRecipes user_id={current_user.id} />
-                  </div>
-                  <div className="profile-card">
-                    <PhotoDisplay profile_picture={profile_picture} />
-                    <h3>{username}</h3>
                     <UploadImage token={token} />
-                    <DisplayMyRecipes user_id={user_id} />
+                    <DisplayMyBirdSightings user_id={current_user.id} username={current_user.username} />
                   </div>
                 </div>
-              </div>
+          
+                  </div>
             </>
           );
         }
