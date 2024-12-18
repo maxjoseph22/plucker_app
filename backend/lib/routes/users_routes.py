@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, g, request, redirect
+from flask import Blueprint, jsonify, g, request, redirect, send_from_directory
 from lib.models.users import User
 from flask_jwt_extended import (JWTManager, create_access_token, jwt_required, get_jwt_identity)
 from lib.repositories.repo_factory import connect_to_user_repository #import custom connect_to_user_repository() function from repo_factory.py file
@@ -107,6 +107,8 @@ async def get_user_by_username(username):
         print(f"Error: {e}")
         return jsonify({"error": str(e),}), 500
 
-
-
+# load user profile pic
+@user_routes.route('/uploads/<path:filename>')
+def serve_file(filename):
+    return send_from_directory('uploads', filename)
 

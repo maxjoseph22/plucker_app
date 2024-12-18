@@ -4,6 +4,7 @@ import { LoginPage } from "./pages/Login";
 import { SignUpPage } from "./pages/SignUp";
 import { MyProfile } from "./pages/myProfile";
 import { IndividualBirdSighting } from "./pages/IndividualBirdSighting";
+import { Logout } from "./components/Logout"
 import './assets/App.css';
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
     {
         path: "/sightings/:username/:sighting_id",
         element: <IndividualBirdSighting />
+    },
+    {
+        path: "/logout",
+        element: <Logout />
     }
 
 

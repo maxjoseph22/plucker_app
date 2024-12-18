@@ -68,7 +68,7 @@ CREATE TABLE steps (
 CREATE SEQUENCE IF NOT EXISTS ratings_id_seq;
 CREATE TABLE ratings (
     id SERIAL PRIMARY KEY,
-    rating_score INT,
+    rating_score INT NOT NULL CHECK (rating_score >= 1 AND rating_score <= 5),
     recipe_id int NOT NULL,
     constraint fk_recipe foreign key(recipe_id) references bird_recipes(id) on delete cascade
 );
@@ -78,12 +78,13 @@ CREATE OR REPLACE FUNCTION get_avg_recipe_rating(bird_recipe_id INT)
 RETURNS NUMERIC AS $$
 BEGIN
     RETURN (
-        SELECT AVG(rating_score)
+        SELECT ROUND(AVG(rating_score), 1)  -- Rounds to 1 decimal place
         FROM ratings
         WHERE recipe_id = bird_recipe_id
     );
 END;
 $$ LANGUAGE plpgsql;
+
 
 -- Seed data for users:
 INSERT INTO users (username, email, password) VALUES 
@@ -188,3 +189,15 @@ INSERT INTO steps (recipe_id, step_order, step_description) VALUES
 (4, 3, 'Increase the oil temperature to about 190°C (375°F). Fry the wings again in batches until crisp and deeply golden, about 3-4 minutes more per batch. Drain on paper towels.'),
 (4, 4, 'Meanwhile, whisk together all sauce ingredients in a small saucepan over medium heat. Simmer gently until slightly thickened, about 2-3 minutes.'),
 (4, 5, 'Toss the double-fried resplendent quetzal wings in the warm sauce until well coated. Serve immediately, garnished with toasted sesame seeds and spring onions if desired.');
+
+-- seed data for ratings
+
+INSERT INTO ratings (rating_score, recipe_id) VALUES
+(5, 1),
+(4, 2),
+(2, 4),
+(5, 4),
+(3, 2),
+(2, 3),
+(5, 3),
+(5, 3);

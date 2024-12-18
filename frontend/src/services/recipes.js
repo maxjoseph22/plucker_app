@@ -58,3 +58,4 @@ export async function uploadBirdSighting(token, formData) {
         throw error; // Re-throw error for handling in the component
       }
     };
+

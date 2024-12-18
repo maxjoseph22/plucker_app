@@ -50,14 +50,14 @@ export function LoginPage() {
           action='/login'
           method='POST'
           onSubmit={handleSubmit}>
-          <label className='username'>Username</label>
+          <label className='username'>Email</label>
 
           <br></br>
           <input
             type='email'
             id='email'
             name='email'
-            placeholder='email'
+            placeholder='Email'
             value={email}
             onChange={handleEmailChange}
           />
@@ -68,7 +68,7 @@ export function LoginPage() {
             type='text'
             id='password'
             name='password'
-            placeholder='password'
+            placeholder='Password'
             value={password}
             onChange={handlePasswordChange}
           />
