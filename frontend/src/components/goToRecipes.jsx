@@ -25,13 +25,13 @@ const Recipe = () => {
       {error && <p style={{ color: "red" }}>{error}</p>}
       {showRecipe && recipe && (
         <div>
-          <h2>{recipe.title.replace("{BIRD}", "Chicken")}</h2>
+          <h2>{recipe.title}</h2>
           <p>Cooking Time: {recipe.cooking_time} minutes</p>
           <h3>Ingredients:</h3>
           <ul>
             {recipe.ingredients.map((ingredient, index) => (
               <li key={index}>
-                {ingredient.ingredient_name?.replace("{BIRD}", "Chicken")}
+                {ingredient.ingredient_name}
               </li>
             ))}
           </ul>
@@ -39,7 +39,7 @@ const Recipe = () => {
           <ol>
             {recipe.steps.map((step) => (
               <li key={step.step_order}>
-                {step.step_description.replace("{BIRD}", "Chicken")}
+                {step.step_description}
               </li>
             ))}
           </ol>

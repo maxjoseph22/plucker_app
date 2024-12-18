@@ -1,6 +1,5 @@
 
-recipe =[ 
-    {
+HERB_GLAZED_RECIPE = {
     "title": "Herb-Glazed {BIRD}",
     "cooking_time": 25,
     "ingredients": [
@@ -26,9 +25,9 @@ recipe =[
         {"step_order": 4, "step_description": "Glaze the {BIRD}: Reduce heat to low and pour the herb glaze over the {BIRD}. Spoon the glaze over the {BIRD} to coat evenly. Let it simmer for 3-4 minutes until the glaze thickens slightly."},
         {"step_order": 5, "step_description": "Serve: Transfer the {BIRD} to a serving plate and drizzle with remaining glaze from the pan. Garnish with optional lemon wedges for a fresh citrus touch."}
     ]
-    },
+}
 
-    {
+POT_PIE_RECIPE = {
     "title": "{BIRD} Pot Pie",
     "cooking_time": 50,
     "ingredients": [
@@ -54,9 +53,9 @@ recipe =[
         {"step_order": 7, "step_description": "Bake for 45-50 minutes, or until the edges are golden brown and the filling is cooked through."},
         {"step_order": 8, "step_description": "Cool on the baking sheet for 10 minutes before serving."}
     ]
-    },
+}
 
-    {
+FRIED_RICE_RECIPE = {
     "title": "{BIRD} Fried Rice",
     "cooking_time": 20,
     "ingredients": [
@@ -79,9 +78,9 @@ recipe =[
         {"step_order": 5, "step_description": "Return the cooked {BIRD} to the pan. Add soy sauce. Mix thoroughly, ensuring everything is well combined and heated through."},
         {"step_order": 6, "step_description": "Remove from heat, garnish with chopped green onions, and serve hot."},
     ]
-    },
+}
 
-    {
+A_LORANGE_RECIPE = {
     "title": "{BIRD} à l'Orange",
     "cooking_time": 120,
     "ingredients": [
@@ -106,9 +105,9 @@ recipe =[
         {"step_order": 6, "step_description": "Simmer the sauce for 10-15 minutes until it reduces and thickens slightly. Season with salt and pepper to taste."},
         {"step_order": 7, "step_description": "Remove the {BIRD} from the oven and let it rest for 15 minutes. Carve the {BIRD} and serve with the orange sauce, garnishing with fresh thyme and orange segments."}
     ]
-    },
+}
 
-    {
+PASTA_BAKE_RECIPE = {
     "title": "Creamy {BIRD} and spinach Pasta bake",
     "cooking_time": 35,
     "ingredients": [
@@ -137,9 +136,9 @@ recipe =[
         {"step_order": 8, "step_description": "Sprinkle grated cheddar and torn mozzarella evenly over the top."},
         {"step_order": 9, "step_description": "Bake for 20 minutes, or until the cheese is melted and the pasta is golden brown on top."}
     ]
-    },
+}
 
-    {
+JAMAICAN_JERK_RECIPE = {
     "title": "Jamaican Jerk {BIRD}",
     "cooking_time": 40,
     "ingredients": [
@@ -164,9 +163,9 @@ recipe =[
         {"step_order": 5, "step_description": "If grilling, cook {BIRD} for 25-30 minutes, turning occasionally and ensuring internal temperature reaches 165°F (74°C). If using the oven, place {BIRD} on a baking sheet and roast for 35-40 minutes."},
         {"step_order": 6, "step_description": "Let {BIRD} rest for 5-10 minutes before serving."}
     ]
-    },
+}
 
-    {
+BUFFALO_WINGS_RECIPE = {
     "title": "Buffalo {BIRD} wings",
     "cooking_time": 50,
     "ingredients": [
@@ -191,9 +190,9 @@ recipe =[
         {"step_order": 7, "step_description": "Bake for 45-50 minutes, or until the edges are golden brown and the filling is cooked through."},
         {"step_order": 8, "step_description": "Cool on the baking sheet for 10 minutes before serving."}
     ]
-    },
+}
 
-    {
+HOMESTYLE_CURRY_RECIPE = {
     "title": "Homestyle {BIRD} curry",
     "cooking_time": 35,
     "ingredients": [
@@ -221,9 +220,9 @@ recipe =[
         {"step_order": 7, "step_description": "Bake for 45-50 minutes, or until the edges are golden brown and the filling is cooked through."},
         {"step_order": 8, "step_description": "Season with salt to taste. If the sauce is too thick, add a little more water."}
     ]
-    },
+}
 
-    {
+CLASSIC_PARM_RECIPE = {
     "title": "classic {BIRD} Parm",
     "cooking_time": 25,
     "ingredients": [
@@ -249,9 +248,9 @@ recipe =[
         {"step_order": 6, "step_description": "Bake in a preheated 425°F (218°C) oven for 15-20 minutes, until cheese is melted and {BIRD} is cooked through (internal temperature of 165°F)."},
         {"step_order": 7, "step_description": "Let rest for 5 minutes before serving. Garnish with fresh basil if desired."}
     ]
-    },
+}
 
-    {
+PEANUT_LIME_NOODLE_RECIPE = {
     "title": "Creamy Peanut-lime {BIRD} Noodles",
     "cooking_time": 25,
     "ingredients": [
@@ -280,9 +279,9 @@ recipe =[
         {"step_order": 5, "step_description": "Add the cooked {BIRD} and noodles to the skillet, tossing to coat evenly with the sauce."},
         {"step_order": 6, "step_description": "Serve hot, garnished with chopped cilantro, green onions, and roasted peanuts. Sprinkle with red pepper flakes if desired."},
     ]
-    },
+}
 
-    {
+LASAGNE_RECIPE = {
     "title": "Creamy {BIRD}, spinach, and artichoke lasagne",
     "cooking_time": 60,
     "ingredients": [
@@ -315,5 +314,5 @@ recipe =[
         {"step_order": 7, "step_description": "Remove foil and bake for an additional 10-15 minutes until cheese is golden and bubbly."},
         {"step_order": 8, "step_description": "Let stand for 10 minutes before serving."},
     ]
-    }
-]
+}
+
