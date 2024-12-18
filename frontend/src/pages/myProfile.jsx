@@ -1,17 +1,13 @@
-// import { NavBar } from "../../components/NavBar";
+import { useNavigate, useEffect, useState } from "react";
+import { Navbar } from "../components/Navbar"; 
 import { PhotoDisplay } from "../components/PhotoDisplay";
-import { useEffect } from "react";
 // import { useParams } from "react-router-dom";
 // import { UserDetails } from "../components/UserDetails";
 import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
-
 // import { Recipe } from "../components/Recipe";
-
 import { DisplayMyBirdSightings } from "../components/DisplayMyBirdSightings";
-
 // import { getRecipesForUser } from "../services/recipes";
-import NavBar from "../components/Navbar";
 import pluckerIcon from "../assets/icon/pluckers.png";
 import "./MyProfile.css";
 
@@ -20,12 +16,11 @@ export function MyProfile() {
 //   const addBird = () => {
 //     //add to add bird here functionality here
 //     console.log("Bird Added");
-  };
+//   };
 
   const goToRecipe = () => {
     //add to go to recipe functionality here
-    console.log("Recipe Clicked");
-  }
+    console.log("Recipe Clicked");}
 
 
 
@@ -59,9 +54,9 @@ export function MyProfile() {
         // });
     }, [token, navigate, current_user]);
 
-  return (
+    return (
     <>
-      <NavBar />
+    <Navbar />
       <div className='main-container'>
         <div className='plucker-logo'>
           <img src={pluckerIcon} alt='Plucker logo' />

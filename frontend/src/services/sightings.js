@@ -18,7 +18,7 @@ export async function getAllSightings(token) {
     return data;
 }
 
-export async function getSighting(id) {
+export async function getSighting(token, id) {
     const requestOptions = {
         method: "GET",
         headers: {

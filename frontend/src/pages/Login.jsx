@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/authentication";
-
+import { Navbar } from "../components/Navbar";
 import pluckerIcon from "../assets/icon/pluckers.png";
 import "./Login.css";
 
@@ -34,17 +34,10 @@ export function LoginPage() {
     function handlePasswordChange(event) {
         setPassword(event.target.value);
     }
-  }
-
-  function handleEmailChange(event) {
-    setEmail(event.target.value);
-  }
-
-  function handlePasswordChange(event) {
-    setPassword(event.target.value);
-  }
 
   return (
+    <div className="wrapper-auth">
+    <ToastContainer toastStyle={{ backgroundColor: "#E4E0E1", color: "#493628" }}/>
     <div className='home-container'>
       <Navbar />
       <div className='plucker-logo'>
@@ -102,12 +95,12 @@ export function LoginPage() {
         </form>
       </div>
     </div>
+    </div>
   );
 }
 
 //     return (
-//         <div className="wrapper-auth">
-//             <ToastContainer toastStyle={{ backgroundColor: "#E4E0E1", color: "#493628" }}/>
+//         
 //         <div className="home-container">
 //         {/* <NavBar /> */}
 //         <div className="name-container">
