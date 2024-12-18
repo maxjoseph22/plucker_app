@@ -20,6 +20,7 @@ export function LoginPage() {
         try {
             // login() sets items in localStorage
             await login(email, password)
+            navigate("/myprofile")
         } catch (err) {
             console.error(err);
             toast.error("Invalid login: Please check your email and password");
@@ -78,8 +79,7 @@ export function LoginPage() {
               type='submit'
               className='submit-button'
               role='submit-button'
-              id='submit'
-              onClick={() => navigate("/myprofile")}>
+              id='submit'>
               Login
             </button>
             <br></br>
