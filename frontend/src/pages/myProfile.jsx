@@ -15,17 +15,15 @@ import { useNavigate } from "react-router-dom";
 
 
 export function MyProfile() {
-    // const [username, setUsername] = useState("");
-    // const [user_id, setUserId] = useState("");
-    // const [profile_picture, setProfilePicture] = useState("Test");
+    const [username, setUsername] = useState("");
+    const [user_id, setUserId] = useState("");
+    const [profile_picture, setProfilePicture] = useState("");
     const token = localStorage.getItem("token");
-    const current_user_string = localStorage.getItem("currentUser")
-    const current_user = JSON.parse(current_user_string)
-    // const username = current_user.username
-    // const profile_picture = current_user.username
+    const current_user_string = localStorage.getItem("currentUser");
+    const current_user = JSON.parse(current_user_string);
     const navigate = useNavigate();
 
-    console.log("current user line 26 ---> ", current_user)
+    console.log("current user line 26 ---> ", current_user);
 
     useEffect(() => {
         if (!token) {
@@ -33,17 +31,19 @@ export function MyProfile() {
             navigate("/login");
             return;
         }
-        
 
-        // getUserInfo(token)
-        // .then((data) => {
-        // setUsername(current_user.username);
-        // setProfilePicture(current_user.profile_picture);
-        // setUserId(current_user.id)
-            // localStorage.setItem("token", data.token);
-            }
+        // Set user details
+        if (current_user) {
+            setUsername(current_user.username);
+            setProfilePicture(current_user.profile_picture);
+            setUserId(current_user.id);
+        }
 
-        , [] );
+        // Example API call - uncomment if you need real user data
+        // getUserInfo(token).then((data) => {
+        //     localStorage.setItem("token", data.token);
+        // });
+    }, [token, navigate, current_user]);
 
 
         return (

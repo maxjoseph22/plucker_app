@@ -3,8 +3,6 @@ const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
 
 import { jwtDecode } from 'jwt-decode';
 
-
-
 console.log("<==== services/authentication.js says ====>\nBackend url: ", BACKEND_URL, "FIX THE ENV FILE")
 
 export async function SignUp(formData) {
