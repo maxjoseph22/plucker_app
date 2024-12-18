@@ -2,6 +2,7 @@ import { useState } from "react";
 import { uploadBirdSighting } from "../services/recipes"; 
 // const BACKEND_URL = import.meta.env.BACKEND_URL; - hardcoded in and needs looking at
 import { recognizeBirdFile } from "../services/users";
+import { VALID_BIRDS } from "../../utils/valid_birds";
 
 export function UploadImage() {
   const [file, setFile] = useState(null);
@@ -13,6 +14,13 @@ export function UploadImage() {
   const current_user_string = localStorage.getItem("currentUser")
   const current_user = JSON.parse(current_user_string)
   const token = localStorage.getItem("token")
+
+   // Validate bird name
+  const validateBirdName = (name) => {
+    if (!name) return false;
+    return VALID_BIRDS.includes(name.toLowerCase().trim());
+  };
+  
 
   // Handle file selection and bird recognition
   const handleFileChange = async (e) => {
@@ -40,6 +48,16 @@ export function UploadImage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) return alert("Please select an image.");
+
+    if (birdName.toLowerCase() === "chicken") {
+      setError("404 Not Found!");
+      return;
+    }
+    // Validate bird name before submission
+    if (birdName && !validateBirdName(birdName)) {
+      setError("Squawk! That doesn't sound like a bird!");
+      return;
+    } 
 
     try {
       const formData = new FormData();
@@ -73,6 +91,7 @@ export function UploadImage() {
       setFile(null);
       setBirdName("");
       setLocation("");
+      setError(null);
     } catch {
       setError("Upload failed. Please try again.");
     }
@@ -90,7 +109,7 @@ export function UploadImage() {
         type="text"
         value={birdName}
         onChange={(e) => setBirdName(e.target.value)}
-        placeholder="Auto-filled or enter manually"
+        placeholder="Enter bird name (e.g., Robin, Blue Jay)"
       />
 
       <label>Location:</label>
