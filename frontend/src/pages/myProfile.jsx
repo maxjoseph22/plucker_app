@@ -1,11 +1,11 @@
-import { useNavigate, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "../components/Navbar"; 
 import { PhotoDisplay } from "../components/PhotoDisplay";
-// import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { UserDetails } from "../components/UserDetails";
 import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
-// import { Recipe } from "../components/Recipe";
+import { UploadImage } from "../components/UploadBirdImage";
 import { DisplayMyBirdSightings } from "../components/DisplayMyBirdSightings";
 // import { getRecipesForUser } from "../services/recipes";
 import pluckerIcon from "../assets/icon/pluckers.png";
@@ -13,16 +13,9 @@ import "./MyProfile.css";
 
 export function MyProfile() {
 
-//   const addBird = () => {
-//     //add to add bird here functionality here
-//     console.log("Bird Added");
-//   };
-
   const goToRecipe = () => {
     //add to go to recipe functionality here
     console.log("Recipe Clicked");}
-
-
 
     const [username, setUsername] = useState("");
     const [user_id, setUserId] = useState("");
@@ -64,18 +57,9 @@ export function MyProfile() {
         <div className='user-container'>
           <PhotoDisplay profile_picture={profile_picture} />
           <h3>{username}</h3>
-          <div className='button-container'>
-            <button
-              type='submit'
-              className='submit-button'
-              role='submit-button'
-              id='submit'
-              onClick={() => addBird()}>
-              Add Bird
-          {/* This needs to be linked up properly */}
-            </button>
-          </div>
+          <UploadImage />
         </div>
+                  {/* This needs to be linked up properly */}
         <div className='recipe-card'>
           <h1>Sightings:</h1>
           <button
