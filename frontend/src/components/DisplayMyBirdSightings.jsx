@@ -5,6 +5,7 @@ import { getMyBirdSightings } from "../services/sightings"
 
 export function DisplayMyBirdSightings({user_id, username}) {
     const [birdSightings, setBirdSightings] = useState([]);
+    console.log("bird data", birdSightings)
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -14,7 +15,10 @@ export function DisplayMyBirdSightings({user_id, username}) {
             try {
                 const token = localStorage.getItem("token");
                 const data = await getMyBirdSightings(token)
-                setBirdSightings(data)
+                // .then((data) => {
+                    setBirdSightings(data)
+                // })
+
             } catch (err) {
                 console.error(
                     "Failed to fetch recipes DisplayMyRecipes.jsx Component - line 20:", err);
