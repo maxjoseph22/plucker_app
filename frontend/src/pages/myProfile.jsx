@@ -5,7 +5,7 @@ import { useEffect } from "react";
 // import { UserDetails } from "../components/UserDetails";
 // import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
-import { DisplayMyRecipes } from "../components/DisplayMyRecipes";
+import { DisplayMyBirdSightings } from "../components/DisplayMyBirdSightings";
 // import { getRecipesForUser } from "../services/recipes";
 
 import { UploadImage } from "../components/UploadBirdImage";
@@ -54,11 +54,8 @@ export function MyProfile() {
                     <PhotoDisplay profile_picture={current_user.profile_picture} />
                     <h3>{current_user.username}</h3>
                   </div>
-
-
-
                     <UploadImage token={token} />
-                    <DisplayMyRecipes user_id={current_user.id} />
+                    <DisplayMyBirdSightings user_id={current_user.id} username={current_user.username} />
                   </div>
                 </div>
 
