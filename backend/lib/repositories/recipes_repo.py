@@ -68,14 +68,16 @@ class RecipeRepository():
             #     return 'Please provide a cooking time'
             # if not recipe.bird_sighting_id:
             #     return 'Please provide a bird_sighting id'
-            recipe_id = await self._connection.execute(
+            result = await self._connection.fetch(
                 '''
                 INSERT INTO bird_recipes (title, date_created, cooking_time, bird_sighting_id)
                 VALUES ($1, $2, $3, $4)
                 RETURNING id
                 ''',
                 [recipe.title, date_spotted, recipe.cooking_time, recipe.bird_sighting_id])
-            return recipe_id
+            id = result[0]['id']
+            print("recipe id --->", id)
+            return id
         
         async def update_recipe_title(self, id, title):
             await self._connection.execute(

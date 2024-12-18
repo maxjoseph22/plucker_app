@@ -1,13 +1,18 @@
 import { useState } from "react";
+import { uploadBirdSighting } from "../services/recipes"; 
+// const BACKEND_URL = import.meta.env.BACKEND_URL; - hardcoded in and needs looking at
 import { uploadUserFile } from "../services/users";
 import { recognizeBirdFile } from "../services/users";
 
-const UploadImage = ({ token }) => {
+export const UploadImage = ({ token }) => {
   const [file, setFile] = useState(null);
   const [birdName, setBirdName] = useState("");
   const [location, setLocation] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState([]); 
+  const current_user_string = localStorage.getItem("currentUser")
+  const current_user = JSON.parse(current_user_string)
 
   // Handle file selection and bird recognition
   const handleFileChange = async (e) => {
@@ -37,11 +42,32 @@ const UploadImage = ({ token }) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("birdName", birdName);
-      formData.append("location", location);
+// API RELATED CODE vv
 
-      await uploadUserFile(token, formData);
-      alert("File uploaded successfully!");
+//       formData.append("birdName", birdName);
+//       formData.append("location", location);
+
+//       await uploadUserFile(token, formData);
+//       alert("File uploaded successfully!");
+
+      formData.append("user_id", current_user.id)
+
+// THIS CODE CAN POSSIBLY GO WHEN THE API WORKS v
+
+      if (birdName) {
+        formData.append("birdName", birdName); // Append bird name if provided
+      }
+
+      if (location) {
+        formData.append("location", location); // Append location if provided
+      }
+
+      const result = await uploadBirdSighting(token, formData);
+      console.log("Upload successful:", result);
+
+      setUploadedImages((prevImages) => [...prevImages, result.image]);
+
+
       setFile(null);
       setBirdName("");
       setLocation("");
@@ -72,9 +98,23 @@ const UploadImage = ({ token }) => {
         placeholder="Enter location"
       />
 
+
       <button type="submit" disabled={isLoading}>Upload</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </form>
+
+      {/* Gallery Display */}
+//       <div className="gallery">
+//         {uploadedImages.map((url, index) => (
+//           <img
+//             key={index}
+//             src={`http://localhost:8000/bird_uploads/${url}`}
+//             alt={`Uploaded ${index + 1}`}
+//             style={{ width: "150px", margin: "10px", borderRadius: "8px" }}
+//           />
+//         ))}
+//       </div>
+    </div>
   );
 };
 

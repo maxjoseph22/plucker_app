@@ -1,11 +1,11 @@
 // import { NavBar } from "../../components/NavBar";
 import { PhotoDisplay } from "../components/PhotoDisplay";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 // import { useParams } from "react-router-dom";
 // import { UserDetails } from "../components/UserDetails";
 // import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
-import { DisplayMyRecipes } from "../components/DisplayMyRecipes";
+import { DisplayMyBirdSightings } from "../components/DisplayMyBirdSightings";
 // import { getRecipesForUser } from "../services/recipes";
 
 import { UploadImage } from "../components/UploadBirdImage";
@@ -45,24 +45,21 @@ export function MyProfile() {
         // });
     }, [token, navigate, current_user]);
 
-    return (
-        <>
-          <div className="profile-padding">
-            <h1>Profile Page</h1>
-            <div className="profile-content">
-              <div className="profile-card">
-                <PhotoDisplay profile_picture={current_user.profile_picture} />
-                <h3>{current_user.username}</h3>
-                <DisplayMyRecipes user_id={current_user.id} />
-              </div>
-              <div className="profile-card">
-                <PhotoDisplay profile_picture={profile_picture} />
-                <h3>{username}</h3>
-                <UploadImage token={token} />
-                <DisplayMyRecipes user_id={user_id} />
-              </div>
-            </div>
-          </div>
-        </>
-      );
-    }
+
+        return (
+            <>
+              <div className="profile-padding">
+                <h1>Profile Page</h1>
+                <div className="profile-content">
+                  <div className="profile-card">
+                    <PhotoDisplay profile_picture={current_user.profile_picture} />
+                    <h3>{current_user.username}</h3>
+                    <UploadImage token={token} />
+                    <DisplayMyBirdSightings user_id={current_user.id} username={current_user.username} />
+                  </div>
+                </div>
+          
+                  </div>
+            </>
+          );
+        }

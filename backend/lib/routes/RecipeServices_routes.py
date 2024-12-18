@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify, g, request
+from flask import Blueprint, jsonify, g, request, send_from_directory
 from lib.services.RecipeServices import RecipeService
+import os
 from lib.repositories.repo_factory import (
     connect_to_sightings_repository,
     connect_to_recipes_repository,
@@ -18,42 +19,54 @@ async def post_bird_sighting():
         await connect_to_ingredients_repository()
         await connect_to_steps_repository()
 
-        # Parse incoming JSON
-        data = request.get_json()
-        if not data:
-            return jsonify({"error": "No JSON data provided"}), 400
+        # Parse incoming formData
 
-        bird_name = data.get("bird_name")
-        user_id = data.get("user_id")
-        location = data.get("location")
-        # I will need to add bird_image in here as well
+        bird_name = request.form.get('birdName')
+        location = request.form.get('location')
+        user_id = int(request.form.get('user_id'))
+        uploaded_file = request.files.get('file')
+
+        print(uploaded_file)
+        if not uploaded_file:
+            return jsonify({"error": "No file provided"}), 400
 
         if not bird_name or not user_id:
             return jsonify({"error": "bird_name and user_id are required"}), 400
+        
+        # Save file to backend/uploads and return filepath to add to create recipe and sighting
+        if uploaded_file.filename != "":
+            filepath = os.path.join("uploads", uploaded_file.filename)
+            uploaded_file.save(filepath)
+            image = uploaded_file.filename
 
-        # Create an instance of RecipeService with your repositories and connection
-        recipe_service = RecipeService(
-            sightings_repo=g.sightings_repository,
-            recipes_repo=g.recipes_repository,
-            ingredients_repo=g.ingredients_repository,
-            steps_repo=g.steps_repository,
-            connection=g.flask_database_connection
-        )
+            # Create an instance of RecipeService with your repositories and connection
+            recipe_service = RecipeService(
+                sightings_repo=g.sightings_repository,
+                recipes_repo=g.recipes_repository,
+                ingredients_repo=g.ingredients_repository,
+                steps_repo=g.steps_repository,
+                connection=g.flask_database_connection
+            )
 
-        # Call the async service method to create a recipe
-        recipe_id = await recipe_service.create_recipe_from_bird_name(bird_name, user_id, location)
+            # Call the async service method to create a recipe & bird sighting
+            recipe_id = await recipe_service.create_recipe_from_bird_name(bird_name, user_id, location, image)
 
-        if not recipe_id:
-            return jsonify({"error": "Failed to create recipe"}), 500
+            if not recipe_id:
+                return jsonify({"error": "Failed to create recipe"}), 500
 
-        # If successful, return the newly created recipe_id
-        # DO they need the ID or can wer just send back a success message?
-        return jsonify({"recipe_id": recipe_id}), 201
+            # If successful, return the newly created recipe_id
+            return jsonify({"recipe_id": recipe_id, "image": image}), 201
 
     except Exception as e:
         # Catch and return any unhandled exceptions
         return jsonify({"error": str(e)}), 500
     
+#Serve files (images) from the uploads directory
+@RecipeServices_routes.route('/bird_uploads/<path:path>', methods=["GET"])
+def get_uploads(path):
+    return send_from_directory('uploads', path)
+
+
 #GET a bird recipe according to its sighting_id and send to frontend in json format
 @RecipeServices_routes.route('/bird_recipe/<int:sighting_id>', methods=["GET"])
 async def get_bird_recipe_by_sighting_id(sighting_id):
