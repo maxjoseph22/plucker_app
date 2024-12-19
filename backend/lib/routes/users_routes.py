@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, jsonify, g, request, redirect, send_from_directory
 from lib.models.users import User
 from flask_jwt_extended import (JWTManager, create_access_token, jwt_required, get_jwt_identity)
@@ -109,21 +110,20 @@ async def get_user_by_username(username):
 
 # change profile pic
 @user_routes.route('/files/upload', methods=['POST'])
-async def change_profile_pic(formData):
+async def change_profile_pic():
     try:
-        print(formData)
         await connect_to_user_repository()
         uploaded_file = request.files.get('file')
         user_id = request.form.get('user_id')
-        print("REQUEST:", request)
+        print(uploaded_file)
         if not uploaded_file:
             return jsonify({"error": "No file provided"}), 400
         if uploaded_file.filename != "":
             filepath = os.path.join("uploads/profile", uploaded_file.filename)
             uploaded_file.save(filepath)
             image = uploaded_file.filename
-            g.user_repository.update_user_picture(filepath, user_id)
-            return jsonify({"success": "check user_repo.update_user_picture if problems arise"}), 200
+            await g.user_repository.update_user_picture(filepath, int(user_id))
+            return jsonify({"success": "check user_repo.update_user_picture if problems arise", "filepath": filepath}), 200
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"error": str(e),}), 500
