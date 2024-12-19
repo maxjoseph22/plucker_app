@@ -4,9 +4,9 @@ import { LoginPage } from "./pages/Login";
 import { SignUpPage } from "./pages/SignUp";
 import { MyProfile } from "./pages/myProfile";
 import { Team } from "./pages/Team";
-import { IndividualBirdSighting } from "./pages/IndividualBirdSighting";
+// import { IndividualBirdSighting } from "./pages/IndividualBirdSighting";
 import { RecipeDisplayPage} from "./pages/RecipeDisplayPage"
-import { Logout } from "./components/Logout"
+// import { Logout } from "./components/Logout"
 import './assets/App.css';
 
 const router = createBrowserRouter([
