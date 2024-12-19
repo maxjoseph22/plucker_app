@@ -4,5 +4,8 @@
 **/*venv*
 .env
 .coverage
-uploads/
+uploads/*
 !uploads/default_photo.webp
+!uploads/profile
+uploads/profile/*
+
