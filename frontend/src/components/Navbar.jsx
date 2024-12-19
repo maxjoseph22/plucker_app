@@ -9,13 +9,10 @@ export function Navbar() {
           <a href='/myprofile'>My Profile</a>
         </li>
         <li>
-          <a href='/recipe'>Sighting</a>
+          <a href='/team'>Team</a>
         </li>
         <li>
-          <a href='/contact'>Contact</a>
-        </li>
-        <li>
-          <a href='/logout'>Log out</a>
+          <a href='/'>Log out</a>
         </li>
       </ul>
     </nav>

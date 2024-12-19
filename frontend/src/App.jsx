@@ -3,15 +3,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LoginPage } from "./pages/Login";
 import { SignUpPage } from "./pages/SignUp";
 import { MyProfile } from "./pages/myProfile";
+import { Team } from "./pages/Team";
 import { IndividualBirdSighting } from "./pages/IndividualBirdSighting";
-import { Logout } from "./components/Logout"
 import './assets/App.css';
 
 const router = createBrowserRouter([
-    // {
-    //     path: "/",
-    //     element: <HomePage />
-    // },
+    {
+        path: "/",
+        element: <LoginPage />
+    },
     {
         path: "/login",
         element: <LoginPage />
@@ -29,11 +29,9 @@ const router = createBrowserRouter([
         element: <IndividualBirdSighting />
     },
     {
-        path: "/logout",
-        element: <Logout />
+        path: "/team",
+        element: <Team />
     }
-
-
 ]);
 
 function App() {

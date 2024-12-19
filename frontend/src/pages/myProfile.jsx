@@ -49,52 +49,21 @@ export function MyProfile() {
     <>
     <Navbar />
       <div className='main-container'>
-        <div className='plucker-logo'>
+        <div className='plucker-logo-my-profile'>
           <img src={pluckerIcon} alt='Plucker logo' />
         </div>
         <div className='user-container'>
-          <PhotoDisplay profile_picture={profile_picture} />
-          <h3>{username}</h3>
-          <UploadImage />
+            <div className="profile-picture">
+              <div className="photo">
+                <PhotoDisplay profile_picture={profile_picture} />
+              </div>
+            </div>
+            <h3>{username}</h3>
+            <UploadImage />
         </div>
-                  {/* This needs to be linked up properly */}
         <div className='recipe-card'>
           <h1>Sightings:</h1>
             <DisplayMyBirdSightings user_id={user_id} username={username}/>
-
-          {/* <button
-            type='submit'
-            className='submit-button'
-            role='submit-button'
-            id='submit'
-            onClick={() => goToRecipe()}>
-            Sighting 1
-          </button>
-          <button
-            type='submit'
-            className='submit-button'
-            role='submit-button'
-            id='submit'
-            onClick={() => goToRecipe()}>
-            Sighting 2
-          </button>
-          <button
-            type='submit'
-            className='submit-button'
-            role='submit-button'
-            id='submit'
-            onClick={() => goToRecipe()}>
-            Sighting 3
-          </button>
-          <button
-            type='submit'
-            className='submit-button'
-            role='submit-button'
-            id='submit'
-            onClick={() => goToRecipe()}>
-            Sighting 4
-          </button> */}
-
         </div>
         <br></br>
       </div>
@@ -102,20 +71,3 @@ export function MyProfile() {
     </>
   );
 }
-//         return (
-//             <>
-//               <div className="profile-padding">
-//                 <h1>Profile Page</h1>
-//                 <div className="profile-content">
-//                   <div className="profile-card">
-//                     <PhotoDisplay profile_picture={current_user.profile_picture} />
-//                     <h3>{current_user.username}</h3>
-//                     <UploadImage token={token} />
-//                     <DisplayMyBirdSightings user_id={current_user.id} username={current_user.username} />
-//                   </div>
-//                 </div>
-          
-//                   </div>
-//             </>
-//           );
-//         }

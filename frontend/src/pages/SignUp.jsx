@@ -109,6 +109,9 @@ export function SignUpPage() {
       <ToastContainer
         toastStyle={{ backgroundColor: "#E4E0E1", color: "#493628" }}
       />
+      <div className="app-name-container">
+          <h1>Plucker</h1>
+      </div>
       <div className='name-container'>
         <div className='plucker-logo'>
           <img src={pluckerIcon} alt='Plucker logo' />

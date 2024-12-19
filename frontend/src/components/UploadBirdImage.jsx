@@ -3,6 +3,7 @@ import { uploadBirdSighting } from "../services/sightings";
 // const BACKEND_URL = import.meta.env.BACKEND_URL; - hardcoded in and needs looking at
 import { recognizeBirdFile } from "../services/users";
 import { VALID_BIRDS } from "../../utils/valid_birds";
+import './UploadBirdImage.css';
 
 export function UploadImage() {
   const [file, setFile] = useState(null);
@@ -98,7 +99,7 @@ export function UploadImage() {
   };
 
   return (
-    <div className='button-container'>
+    <div className='upload-container'>
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
       <label>Upload Bird Image:</label>
       <input type="file" accept="image/*" onChange={handleFileChange} />
@@ -111,17 +112,16 @@ export function UploadImage() {
         onChange={(e) => setBirdName(e.target.value)}
         placeholder="Enter bird name (e.g., Robin, Blue Jay)"
       />
-
       <label>Location:</label>
       <input
         type="text"
         value={location}
         onChange={(e) => setLocation(e.target.value)}
         placeholder="Enter location"
-      />
-
-
-      <button type="submit" disabled={isLoading}>Upload</button>
+        />
+        <div className="upload-button">
+          <button type="submit" disabled={isLoading}>Upload</button>
+        </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </form>
     </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import BirdSighting from "./BirdSighting"
 import { getMyBirdSightings } from "../services/sightings"
-
+import './DisplayMyBirdSightings.css';
 
 export function DisplayMyBirdSightings({user_id, username}) {
     const [birdSightings, setBirdSightings] = useState([]);
