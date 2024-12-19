@@ -25,7 +25,9 @@ class RecipeService:
             HOMESTYLE_CURRY_RECIPE,
             CLASSIC_PARM_RECIPE,
             PEANUT_LIME_NOODLE_RECIPE,
-            LASAGNE_RECIPE
+            LASAGNE_RECIPE,
+            CREAMY_TUSCAN_RECIPE,
+            SHAWARMA_SPICED_WRAPS_RECIPE
         ]
         selected = random.choice(recipe_choices)
         return selected 
@@ -71,7 +73,7 @@ class RecipeService:
             
 
 
-            # BUG in steps 3 or 4 below, which intermittently causes the 'ingredient_name' to fail.
+            # BUG in steps  below, which intermittently causes the 'ingredient_name' to fail.
             # Needs investigating
             
             
@@ -80,9 +82,11 @@ class RecipeService:
             
             # 3. select random recipe
             random_recipe = self.select_random_recipe()
+            print("random recipe title line 83 -->", random_recipe["title"])
 
             # 4. Populate the template with the given bird name
             recipe_data = self._populate_bird_template(random_recipe, bird_name)
+            print("recipe data title line 87 -->", recipe_data)
 
             # 5. Create the recipe in bird_recipes
             new_recipe = Recipe(
@@ -94,11 +98,12 @@ class RecipeService:
                 None #average rating
             )
             recipe_id = await self.recipes_repo.create_recipe(new_recipe)
-            print("this shows the newly created recipe id - line 97", recipe_id)
+            print("this shows the newly created recipe id - line 98", recipe_id)
             if not recipe_id:
                 raise Exception("Failed to create recipe.")
             
             # 5. Insert ingredients
+            print("""recipe_data["ingredients"] --> """, recipe_data["ingredients"])
             for ing in recipe_data["ingredients"]:
                 ingredient = Ingredient(
                     None, #id

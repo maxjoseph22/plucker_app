@@ -14,10 +14,10 @@ export function DisplayMyBirdSightings({user_id, username}) {
         const fetchBirdSightings = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const data = await getMyBirdSightings(token)
-                // .then((data) => {
+                getMyBirdSightings(token)
+                .then((data) => {
                     setBirdSightings(data)
-                // })
+                })
 
             } catch (err) {
                 console.error(
@@ -30,13 +30,15 @@ export function DisplayMyBirdSightings({user_id, username}) {
     }, [user_id])
         
     if (error) return <p>Error: {error}</p>
-    if (!birdSightings.length) return <p>No recipes found.</p>
+    if (!birdSightings.length) return <p>No sightings uploaded yet.</p>
 
     return (
         <div className="sightings-list" role="sightings-list">
+            <div className="individual-sighting-card" role="individual-sighting-card">
             {birdSightings.map((birdSighting) => (
                 <BirdSighting birdSighting={birdSighting} key={birdSighting.id} username={username}/>
             ))}
+            </div>
         </div>
     );
 }

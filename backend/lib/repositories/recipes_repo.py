@@ -48,6 +48,7 @@ class RecipeRepository():
             if not rows:
                 return None  # Return None if no recipe is found
             row = rows[0]
+
             return Recipe(
                 row["id"], 
                 row["title"], 

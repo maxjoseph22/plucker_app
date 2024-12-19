@@ -22,11 +22,12 @@ async def post_bird_sighting():
         # Parse incoming formData
 
         bird_name = request.form.get('birdName')
+        print(bird_name)
         location = request.form.get('location')
         user_id = int(request.form.get('user_id'))
         uploaded_file = request.files.get('file')
-
         print(uploaded_file)
+
         if not uploaded_file:
             return jsonify({"error": "No file provided"}), 400
 
@@ -50,7 +51,7 @@ async def post_bird_sighting():
 
             # Call the async service method to create a recipe & bird sighting
             recipe_id = await recipe_service.create_recipe_from_bird_name(bird_name, user_id, location, image)
-
+            print(recipe_id)
             if not recipe_id:
                 return jsonify({"error": "Failed to create recipe"}), 500
 

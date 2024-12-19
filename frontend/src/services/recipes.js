@@ -65,3 +65,22 @@ export async function uploadBirdSighting(token, formData) {
       }
     };
 
+    // submit rating
+  export async function submitRating({ recipeId, rating, token }) {
+    const response = await fetch(`/ratings/${recipeId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ rating_score: rating }),
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to submit rating");
+    }
+
+    return await response.json();
+  }
+  
+

@@ -3,7 +3,7 @@ import { Navbar } from "../components/Navbar";
 import { PhotoDisplay } from "../components/PhotoDisplay";
 import { useNavigate } from "react-router-dom";
 // import { UserDetails } from "../components/UserDetails";
-import { getUserInfo } from "../services/users";
+// import { getUserInfo } from "../services/users";
 // import { PhotoUpload } from "../../components/PhotoUpload";
 import { UploadImage } from "../components/UploadBirdImage";
 import { DisplayMyBirdSightings } from "../components/DisplayMyBirdSightings";
@@ -14,9 +14,9 @@ import { ImageForm } from "../components/ProfileImageForm";
 
 export function MyProfile() {
 
-  const goToRecipe = () => {
-    //add to go to recipe functionality here
-    console.log("Recipe Clicked");}
+  // const goToRecipe = () => {
+  //   //add to go to recipe functionality here
+  //   console.log("Recipe Clicked");}
 
     const [username, setUsername] = useState("");
     const [user_id, setUserId] = useState("");
