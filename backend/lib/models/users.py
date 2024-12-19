@@ -5,7 +5,7 @@ class User:
         self.username = username
         self.email = email
         self.password = password
-        self.profile_picture = 'uploads/default_photo.webp'
+        self.profile_picture = 'uploads/default_bird_image.png'
 
 
     def to_dict(self):
