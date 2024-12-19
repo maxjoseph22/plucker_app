@@ -132,9 +132,9 @@ class RecipeService:
             raise Exception("Failed to fetch recipe.")
         print(recipe.id)
         ingredients = await self.ingredients_repo.get_ingredients_by_recipe_id(recipe.id)
-        print("Here are the ingredients in RecipeServices line 135 -->",ingredients)
+        # print("Here are the ingredients in RecipeServices line 135 -->",ingredients)
         steps = await self.steps_repo.get_step_descriptions_by_recipe_id(recipe.id)
-        print("Here are the steps in RecipeServices line 135 -->",ingredients)
+        # print("Here are the steps in RecipeServices line 135 -->",ingredients)
 
         recipe_data = {
             "id": recipe.id,

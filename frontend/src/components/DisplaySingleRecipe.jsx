@@ -31,8 +31,7 @@ export function DisplaySingleRecipe({sighting_id, username}) {
     return (
         <>
         {recipeTitle && (
-            <div style={{ paddingTop: '46px', paddingLeft: '46px', paddingRight: '46px' }}>
-                <h1>Recipe for {username} </h1>
+            <div>
                 <h2>{recipeTitle}</h2>
                 <p>Cooking Time: {recipeCookingTime} minutes</p>
                 <h3>Ingredients:</h3>
