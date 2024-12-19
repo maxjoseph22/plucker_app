@@ -9,6 +9,7 @@ class SightingRepository():
     async def get_all_sightings(self):
         rows = await self._connection.execute('SELECT * FROM bird_sightings ORDER BY id')
         sightings = []
+        print("Here's the list of sightings from line 11 -->", sightings)
         for row in rows:
             sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["image"], row["user_id"])
             sightings.append(sighting)
@@ -73,9 +74,11 @@ class SightingRepository():
 
     # get all sightings by user_id
     async def get_sightings_by_user_id(self, user_id):
+        print("this is user id in sightings repo line 77 -->", user_id)
         rows = await self._connection.execute(
             'SELECT * FROM bird_sightings WHERE user_id = $1', [user_id]
         )
+        print("this is rows in sightings repo line 81 -->", rows)
         sightings = []
         if not rows:
             return None
@@ -83,7 +86,8 @@ class SightingRepository():
             for row in rows:
                 sighting = Sighting(row["id"], row["bird_name"], row["date_spotted"], row["location"], row["image"], row["user_id"])
                 sightings.append(sighting)
-            return sightings if len(sightings) > 1 else sightings[0]
+            print("this is sightings in sightings repo line 89 -->", sightings)
+            return sightings if len(sightings) > 0 else None
 
     # create bird_sighting
     async def create_bird_sighting(self, sighting):

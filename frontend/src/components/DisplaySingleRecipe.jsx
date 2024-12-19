@@ -2,6 +2,7 @@ import { fetchRecipe } from "../services/recipes";
 
 import { useState, useEffect } from "react";
 
+// eslint-disable-next-line no-unused-vars
 export function DisplaySingleRecipe({sighting_id, username}) {
     const[recipeTitle, setRecipeTitle] = useState("");
     const[recipeCookingTime, setRecipeCookingTime] = useState("");
