@@ -16,14 +16,17 @@ class SightingRepository():
 
     # get single sighting by id
     async def get_sighting_by_id(self, id):
+        int_id = int(id)
+        print("here is the integer id on line 20", int_id)
         sightings = await self._connection.execute(
-            'SELECT * FROM bird_sightings WHERE id = $1', [id]
+            'SELECT * FROM bird_sightings WHERE id = $1', [int_id]
             )
+        print("sightings line 24", sightings)
         if not sightings:
             return None
         else:
             sighting = sightings[0]
-            return Sighting(sighting["id"], sighting["bird_name"], sighting["date_spotted"], sighting["location"], row["image"], sighting["user_id"]  )
+            return Sighting(sighting["id"], sighting["bird_name"], sighting["date_spotted"], sighting["location"], sighting["image"], sighting["user_id"]  )
 
     # get all sightings by location
     async def get_sightings_by_location(self, location):
