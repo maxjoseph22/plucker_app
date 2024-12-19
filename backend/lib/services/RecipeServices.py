@@ -25,7 +25,9 @@ class RecipeService:
             HOMESTYLE_CURRY_RECIPE,
             CLASSIC_PARM_RECIPE,
             PEANUT_LIME_NOODLE_RECIPE,
-            LASAGNE_RECIPE
+            LASAGNE_RECIPE,
+            CREAMY_TUSCAN_RECIPE,
+            SHAWARMA_SPICED_WRAPS_RECIPE
         ]
         selected = random.choice(recipe_choices)
         return selected 

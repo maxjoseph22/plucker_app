@@ -17,7 +17,7 @@ class User:
             }
         
     def __str__(self):
-        return f"User({self.id}, {self.username}, {self.email}, {self.profile_picture})"
+        return f"User({self.id}, {self.username}, {self.email}, {self.password}, {self.profile_picture})"
 
     def __repr__(self):
         return f"User({self.id}, {self.username}, {self.email}, {self.password}, {self.profile_picture})"

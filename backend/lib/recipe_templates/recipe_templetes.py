@@ -214,7 +214,7 @@ HOMESTYLE_CURRY_RECIPE = {
         {"step_order": 1, "step_description": "Heat oil in a large skillet or Dutch oven over medium heat. Add chopped onions and sauté until golden brown, about 8-10 minutes."},
         {"step_order": 2, "step_description": "Add minced garlic and grated ginger. Cook for another 2 minutes until fragrant."},
         {"step_order": 3, "step_description": "Stir in curry powder, turmeric, cumin, and chili powder. Toast the spices for 30 seconds to release their aromatics."},
-        {"step_order": 4, "step_description": "Add {BIRD} pieces and cook for 5-6 minutes, stirring occasionally, until the chicken starts to brown."},
+        {"step_order": 4, "step_description": "Add {BIRD} pieces and cook for 5-6 minutes, stirring occasionally, until the {BIRD} starts to brown."},
         {"step_order": 5, "step_description": "Pour in diced tomatoes, coconut milk, and water. Stir to combine and bring to a simmer."},
         {"step_order": 6, "step_description": "Reduce heat to low, cover, and cook for 20-25 minutes, stirring occasionally, until the {BIRD} is fully cooked and the sauce has thickened."},
         {"step_order": 7, "step_description": "Bake for 45-50 minutes, or until the edges are golden brown and the filling is cooked through."},
@@ -313,6 +313,67 @@ LASAGNE_RECIPE = {
         {"step_order": 6, "step_description": "Cover with aluminum foil and bake for 35 minutes."},
         {"step_order": 7, "step_description": "Remove foil and bake for an additional 10-15 minutes until cheese is golden and bubbly."},
         {"step_order": 8, "step_description": "Let stand for 10 minutes before serving."}
+    ]
+}
+
+CREAMY_TUSCAN_RECIPE = {
+    "title": "Creamy Tuscan {BIRD} with Sun-Dried Tomatoes",
+    "cooking_time": 35,
+    "ingredients": [
+        {"ingredient name": "4 boneless, skinless {BIRD} breasts"},
+        {"ingredient_name": "2 tablespoons olive oil (use the oil from the sun-dried tomatoes jar for extra flavor)"},
+        {"ingredient_name": "1 teaspoon garlic powder"},
+        {"ingredient_name": "1 teaspoon paprika"},
+        {"ingredient_name": "Salt and pepper, to taste"},
+        {"ingredient_name": "3 cloves garlic, minced"},
+        {"ingredient_name": "1 cup heavy creamd"},
+        {"ingredient_name": "1/2 cup {BIRD} broth"},
+        {"ingredient_name": "1/3 cup grated Parmesan cheese"},
+        {"ingredient_name": "1/3 cup grated Parmesan cheese"},
+        {"ingredient_name": "1 teaspoon Italian seasoning"},
+        {"ingredient_name": "1/4 teaspoon crushed red pepper flakes (optional)"},
+        {"ingredient_name": "1/2 cup sun-dried tomatoes, chopped"},
+        {"ingredient_name": "2 cups fresh baby spinach"},
+        {"ingredient_name": "Fresh parsley or basil, for garnish (optional)"},
+
+    ],
+    "steps": [
+        {"step_order": 1, "step_description": "Prepare the {BIRD}: Pat the {BIRD} breasts dry, then season with garlic powder, paprika, salt, and pepper."},
+        {"step_order": 2, "step_description": "Sear the {BIRD}: Heat the olive oil in a large skillet over medium-high heat. Sear the {BIRD} breasts for 4-5 minutes per side, or until golden brown and nearly cooked through. Remove and set aside."},
+        {"step_order": 3, "step_description": "Make the Sauce: In the same skillet, reduce the heat to medium. Add the minced garlic and sauté for 1 minute. Stir in the heavy cream, {BIRD} broth, Parmesan cheese, Italian seasoning, and crushed red pepper flakes. Simmer for 2-3 minutes until slightly thickened."},
+        {"step_order": 4, "step_description": "Add the Veggies: Stir in the sun-dried tomatoes and baby spinach. Cook until the spinach wilts, about 2-3 minutes."},
+        {"step_order": 5, "step_description": "Combine and Cook: Return the {BIRD} breasts to the skillet, ensuring they're coated in the sauce. Let simmer for 5-7 minutes, or until the {BIRD} is fully cooked (165°F internal temperature"},
+        {"step_order": 6, "step_description": "Serve: Garnish with fresh parsley or basil if desired. Serve hot over pasta, rice, or mashed potatoes."},
+    ]
+}
+
+SHAWARMA_SPICED_WRAPS_RECIPE = {
+    "title": "Shawarma-Spiced {BIRD} Wraps",
+    "cooking_time": 30,
+    "ingredients": [
+        {"ingredient name": "1 lb (450g) boneless, skinless chicken thighs or breasts"},
+        {"ingredient name": "2 tablespoons olive oil"},
+        {"ingredient name": "1 tablespoon shawarma spice blend (or mix cumin, paprika, turmeric, coriander, garlic powder, and cayenne)"},
+        {"ingredient name": "1 teaspoon salt"},
+        {"ingredient name": "1/2 teaspoon black pepper"},
+        {"ingredient name": "Juice of 1 lemon"},
+        {"ingredient name": "4 large flatbreads or pita"},
+        {"ingredient name": "1 cup plain Greek yogurt"},
+        {"ingredient name": "1 tablespoon tahini"},
+        {"ingredient name": "1 teaspoon garlic, minced"},
+        {"ingredient name": "1/2 teaspoon ground cumin"},
+        {"ingredient name": "1 tablespoon lemon juice"},
+        {"ingredient name": "1 small cucumber, sliced"},
+        {"ingredient name": "1 medium tomato, diced"},
+        {"ingredient name": "Fresh parsley or cilantro, chopped"},
+
+    ],
+    "steps": [
+        {"step_order": 1, "step_description": "Marinate the {BIRD}: In a bowl, combine chicken, olive oil, shawarma spice blend, salt, pepper, and lemon juice. Marinate for at least 15 minutes or up to overnight for deeper flavor."},
+        {"step_order": 2, "step_description": "Cook the {BIRD}: Heat a skillet or grill pan over medium-high heat. Cook the chicken for 5-6 minutes per side until golden and cooked through (165°F internal temperature). Let rest for 5 minutes, then slice into strips."},
+        {"step_order": 3, "step_description": "Prepare the Sauce: In a small bowl, mix Greek yogurt, tahini, garlic, cumin, and lemon juice. Adjust seasoning to taste."},
+        {"step_order": 4, "step_description": "Assemble the Wraps: Spread a generous layer of the yogurt sauce over the flatbread or pita. Add sliced chicken, cucumber, tomato, red onion, and fresh parsley or cilantro. Drizzle with extra sauce if desired."},
+        {"step_order": 5, "step_description": "Wrap and Serve: Fold the flatbread or pita around the filling and serve immediately."},
     ]
 }
 
