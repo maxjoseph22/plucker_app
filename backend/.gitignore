@@ -2,7 +2,7 @@
 .vscode
 .pytest_cache
 **/*venv*
-.env
 .coverage
 uploads/
 !uploads/default_photo.webp
+.env
