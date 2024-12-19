@@ -3,7 +3,7 @@ HERB_GLAZED_RECIPE = {
     "title": "Herb-Glazed {BIRD}",
     "cooking_time": 25,
     "ingredients": [
-        {"ingredient name": "2 pre-made pie crusts."},
+        {"ingredient_name": "2 pre-made pie crusts."},
         {"ingredient_name": "4 boneless, skinless {BIRD} breasts."},
         {"ingredient_name": "1 cup diced carrots."},
         {"ingredient_name": "1 cup frozen peas."},

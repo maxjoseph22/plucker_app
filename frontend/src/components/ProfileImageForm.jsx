@@ -1,17 +1,24 @@
 import {useState} from "react";
-const BACKEND_URL = import.meta.env.BACKEND_URL;
+const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
 
 export const ImageForm = () => {
   const [file, setFile] = useState();
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+  const token = localStorage.getItem("token")
 
-  const handleUpload = async (e) => {
+  const handleUpload = async () => {
     const formData = new FormData();
+    formData.append("user_id", currentUser.id)
     formData.append("file", file);
-    const res = await fetch(`${BACKEND_URL}/files/upload`, {
+    await fetch(`${BACKEND_URL}/files/upload`, {
       method: "POST",
-      body: formData,
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(formData),
     });
-    const data = await res.json();
+    // window.location.reload();
+    console.log("PFP CHANGED:", JSON.stringify(formData))
   };
   return (
     <div>
