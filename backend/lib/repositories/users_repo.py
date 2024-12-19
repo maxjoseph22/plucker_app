@@ -87,6 +87,11 @@ class UserRepository():
             [id]
         )
         return None
+
+    async def update_user_picture(self, picture_filepath, user_id):
+        await self._connection.execute(
+            'UPDATE users SET profile_picture = $1 WHERE id = $2', [picture_filepath, user_id])
+        return None
     
     async def validate_user(self, payload):
         rows = await self._connection.execute(

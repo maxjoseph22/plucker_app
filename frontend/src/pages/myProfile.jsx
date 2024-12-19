@@ -10,6 +10,7 @@ import { DisplayMyBirdSightings } from "../components/DisplayMyBirdSightings";
 // import { getRecipesForUser } from "../services/recipes";
 import pluckerIcon from "../assets/icon/pluckers.png";
 import "./MyProfile.css";
+import { ImageForm } from "../components/ProfileImageForm";
 
 export function MyProfile() {
 
@@ -58,6 +59,7 @@ export function MyProfile() {
                 <PhotoDisplay profile_picture={profile_picture} />
               </div>
             </div>
+            <ImageForm />
             <h3>{username}</h3>
             <UploadImage />
         </div>
