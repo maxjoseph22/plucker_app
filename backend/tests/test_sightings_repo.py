@@ -15,10 +15,10 @@ async def test_get_all_sightings(db_connection):
     repository = SightingRepository(db_connection)
     result = await repository.get_all_sightings()
     assert result == [
-        Sighting(1, 'Flamingo', '2024-12-01', 'Shoreditch', 1),
-        Sighting(2, 'Woodpecker', '2024-12-01', 'Peckham', 2),
-        Sighting(3, 'Peregrine Falcon', '2024-12-01', 'Wimbledon', 3),
-        Sighting(4, 'Resplendent Quetzal', '2024-12-01', 'Greenwich', 3)
+        Sighting(1, 'Flamingo', '2024-12-01', 'Shoreditch', None, 1),
+        Sighting(2, 'Woodpecker', '2024-12-01', 'Peckham', None, 2),
+        Sighting(3, 'Peregrine Falcon', '2024-12-01', 'Wimbledon', None, 3),
+        Sighting(4, 'Resplendent Quetzal', '2024-12-01', 'Greenwich', None, 3)
     ]
 
     # get single sighting by id
@@ -31,7 +31,7 @@ async def test_get_sighting_by_id(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
     result = await repository.get_sighting_by_id(2)
-    assert result == Sighting(2, 'Woodpecker', '2024-12-01', 'Peckham', 2)
+    assert result == Sighting(2, 'Woodpecker', '2024-12-01', 'Peckham', None, 2)
 
 """
 When we call get_sighting_by_id() but no sighting exists
@@ -154,8 +154,8 @@ async def test_create_bird_sighting(db_connection):
     await db_connection.seed('lib/db/seeds/birdfood_app.sql')
     repository = SightingRepository(db_connection)
 
-    # new_sighting = Sighting(None, 'test sighting', None, 'East Dulwich', 1)
-    await repository.create_bird_sighting(1, 'test sighting', 'East Dulwich')
+    new_sighting = Sighting(None, 'test sighting', None, 'East Dulwich', "path/to/image", 1)
+    await repository.create_bird_sighting(new_sighting)
         
     sightings = await repository.get_all_sightings()
 
@@ -175,7 +175,7 @@ async def test_delete_bird_sighting(db_connection):
     await repository.delete_bird_sighting(2)
     remaining_sightings = await repository.get_all_sightings()
     assert remaining_sightings == [
-        Sighting(1, 'Flamingo', '2024-12-01', 'Shoreditch', 1),
-        Sighting(3, 'Peregrine Falcon', '2024-12-01', 'Wimbledon', 3),
-        Sighting(4, 'Resplendent Quetzal', '2024-12-01', 'Greenwich', 3)
+        Sighting(1, 'Flamingo', '2024-12-01', 'Shoreditch', None, 1),
+        Sighting(3, 'Peregrine Falcon', '2024-12-01', 'Wimbledon', None, 3),
+        Sighting(4, 'Resplendent Quetzal', '2024-12-01', 'Greenwich', None, 3)
     ]
