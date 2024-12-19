@@ -34,11 +34,10 @@ export function DisplayMyBirdSightings({user_id, username}) {
 
     return (
         <div className="sightings-list" role="sightings-list">
-            <div className="individual-sighting-card" role="individual-sighting-card">
-            {birdSightings.map((birdSighting) => (
-                <BirdSighting birdSighting={birdSighting} key={birdSighting.id} username={username}/>
-            ))}
-            </div>
+    {birdSightings.map((birdSighting) => (
+        <div className="individual-sighting-card" role="individual-sighting-card" key={birdSighting.id}>
+            <BirdSighting birdSighting={birdSighting} username={username} />
         </div>
-    );
+    ))}
+        </div>)
 }
