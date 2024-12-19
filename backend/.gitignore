@@ -2,12 +2,10 @@
 .vscode
 .pytest_cache
 **/*venv*
-.env
 .coverage
+.env
 uploads/*
 !uploads/default_photo.webp
 !uploads/profile
 uploads/profile/*
 !uploads/profile/secret.txt
-
-
