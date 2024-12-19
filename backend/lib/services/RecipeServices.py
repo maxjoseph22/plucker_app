@@ -139,7 +139,12 @@ class RecipeService:
         recipe_data = {
             "id": recipe.id,
             "title": recipe.title,
+            "avg_rating": recipe.avg_rating,
             "cooking_time": recipe.cooking_time,
+#             "id": recipe["id"],
+#             "title": recipe["title"],
+#             "avg_rating": recipe["avg_rating"],
+#             "cooking_time": recipe["cooking_time"],
             #The ingredients K:V pair is a list of {} where the K is "ingredient_name" and the value is what is in the ingredient_name row in the database
             "ingredients": [{"ingredient_name": ing.ingredient_name} for ing in ingredients],
             "steps": [{"step_order": step.step_order, "step_description": step.step_description} for step in steps]

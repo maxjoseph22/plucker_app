@@ -40,3 +40,8 @@ async def connect_to_steps_repository():
         if not hasattr(g, "steps_repository"):
             db_connection = await get_flask_database_connection(current_app)
             g.steps_repository = StepRepository(db_connection)
+
+async def connect_to_ratings_repository():
+        if not hasattr(g, "ratings_repository"):
+            db_connection = await get_flask_database_connection(current_app)
+            g.ratings_repository = StepRepository(db_connection)
