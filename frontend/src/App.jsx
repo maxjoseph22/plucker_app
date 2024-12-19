@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LoginPage } from "./pages/Login";
 import { SignUpPage } from "./pages/SignUp";
 import { MyProfile } from "./pages/myProfile";
-import { IndividualBirdSighting } from "./pages/IndividualBirdSighting";
+import { RecipeDisplayPage} from "./pages/RecipeDisplayPage"
 import { Logout } from "./components/Logout"
 import './assets/App.css';
 
@@ -26,7 +26,9 @@ const router = createBrowserRouter([
     },
     {
         path: "/sightings/:username/:sighting_id",
-        element: <IndividualBirdSighting />
+        // path: "/sightings/sighting",
+        // path: "/sightings",
+        element: <RecipeDisplayPage />
     },
     {
         path: "/logout",
