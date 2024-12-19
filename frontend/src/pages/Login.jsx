@@ -12,6 +12,7 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+    localStorage.clear()
     const navigate = useNavigate();
     
     async function handleSubmit(event) {
@@ -88,7 +89,7 @@ export function LoginPage() {
               type='button'
               className='submit-button'
               role='submit-button'
-              id='submit'
+              id='signup'
               onClick={() => navigate("/SignUp")}>
               Sign up
             </button>
