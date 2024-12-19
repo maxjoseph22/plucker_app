@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/authentication";
-import { Navbar } from "../components/Navbar";
 import pluckerIcon from "../assets/icon/pluckers.png";
 import "./Login.css";
 
@@ -40,7 +39,9 @@ export function LoginPage() {
     <div className="wrapper-auth">
     <ToastContainer toastStyle={{ backgroundColor: "#E4E0E1", color: "#493628" }}/>
     <div className='home-container'>
-      <Navbar />
+        <div className="app-name-container">
+          <h1>Plucker</h1>
+        </div>
       <div className='plucker-logo'>
         <img src={pluckerIcon} alt='Plucker logo' />
       </div>
@@ -66,7 +67,7 @@ export function LoginPage() {
           <label className='password'>Password</label>
           <br></br>
           <input
-            type='text'
+            type='password'
             id='password'
             name='password'
             placeholder='Password'
