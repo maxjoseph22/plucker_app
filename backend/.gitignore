@@ -3,6 +3,9 @@
 .pytest_cache
 **/*venv*
 .coverage
-uploads/
-!uploads/default_photo.webp
 .env
+uploads/*
+!uploads/default_photo.webp
+!uploads/profile
+uploads/profile/*
+!uploads/profile/secret.txt
