@@ -20,14 +20,14 @@ export async function getAllSightings(token) {
     return data;
 }
 
-export async function getSighting(token, id) {
+export async function getSighting({token, sighting_id}) {
     const requestOptions = {
         method: "GET",
         headers: {
             Authorization: `Bearer ${token}`
         }
     }
-    const response = await fetch(`${BACKEND_URL}/sightings`, requestOptions);
+    const response = await fetch(`${BACKEND_URL}/sighting/${sighting_id}`, requestOptions);
 
     if (response.status !== 200) {
         throw new Error("Unable to fetch users");

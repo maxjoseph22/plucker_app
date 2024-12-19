@@ -45,16 +45,22 @@ export async function uploadBirdSighting(token, formData) {
   }
 
     // Fetch the recipe from the backend
-    export const fetchRecipe = async () => {
+    export const fetchRecipe = async ({token, sighting_id}) => {
       try {
-        const response = await fetch(`${BACKEND_URL}/bird_recipe/<int:sighting_id>`); 
+        const requestOptions = {
+          method: "GET",
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      }
+        const response = await fetch(`${BACKEND_URL}/bird_recipe/${sighting_id}`, requestOptions); 
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`HTTP error in sending from frontend! Status: ${response.status}`);
         }
         const data = await response.json(); 
         return data; // Return parsed data
       } catch (error) {
-        console.error("Error fetching recipe:", error); // Log errors
+        console.error("Error fetching recipe in services line 64:", error); // Log errors
         throw error; // Re-throw error for handling in the component
       }
     };

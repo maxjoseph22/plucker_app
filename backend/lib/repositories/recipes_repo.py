@@ -32,7 +32,7 @@ class RecipeRepository():
                 recipes.append(recipe)
             return recipes    
 
-        async def get_single_recipe(self, id):
+        async def get_single_recipe(self, sighting_id):
             query = """
                 SELECT 
                     bird_recipes.id, 
@@ -42,9 +42,9 @@ class RecipeRepository():
                     bird_recipes.bird_sighting_id,
                     get_avg_recipe_rating(bird_recipes.id) AS avg_rating
                 FROM bird_recipes
-                WHERE bird_recipes.id = $1
+                WHERE bird_recipes.bird_sighting_id = $1
             """
-            rows = await self._connection.execute(query, [id])
+            rows = await self._connection.execute(query, [sighting_id])
             if not rows:
                 return None  # Return None if no recipe is found
             row = rows[0]
