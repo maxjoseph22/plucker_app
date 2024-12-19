@@ -3,7 +3,7 @@ HERB_GLAZED_RECIPE = {
     "title": "Herb-Glazed {BIRD}",
     "cooking_time": 25,
     "ingredients": [
-        {"ingredient name": "2 pre-made pie crusts."},
+        {"ingredient_name": "2 pre-made pie crusts."},
         {"ingredient_name": "4 boneless, skinless {BIRD} breasts."},
         {"ingredient_name": "1 cup diced carrots."},
         {"ingredient_name": "1 cup frozen peas."},
@@ -68,7 +68,7 @@ FRIED_RICE_RECIPE = {
         {"ingredient_name": "3 tablespoons soy sauce."},
         {"ingredient_name": "2 tablespoons vegetable oil."},
         {"ingredient_name": "1 teaspoon sesame oil."},
-        {"ingredient_name": "Salt and black pepper to taste"},
+        {"ingredient_name": "Salt and black pepper to taste"}
     ],
     "steps": [
         {"step_order": 1, "step_description": "Heat 1 tablespoon vegetable oil in a large wok or skillet over medium-high heat. Season the diced {BIRD} with salt and pepper, then cook until golden and fully cooked (about 5-6 minutes). Remove {BIRD} and set aside."},
@@ -76,7 +76,7 @@ FRIED_RICE_RECIPE = {
         {"step_order": 3, "step_description": "Add minced garlic and frozen vegetables to the pan. Stir-fry for 2-3 minutes until the vegetables are heated through."},
         {"step_order": 4, "step_description": "Add the cold rice to the pan, breaking up any clumps. Stir-fry for 3-4 minutes, allowing the rice to get slightly crispy."},
         {"step_order": 5, "step_description": "Return the cooked {BIRD} to the pan. Add soy sauce. Mix thoroughly, ensuring everything is well combined and heated through."},
-        {"step_order": 6, "step_description": "Remove from heat, garnish with chopped green onions, and serve hot."},
+        {"step_order": 6, "step_description": "Remove from heat, garnish with chopped green onions, and serve hot."}
     ]
 }
 
@@ -93,7 +93,7 @@ A_LORANGE_RECIPE = {
         {"ingredient_name": "2 tablespoons butter."},
         {"ingredient_name": "1 shallot, finely minced."},
         {"ingredient_name": "1 sprig fresh thyme."},
-        {"ingredient_name": "Salt and pepper."},
+        {"ingredient_name": "Salt and pepper."}
         
     ],
     "steps": [
@@ -111,7 +111,7 @@ PASTA_BAKE_RECIPE = {
     "title": "Creamy {BIRD} and spinach Pasta bake",
     "cooking_time": 35,
     "ingredients": [
-        {"ingredient name": "2 cups penne pasta."},
+        {"ingredient_name": "2 cups penne pasta."},
         {"ingredient_name": "1 boneless, skinless {BIRD} breast, diced."},
         {"ingredient_name": "1 cup fresh spinach."},
         {"ingredient_name": "1 cup double cream."},
@@ -123,7 +123,7 @@ PASTA_BAKE_RECIPE = {
         {"ingredient_name": "1 teaspoon dried oregano"},
         {"ingredient_name": "1 teaspoon dried thyme."},
         {"ingredient_name": "1/2 teaspoon salt."},
-        {"ingredient_name": "1/4 teaspoon black pepper."},
+        {"ingredient_name": "1/4 teaspoon black pepper."}
         ],
     "steps": [
         {"step_order": 1, "step_description": "Preheat the oven to 200°C (400°F)."},
@@ -142,7 +142,7 @@ JAMAICAN_JERK_RECIPE = {
     "title": "Jamaican Jerk {BIRD}",
     "cooking_time": 40,
     "ingredients": [
-        {"ingredient name": "4 {BIRD} leg quarters(or 8 {BIRD} thighs)."},
+        {"ingredient_name": "4 {BIRD} leg quarters(or 8 {BIRD} thighs)."},
         {"ingredient_name": "4 tablespoons Jamaican jerk seasoning."},
         {"ingredient_name": "3 tablespoons olive oil."},
         {"ingredient_name": "2 tablespoons lime juice."},
@@ -152,7 +152,7 @@ JAMAICAN_JERK_RECIPE = {
         {"ingredient_name": "1/4 cup all-purpose flour."},
         {"ingredient_name": "2 cups {BIRD} broth."},
         {"ingredient_name": "1/2 cup heavy cream."},
-        {"ingredient_name": "1 tablespoon fresh thyme leaves."},
+        {"ingredient_name": "1 tablespoon fresh thyme leaves."}
         ],
     
     "steps": [
@@ -177,7 +177,7 @@ BUFFALO_WINGS_RECIPE = {
         {"ingredient_name": "1/2 cup hot sauce."},
         {"ingredient_name": "1/4 cup unsalted butter."},
         {"ingredient_name": "1 tablespoon white vinegar."},
-        {"ingredient_name": "1/4 teaspoon Worcestershire sauce."},
+        {"ingredient_name": "1/4 teaspoon Worcestershire sauce."}
         
     ],
     "steps": [
@@ -277,7 +277,7 @@ PEANUT_LIME_NOODLE_RECIPE = {
         {"step_order": 3, "step_description": "Cook the noodles according to package instructions, then drain and set aside."},
         {"step_order": 4, "step_description": "In the same skillet, add the sauce and coconut milk, stirring to combine. Reduce heat to medium-low and simmer for 2-3 minutes until slightly thickened."},
         {"step_order": 5, "step_description": "Add the cooked {BIRD} and noodles to the skillet, tossing to coat evenly with the sauce."},
-        {"step_order": 6, "step_description": "Serve hot, garnished with chopped cilantro, green onions, and roasted peanuts. Sprinkle with red pepper flakes if desired."},
+        {"step_order": 6, "step_description": "Serve hot, garnished with chopped cilantro, green onions, and roasted peanuts. Sprinkle with red pepper flakes if desired."}
     ]
 }
 
@@ -301,7 +301,7 @@ LASAGNE_RECIPE = {
         {"ingredient_name": "1/4 cup chopped fresh parsley."},
         {"ingredient_name": "1/4 cup chopped fresh rosemary."},
         {"ingredient_name": "1/4 cup chopped fresh thyme."},
-        {"ingredient_name": "1/2 teaspoon dried dill weed."},
+        {"ingredient_name": "1/2 teaspoon dried dill weed."}
         
     ],
     "steps": [
@@ -312,7 +312,7 @@ LASAGNE_RECIPE = {
         {"step_order": 5, "step_description": "In a 9x13 inch baking dish, layer as follows: Thin layer of cheese mixture, Lasagne noodles, {BIRD}, artichoke, spinach mixture. Repeat layers ending with a top layer of mozzarella and Parmesan."},
         {"step_order": 6, "step_description": "Cover with aluminum foil and bake for 35 minutes."},
         {"step_order": 7, "step_description": "Remove foil and bake for an additional 10-15 minutes until cheese is golden and bubbly."},
-        {"step_order": 8, "step_description": "Let stand for 10 minutes before serving."},
+        {"step_order": 8, "step_description": "Let stand for 10 minutes before serving."}
     ]
 }
 

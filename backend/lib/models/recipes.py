@@ -7,6 +7,9 @@ class Recipe:
         self.bird_sighting_id = bird_sighting_id
         self.avg_rating = avg_rating
 
+        print("self.title from line 10 --> ", self.title)
+        print("self.datecreated from line 11 --> ", self.date_created)
+
     def to_dict(self):
         return {
             "id": self.id,

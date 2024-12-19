@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { uploadBirdSighting } from "../services/sightings"; 
 // const BACKEND_URL = import.meta.env.BACKEND_URL; - hardcoded in and needs looking at
-import { recognizeBirdFile } from "../services/users";
+// import { recognizeBirdFile } from "../services/users";
 import { VALID_BIRDS } from "../../utils/valid_birds";
 import './UploadBirdImage.css';
 
@@ -10,8 +10,9 @@ export function UploadImage() {
   const [birdName, setBirdName] = useState("");
   const [location, setLocation] = useState("");
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [uploadedImages, setUploadedImages] = useState([]); 
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [uploadedImages, setUploadedImages] = useState([]);
+
   const current_user_string = localStorage.getItem("currentUser")
   const current_user = JSON.parse(current_user_string)
   const token = localStorage.getItem("token")
@@ -22,27 +23,12 @@ export function UploadImage() {
     return VALID_BIRDS.includes(name.toLowerCase().trim());
   };
   
-
   // Handle file selection and bird recognition
   const handleFileChange = async (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
     setBirdName(""); // Reset previous bird name
     setError(null);
-
-  //  API STUFF THAT DOESN'T WORK
-  // 
-  //   if (selectedFile) {
-  //     setIsLoading(true);
-  //     try {
-  //       const result = await recognizeBirdFile("API_URL", selectedFile);
-  //       setBirdName(result.birdName || "Unknown Bird");
-  //     } catch {
-  //       setError("Bird recognition failed.");
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   }
   };
 
   // Upload file with bird name and location
@@ -63,36 +49,24 @@ export function UploadImage() {
     try {
       const formData = new FormData();
       formData.append("file", file);
-
-// API RELATED CODE vv
-
-//       formData.append("birdName", birdName);
-//       formData.append("location", location);
-//       await uploadUserFile(token, formData);
-//       alert("File uploaded successfully!");
-
       formData.append("user_id", current_user.id)
-
-// THIS CODE CAN POSSIBLY GO WHEN THE API WORKS v
 
       if (birdName) {
         formData.append("birdName", birdName); // Append bird name if provided
       }
-
       if (location) {
         formData.append("location", location); // Append location if provided
       }
-
       const result = await uploadBirdSighting(token, formData);
       console.log("Upload successful:", result);
-
-      setUploadedImages((prevImages) => [...prevImages, result.image]);
+      // setUploadedImages((prevImages) => [...prevImages, result.image]);
 
 
       setFile(null);
       setBirdName("");
       setLocation("");
       setError(null);
+      window.location.reload()
     } catch {
       setError("Upload failed. Please try again.");
     }
@@ -103,7 +77,7 @@ export function UploadImage() {
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
       <label>Upload Bird Image:</label>
       <input type="file" accept="image/*" onChange={handleFileChange} />
-      {isLoading && <p>Recognizing bird...</p>}
+      {/* {isLoading && <p>Recognizing bird...</p>} */}
 
       <label>Bird Name:</label>
       <input
@@ -120,7 +94,7 @@ export function UploadImage() {
         placeholder="Enter location"
         />
         <div className="upload-button">
-          <button type="submit" disabled={isLoading}>Upload</button>
+          <button type="submit" >Upload</button>
         </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </form>
@@ -139,3 +113,28 @@ export function UploadImage() {
 //         ))}
 //       </div>
 // );
+
+
+// disabled={isLoading} from line 123 submit button
+
+
+ //  API STUFF THAT DOESN'T WORK
+  // 
+  //   if (selectedFile) {
+  //     setIsLoading(true);
+  //     try {
+  //       const result = await recognizeBirdFile("API_URL", selectedFile);
+  //       setBirdName(result.birdName || "Unknown Bird");
+  //     } catch {
+  //       setError("Bird recognition failed.");
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }
+
+  // API RELATED CODE vv
+
+//       formData.append("birdName", birdName);
+//       formData.append("location", location);
+//       await uploadUserFile(token, formData);
+//       alert("File uploaded successfully!");
