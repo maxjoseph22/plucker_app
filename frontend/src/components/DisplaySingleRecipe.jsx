@@ -35,7 +35,7 @@ export function DisplaySingleRecipe({sighting_id, username}) {
         }, []);
     
     return (
-        <>
+        <div className="recipe">
         {recipeTitle && (
             <div>
                 <h2>{recipeTitle}</h2>
@@ -63,6 +63,6 @@ export function DisplaySingleRecipe({sighting_id, username}) {
                 </ol>
             </div>
         )}
-        </>
+        </div>
     )
 }

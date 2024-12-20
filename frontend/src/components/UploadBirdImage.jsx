@@ -61,7 +61,6 @@ export function UploadImage() {
       console.log("Upload successful:", result);
       // setUploadedImages((prevImages) => [...prevImages, result.image]);
 
-
       setFile(null);
       setBirdName("");
       setLocation("");
@@ -94,7 +93,7 @@ export function UploadImage() {
         placeholder="Enter location"
         />
         <div className="upload-button">
-          <button type="submit" >Upload</button>
+          <button type="submit">Upload</button>
         </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </form>

@@ -53,19 +53,23 @@ export function MyProfile() {
         <div className='plucker-logo-my-profile'>
           <img src={pluckerIcon} alt='Plucker logo' />
         </div>
-        <div className='user-container'>
+          <div className='user-container'>
+            <h3>{username}</h3>
             <div className="profile-picture">
               <div className="photo">
                 <PhotoDisplay profile_picture={profile_picture} />
               </div>
             </div>
-            <ImageForm />
-            <h3>{username}</h3>
+            <div>
+              <ImageForm />
+            </div>
+          <div className="upload-image">
             <UploadImage />
+          </div>
         </div>
         <div className='recipe-card'>
           <h1>Sightings:</h1>
-            <DisplayMyBirdSightings user_id={user_id} username={username}/>
+          <DisplayMyBirdSightings user_id={user_id} username={username}/>
         </div>
         <br></br>
       </div>
