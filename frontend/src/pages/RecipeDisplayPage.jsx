@@ -4,8 +4,7 @@ import { useState, useEffect } from "react"
 import { DisplaySingleRecipe } from "../components/DisplaySingleRecipe";
 import { BirdImageDisplay } from "../components/BirdImageDisplay";
 import { getSighting } from "../services/sightings";
-
-
+import './RecipeDisplayPage.css';
 
 export function RecipeDisplayPage() {
     const [filepath, setFilepath] = useState();
@@ -20,19 +19,17 @@ export function RecipeDisplayPage() {
         setFilepath(data.image)
         })    
     })
-    
 
     // console.log("here is the sighting on line 11 -->",sighting)
     // // const sightingFilePath = sighting.image
-
     
     return (
         <>
         <Navbar />
-        <div style={{ paddingTop: '46px', paddingLeft: '46px', paddingRight: '46px' }}>
-        <h1>Recipe for {username} </h1>
-        {!!filepath && (<BirdImageDisplay filepath={filepath} />)}
-        <DisplaySingleRecipe username={username} sighting_id={sighting_id} />
+        <div className="recipe-display">
+            <h1>Recipe for {username} </h1>
+            {!!filepath && (<BirdImageDisplay filepath={filepath} />)}
+            <DisplaySingleRecipe username={username} sighting_id={sighting_id} />
         </div>
         </>
     )

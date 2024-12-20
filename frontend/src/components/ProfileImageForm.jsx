@@ -1,5 +1,6 @@
 import {useState} from "react";
 const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
+import './ProfileImageForm.css';
 
 export const ImageForm = () => {
   const [file, setFile] = useState();
@@ -28,9 +29,13 @@ export const ImageForm = () => {
     window.location.reload();
   };
   return (
-    <div>
-      <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-      <button onClick={handleUpload}>Upload</button>
-    </div>
+    <>
+      <div className="file">
+        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+      </div>
+      <div className="upload-photo">
+        <button onClick={handleUpload}>Upload photo</button>
+      </div>
+    </>
   );
 };

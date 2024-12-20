@@ -1,17 +1,18 @@
 .sightings-list {
     display: flex;
-    flex-wrap: wrap; /* Ensures wrapping to avoid overlap */
-    gap: 120px; /* Spacing between cards */
-    justify-content: center; /* Center aligns the items */
-    margin: 20px auto; /* Adds margin around the container */
-    max-width: 1000px; /* Limit the container width */
+    flex-wrap: wrap;
+    gap: 120px;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 1000px;
     padding: 10px;
     box-sizing: border-box;
+    max-height: 700px;
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #add8e6; /* Matches your background */
+    background-color: #add8e6;
 }
