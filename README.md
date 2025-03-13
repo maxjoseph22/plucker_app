@@ -33,3 +33,14 @@ This project helped us bridge the gap between frontend and backend, practice asy
 - PostgreSQL - Database for storing bird sightings
 - Hypercorn -ASGI server to run async Flask
 - asyncio -	Enables concurrency in Python/Flask
+
+## Contributors
+
+- Max Joseph
+- Doug Fairfield
+- Russell Coles
+- Ben Cole
+- Alberto Tobarra
+- John Hertility
+  
+This was our final group project at Makers Academy—thanks to all contributors, mentors, and the Makers community for the support!
